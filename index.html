@@ -880,12 +880,6 @@
       box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 13%, transparent);
     }
 
-    .choice.is-wrong {
-      border-color: color-mix(in srgb, var(--red) 62%, var(--line));
-      background: color-mix(in srgb, var(--red) 9%, var(--panel-bg));
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--red) 13%, transparent);
-    }
-
     .prompt-list {
       display: grid;
       gap: 10px;
@@ -2148,7 +2142,7 @@ Wichtig:
 
       const clearFilenameFeedback = () => {
         document.querySelectorAll("[data-file-answer]").forEach((input) => {
-          input.closest(".choice")?.classList.remove("is-correct", "is-wrong");
+          input.closest(".choice")?.classList.remove("is-correct");
         });
       };
 
@@ -2184,7 +2178,14 @@ Wichtig:
           answeredCount += 1;
           const choice = checked.closest(".choice");
           const isCorrect = checked.value === expected;
-          choice?.classList.add(isCorrect ? "is-correct" : "is-wrong");
+          if (isCorrect) choice?.classList.add("is-correct");
+          if (!isCorrect) {
+            checked.checked = false;
+            syncChoiceState(checked);
+            const next = readSaved();
+            next[checked.dataset.storeKey] = false;
+            writeSaved(next);
+          }
           if (isCorrect) correctCount += 1;
         });
 
@@ -2197,7 +2198,7 @@ Wichtig:
         } else if (answeredCount < total) {
           setCheckStatus("task-3", "Noch nicht alle Zeilen bewertet.", "error");
         } else {
-          setCheckStatus("task-3", "Noch nicht richtig. Rote Auswahl prüfen.", "error");
+          setCheckStatus("task-3", "Noch nicht richtig. Falsche Haken entfernt.", "error");
         }
       });
 
