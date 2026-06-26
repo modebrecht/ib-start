@@ -1,0 +1,1376 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iB-Startcheck Arbeitsblatt</title>
+  <style>
+    :root {
+      --ink: #1f2937;
+      --muted: #52607a;
+      --line: #d8e0ef;
+      --paper: rgba(255, 255, 255, .90);
+      --soft: rgba(248, 250, 255, .94);
+      --red: #e11d48;
+      --orange: #f97316;
+      --yellow: #f59e0b;
+      --green: #16a34a;
+      --blue: #2563eb;
+      --indigo: #4f46e5;
+      --violet: #7c3aed;
+      --shadow: 0 26px 90px rgba(31, 41, 55, .16);
+      --backdrop:
+        radial-gradient(circle at 8% 8%, rgba(37, 99, 235, .13), transparent 30%),
+        radial-gradient(circle at 92% 2%, rgba(245, 158, 11, .16), transparent 28%),
+        linear-gradient(135deg, #eef4ff 0%, #f9fbff 44%, #fff7ed 100%);
+      --field-bg: #fbfdff;
+      --field-focus-bg: #ffffff;
+      --field-color: var(--ink);
+      --label-color: #475569;
+      --slide-bg: rgba(255, 255, 255, .93);
+      --slide-title: var(--ink);
+      --slide-text: var(--ink);
+      --panel-bg: rgba(251, 253, 255, .95);
+      --table-head-bg: #f3f7ff;
+      --table-head-color: #475569;
+      --check-border: #94a3b8;
+      --check-bg: #ffffff;
+      --placeholder: rgba(71, 85, 105, .62);
+      --control-bg: #ffffff;
+      --control-color: var(--ink);
+      --lesson-bg: rgba(255, 255, 255, .86);
+      --lesson-strong: #1d4ed8;
+      --lesson-sub: #334155;
+    }
+
+    body[data-theme="dark"] {
+      --ink: #f8fafc;
+      --muted: rgba(255, 255, 255, .76);
+      --line: rgba(255, 255, 255, .24);
+      --paper: transparent;
+      --soft: rgba(15, 23, 42, .18);
+      --backdrop:
+        radial-gradient(circle at 10% 8%, rgba(225, 29, 72, .34), transparent 34%),
+        radial-gradient(circle at 88% 10%, rgba(124, 58, 237, .28), transparent 32%),
+        linear-gradient(135deg, #101827 0%, #172033 48%, #261321 100%);
+      --field-bg: rgba(15, 23, 42, .56);
+      --field-focus-bg: rgba(15, 23, 42, .76);
+      --field-color: #ffffff;
+      --label-color: rgba(255, 255, 255, .88);
+      --slide-bg: rgba(15, 23, 42, .72);
+      --slide-title: #ffffff;
+      --slide-text: #ffffff;
+      --panel-bg: rgba(15, 23, 42, .40);
+      --table-head-bg: rgba(15, 23, 42, .55);
+      --table-head-color: rgba(255, 255, 255, .86);
+      --check-border: rgba(255, 255, 255, .70);
+      --check-bg: rgba(15, 23, 42, .50);
+      --placeholder: rgba(255, 255, 255, .58);
+      --control-bg: rgba(15, 23, 42, .66);
+      --control-color: #ffffff;
+      --lesson-bg: rgba(15, 23, 42, .30);
+      --lesson-strong: #ffffff;
+      --lesson-sub: rgba(255, 255, 255, .80);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Aptos, "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--backdrop);
+      background-attachment: fixed;
+      line-height: 1.45;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 32px auto;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      overflow: visible;
+    }
+
+    header {
+      padding: 32px;
+      border-radius: 28px;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(15, 23, 42, .60), rgba(15, 23, 42, .12)),
+        linear-gradient(
+          112deg,
+          var(--red) 0 15%,
+          var(--orange) 15% 30%,
+          var(--yellow) 30% 45%,
+          var(--green) 45% 60%,
+          var(--blue) 60% 75%,
+          var(--indigo) 75% 88%,
+          var(--violet) 88% 100%
+        );
+      box-shadow: var(--shadow);
+    }
+
+    .header-panel { padding: 0; }
+
+    .title-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: .95;
+      letter-spacing: 0;
+      color: #ffffff;
+      text-shadow: 0 2px 18px rgba(15, 23, 42, .28);
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      color: rgba(255, 255, 255, .88);
+      font-size: 1.15rem;
+    }
+
+    .lesson-tag {
+      min-width: 180px;
+      text-align: right;
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, .34);
+      border-radius: 999px;
+      background: var(--lesson-bg);
+      box-shadow: 0 14px 34px rgba(15, 23, 42, .16);
+    }
+
+    .lesson-tag strong {
+      display: block;
+      color: var(--lesson-strong);
+      font-size: 1.12rem;
+    }
+
+    .lesson-tag span {
+      color: var(--lesson-sub);
+      font-size: 1rem;
+    }
+
+    .header-tools {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .theme-toggle {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, .34);
+      border-radius: 999px;
+      background: var(--lesson-bg);
+      color: var(--lesson-sub);
+      font-size: .9rem;
+      font-weight: 800;
+      user-select: none;
+    }
+
+    .theme-toggle input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .theme-slider {
+      width: 46px;
+      height: 25px;
+      position: relative;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, .22);
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, .12);
+    }
+
+    .theme-slider::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 3px 10px rgba(15, 23, 42, .22);
+      transition: transform .16s ease;
+    }
+
+    .theme-toggle input:checked + .theme-slider::after {
+      transform: translateX(21px);
+    }
+
+    .color-strip { display: none; }
+
+    .workspace {
+      padding: 0;
+      background: transparent;
+    }
+
+    .task-nav {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+      margin: 28px 0 0;
+      padding: 0;
+    }
+
+    .task-tile {
+      min-height: 118px;
+      border: 0;
+      border-radius: 22px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, .20), rgba(15, 23, 42, .14)),
+        var(--tile-color);
+      color: #fff;
+      font: inherit;
+      font-weight: 850;
+      text-align: left;
+      padding: 16px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      box-shadow: 0 16px 34px rgba(15, 23, 42, .14);
+      transition: filter .16s ease, transform .16s ease, box-shadow .16s ease;
+    }
+
+    .task-tile:hover {
+      filter: brightness(1.04);
+      transform: translateY(-1px);
+    }
+
+    .task-tile.is-active {
+      box-shadow:
+        0 20px 44px rgba(15, 23, 42, .22),
+        inset 0 -7px 0 rgba(255, 255, 255, .86);
+      transform: translateY(-2px);
+    }
+
+    .task-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 40px;
+      height: 32px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .22);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .30);
+      font-size: .95rem;
+      letter-spacing: .02em;
+    }
+
+    .task-label {
+      display: block;
+      font-size: 1.02rem;
+      line-height: 1.15;
+      overflow-wrap: anywhere;
+      text-shadow: 0 1px 12px rgba(15, 23, 42, .24);
+    }
+
+    .task-stage {
+      padding: 36px 0 0;
+      background: transparent;
+    }
+
+    label,
+    .label {
+      display: block;
+      font-weight: 750;
+      color: var(--label-color);
+      font-size: .96rem;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    textarea {
+      width: 100%;
+      margin-top: 7px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--field-bg);
+      color: var(--field-color);
+      font: inherit;
+      padding: 12px 13px;
+      outline: none;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55);
+      transition: border-color .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    textarea {
+      min-height: 82px;
+      resize: vertical;
+    }
+
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    textarea:focus {
+      border-color: var(--accent, var(--blue));
+      background: var(--field-focus-bg);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .58),
+        0 0 0 4px color-mix(in srgb, var(--accent, var(--blue)) 16%, transparent);
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--placeholder);
+      opacity: 1;
+    }
+
+    .section {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr);
+      border: 1px solid color-mix(in srgb, var(--accent, var(--blue)) 28%, var(--line));
+      border-radius: 28px;
+      overflow: hidden;
+      margin-top: 0;
+      background: var(--slide-bg);
+      box-shadow: 0 28px 90px rgba(15, 23, 42, .18);
+      backdrop-filter: blur(10px);
+    }
+
+    .task-stage .section { display: none; }
+
+    .task-stage .section.is-active {
+      display: grid;
+    }
+
+    .section-number {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      padding: 24px 10px;
+      color: #fff;
+      font-weight: 900;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .18), rgba(15, 23, 42, .12)),
+        var(--accent, var(--blue));
+    }
+
+    .section-number span:first-child {
+      font-size: 1.5rem;
+      letter-spacing: .04em;
+    }
+
+    .section-number span:last-child {
+      font-size: 1.2rem;
+    }
+
+    .section-body {
+      min-width: 0;
+    }
+
+    .section-title {
+      margin: 0;
+      padding: 28px 34px 0;
+      font-size: clamp(2rem, 4vw, 3.45rem);
+      line-height: 1.12;
+      color: var(--slide-title);
+      background: transparent;
+      border-bottom: 0;
+      text-shadow: none;
+    }
+
+    .section-content {
+      padding: 28px 34px 36px;
+      color: var(--slide-text);
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 18px;
+      margin: 10px 0 20px;
+    }
+
+    .choice {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-weight: 550;
+      color: var(--slide-text);
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .choice input[type="checkbox"]:not([data-theme-toggle]) {
+      width: 20px;
+      height: 20px;
+      margin-top: 1px;
+      flex: 0 0 auto;
+    }
+
+    input[type="checkbox"]:not([data-theme-toggle]) {
+      appearance: none;
+      position: relative;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--check-border);
+      border-radius: 6px;
+      background: var(--check-bg);
+      cursor: pointer;
+      vertical-align: middle;
+    }
+
+    input[type="checkbox"]:not([data-theme-toggle])::after {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 1px;
+      width: 6px;
+      height: 11px;
+      border: solid #ffffff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg) scale(.6);
+      opacity: 0;
+      transition: opacity .12s ease, transform .12s ease;
+    }
+
+    input[type="checkbox"]:not([data-theme-toggle]):checked {
+      border-color: var(--accent, var(--blue));
+      background: var(--accent, var(--blue));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, var(--blue)) 15%, transparent);
+    }
+
+    input[type="checkbox"]:not([data-theme-toggle]):checked::after {
+      opacity: 1;
+      transform: rotate(45deg) scale(1);
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .wide { grid-column: 1 / -1; }
+
+    .mini-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      margin: 10px 0 18px;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: var(--panel-bg);
+    }
+
+    .mini-table th,
+    .mini-table td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: middle;
+      color: var(--slide-text);
+    }
+
+    .mini-table th {
+      background: var(--table-head-bg);
+      color: var(--table-head-color);
+      font-size: .92rem;
+    }
+
+    .mini-table tr:last-child td { border-bottom: 0; }
+
+    .key {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 82px;
+      padding: 5px 10px;
+      border: 1px solid #cbd5e1;
+      border-bottom-width: 3px;
+      border-radius: 8px;
+      background: var(--panel-bg);
+      color: var(--slide-text);
+      font-weight: 850;
+      font-size: .95rem;
+    }
+
+    .matching-board {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(150px, 1fr) minmax(80px, .45fr) minmax(240px, 1.35fr);
+      gap: 12px;
+      margin: 12px 0 20px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel-bg);
+    }
+
+    .match-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .match-lines line {
+      stroke: var(--accent, var(--blue));
+      stroke-width: 3;
+      stroke-linecap: round;
+    }
+
+    .match-column {
+      display: grid;
+      gap: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .match-item {
+      width: 100%;
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
+      border: 1px solid #dbe4f3;
+      border-radius: 10px;
+      background: var(--field-bg);
+      color: var(--slide-text);
+      font: inherit;
+      font-weight: 650;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color .16s ease, box-shadow .16s ease, background .16s ease;
+      user-select: none;
+    }
+
+    .match-item:hover,
+    .match-item.is-selected {
+      border-color: var(--accent, var(--blue));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, var(--blue)) 16%, transparent);
+    }
+
+    .match-item.is-connected { background: var(--field-focus-bg); }
+
+    .match-item[data-side="left"] {
+      justify-content: flex-start;
+      border-color: transparent;
+      background: transparent;
+      padding-left: 0;
+      box-shadow: none;
+    }
+
+    .match-item[data-side="left"]:hover,
+    .match-item[data-side="left"].is-selected,
+    .match-item[data-side="left"].is-connected {
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    .match-item[data-side="left"] .key {
+      min-width: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      font-size: 1rem;
+      box-shadow: none;
+    }
+
+    .match-dot {
+      width: 11px;
+      height: 11px;
+      border: 2px solid var(--accent, var(--blue));
+      border-radius: 50%;
+      flex: 0 0 auto;
+      background: var(--check-bg);
+    }
+
+    .match-space {
+      min-height: 100%;
+      border-left: 2px dashed var(--line);
+      border-right: 2px dashed var(--line);
+      opacity: .9;
+      position: relative;
+      z-index: 0;
+    }
+
+    .rating {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .prompt-list {
+      display: grid;
+      gap: 10px;
+      margin: 10px 0 18px;
+    }
+
+    .prompt-list .choice {
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel-bg);
+    }
+
+    .privacy-options {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px 14px;
+      margin: 10px 0 20px;
+    }
+
+    .slide-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 24px 32px 34px;
+      background: transparent;
+    }
+
+    .round-nav {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border: 0;
+      background: var(--control-bg);
+      color: var(--control-color);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, .16);
+      font: inherit;
+      font-size: 1.75rem;
+      font-weight: 900;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .round-nav:disabled {
+      opacity: .36;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .print-final {
+      display: none;
+      min-height: 54px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--violet);
+      color: #fff;
+      font: inherit;
+      font-weight: 850;
+      padding: 0 22px;
+      cursor: pointer;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, .18);
+    }
+
+    .print-final.is-visible {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    button:not(.match-item):not(.task-tile):not(.round-nav):not(.print-final) {
+      border: 0;
+      border-radius: 10px;
+      background: var(--ink);
+      color: #fff;
+      font: inherit;
+      font-weight: 800;
+      padding: 11px 16px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 980px) {
+      .task-nav {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        width: calc(100% - 18px);
+        margin: 9px auto;
+      }
+
+      header {
+        padding: 22px 18px;
+        border-radius: 20px;
+      }
+
+      .title-row,
+      .field-grid,
+      .check-grid,
+      .privacy-options {
+        grid-template-columns: 1fr;
+      }
+
+      .header-tools {
+        justify-content: flex-start;
+      }
+
+      .lesson-tag {
+        min-width: 0;
+        text-align: left;
+        width: fit-content;
+        max-width: 100%;
+        justify-self: start;
+      }
+
+      .task-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 16px;
+      }
+
+      .task-tile {
+        min-height: 92px;
+        padding: 13px;
+        border-radius: 16px;
+      }
+
+      .task-label {
+        font-size: .95rem;
+      }
+
+      .task-stage {
+        padding-top: 18px;
+      }
+
+      .section,
+      .task-stage .section.is-active {
+        display: block;
+        border-radius: 20px;
+      }
+
+      .section-number {
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 11px 14px;
+        gap: 12px;
+      }
+
+      .section-number span:first-child,
+      .section-number span:last-child {
+        font-size: 1.05rem;
+      }
+
+      .mini-table {
+        table-layout: fixed;
+      }
+
+      .mini-table th,
+      .mini-table td {
+        padding: 10px 8px;
+        overflow-wrap: anywhere;
+      }
+
+      .mini-table th:first-child,
+      .mini-table td:first-child {
+        width: 48%;
+      }
+
+      .rating {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      .matching-board {
+        grid-template-columns: 1fr .22fr 1fr;
+        gap: 8px;
+        padding: 10px;
+      }
+
+      .match-item {
+        min-height: 52px;
+        padding: 8px;
+        font-size: .92rem;
+      }
+
+      .choice {
+        display: grid;
+        grid-template-columns: 20px minmax(0, 1fr);
+        align-items: start;
+        padding-left: 0;
+      }
+
+      .choice input[type="checkbox"]:not([data-theme-toggle]) {
+        position: static;
+        margin: 0;
+      }
+
+      .prompt-list .choice {
+        padding-left: 12px;
+      }
+
+      .section-title {
+        font-size: 1.38rem;
+        padding: 16px 16px 0;
+      }
+
+      .section-content {
+        padding: 16px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .page {
+        width: 100%;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      header,
+      .task-nav,
+      .slide-controls,
+      .theme-toggle {
+        display: none !important;
+      }
+
+      .workspace {
+        padding: 0;
+      }
+
+      .task-stage .section,
+      .task-stage .section.is-active {
+        display: grid;
+        margin: 0 0 12px;
+        break-inside: avoid;
+        box-shadow: none;
+        border-radius: 8px;
+      }
+
+      .section-title {
+        font-size: 1.35rem;
+        padding: 15px 18px 0;
+        text-shadow: none;
+      }
+
+      .section-content {
+        padding: 15px 18px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <form class="page">
+    <header>
+      <div class="header-panel">
+        <div class="title-row">
+          <div>
+            <h1>iB-Startcheck</h1>
+            <p class="subtitle">Präsentieren · Speichern · KI nutzen</p>
+          </div>
+          <div class="header-tools">
+            <div class="lesson-tag">
+              <strong>Erste iB-Lektion</strong>
+              <span>Arbeitsblatt</span>
+            </div>
+            <label class="theme-toggle">
+              <span>White</span>
+              <input type="checkbox" data-theme-toggle aria-label="Dark Theme aktivieren">
+              <span class="theme-slider" aria-hidden="true"></span>
+              <span>Dark</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="color-strip" aria-hidden="true"></div>
+    </header>
+
+    <div class="workspace">
+      <nav class="task-nav" aria-label="Aufgaben">
+        <button class="task-tile is-active" type="button" data-task-target="task-1" style="--tile-color: var(--red)"><span class="task-number">01</span><span class="task-label">Meine Präsentation</span></button>
+        <button class="task-tile" type="button" data-task-target="task-2" style="--tile-color: var(--orange)"><span class="task-number">02</span><span class="task-label">Speichern und testen</span></button>
+        <button class="task-tile" type="button" data-task-target="task-3" style="--tile-color: var(--yellow)"><span class="task-number">03</span><span class="task-label">Gute Dateinamen erkennen</span></button>
+        <button class="task-tile" type="button" data-task-target="task-4" style="--tile-color: var(--green)"><span class="task-number">04</span><span class="task-label">KI richtig nutzen</span></button>
+        <button class="task-tile" type="button" data-task-target="task-5" style="--tile-color: var(--blue)"><span class="task-number">05</span><span class="task-label">Was darf über mich rein?</span></button>
+        <button class="task-tile" type="button" data-task-target="task-6" style="--tile-color: var(--indigo)"><span class="task-number">06</span><span class="task-label">Werkzeuge: Tastenkombinationen</span></button>
+        <button class="task-tile" type="button" data-task-target="task-7" style="--tile-color: var(--violet)"><span class="task-number">07</span><span class="task-label">Rückblick</span></button>
+      </nav>
+
+      <div class="task-stage">
+      <section class="section is-active" data-task="task-1" style="--accent: var(--red)">
+        <div class="section-number"><span>01</span><span>▣</span></div>
+        <div class="section-body">
+          <h2 class="section-title">Meine Präsentation</h2>
+          <div class="section-content">
+            <span class="label">Kreuze an:</span>
+            <div class="check-grid">
+              <label class="choice"><input type="checkbox" name="created" value="powerpoint"> PowerPoint-Präsentation</label>
+              <label class="choice"><input type="checkbox" name="created" value="html"> HTML-Präsentation</label>
+              <label class="choice"><input type="checkbox" name="created" value="both"> Beides ausprobiert</label>
+              <label class="choice"><input type="checkbox" name="created" value="submitted"> Präsentation abgegeben</label>
+            </div>
+            <div class="field-grid">
+              <label>Meine Präsentation heisst
+                <input type="text" name="presentation-title" placeholder="z. B. Mein Hobby Tennis">
+              </label>
+              <label>Thema der Präsentation
+                <input type="text" name="topic" placeholder="z. B. mein Hobby">
+              </label>
+              <label>Was ist bei PowerPoint praktisch?
+                <textarea name="powerpoint-practical"></textarea>
+              </label>
+              <label>Was ist bei HTML spannend?
+                <textarea name="html-ai"></textarea>
+              </label>
+              <label class="wide">Was war schwieriger?
+                <textarea name="harder"></textarea>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-task="task-2" style="--accent: var(--orange)">
+        <div class="section-number"><span>02</span><span>⛶</span></div>
+        <div class="section-body">
+          <h2 class="section-title">Speichern und testen</h2>
+          <div class="section-content">
+            <div class="field-grid">
+              <label>Dateiname
+                <input type="text" name="filename-check" placeholder="z. B. noah_ib_start.html">
+              </label>
+              <label>Gespeichert unter
+                <input type="text" name="location" placeholder="z. B. Desktop / Downloads / Klassenordner">
+              </label>
+              <label>PowerPoint im Vollbild getestet
+                <input type="text" name="fullscreen-powerpoint">
+              </label>
+              <label>HTML / Browser im Vollbild getestet
+                <input type="text" name="fullscreen-html">
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-task="task-3" style="--accent: var(--yellow)">
+        <div class="section-number"><span>03</span><span>◆</span></div>
+        <div class="section-body">
+          <h2 class="section-title">Gute Dateinamen erkennen</h2>
+          <div class="section-content">
+            <span class="label">Kreuze an:</span>
+            <table class="mini-table">
+              <thead>
+                <tr>
+                  <th>Dateiname</th>
+                  <th>Bewertung</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>präsentation.pptx</td>
+                  <td class="rating"><label class="choice"><input type="checkbox"> gut</label><label class="choice"><input type="checkbox"> schlecht</label></td>
+                </tr>
+                <tr>
+                  <td>lena_vorstellung.pptx</td>
+                  <td class="rating"><label class="choice"><input type="checkbox"> gut</label><label class="choice"><input type="checkbox"> schlecht</label></td>
+                </tr>
+                <tr>
+                  <td>asdfasdf.html</td>
+                  <td class="rating"><label class="choice"><input type="checkbox"> gut</label><label class="choice"><input type="checkbox"> schlecht</label></td>
+                </tr>
+                <tr>
+                  <td>noah_ib_start.html</td>
+                  <td class="rating"><label class="choice"><input type="checkbox"> gut</label><label class="choice"><input type="checkbox"> schlecht</label></td>
+                </tr>
+                <tr>
+                  <td>meine neue neue finale version 3.pptx</td>
+                  <td class="rating"><label class="choice"><input type="checkbox"> gut</label><label class="choice"><input type="checkbox"> schlecht</label></td>
+                </tr>
+              </tbody>
+            </table>
+            <label>Mein guter Dateiname
+              <input type="text" name="good-filename">
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-task="task-4" style="--accent: var(--green)">
+        <div class="section-number"><span>04</span><span>✦</span></div>
+        <div class="section-body">
+          <h2 class="section-title">KI richtig nutzen</h2>
+          <div class="section-content">
+            <span class="label">Kreuze an: Was ist ein guter Prompt?</span>
+            <div class="prompt-list">
+              <label class="choice"><input type="checkbox"> Mach eine Präsentation.</label>
+              <label class="choice"><input type="checkbox"> Erstelle eine moderne Fullscreen-Präsentation mit 4 Folien über mich. Nutze grosse Schrift, Emojis und Pfeiltasten zur Navigation.</label>
+              <label class="choice"><input type="checkbox"> Mach etwas Schönes.</label>
+              <label class="choice"><input type="checkbox"> Erstelle eine Präsentation über mein Hobby Tennis mit Titel, 3 Fakten, Bildidee und Abschlussfolie.</label>
+            </div>
+            <label>Warum ist ein genauer Prompt besser?
+              <textarea name="prompt-reason"></textarea>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-task="task-5" style="--accent: var(--blue)">
+        <div class="section-number"><span>05</span><span>◉</span></div>
+        <div class="section-body">
+          <h2 class="section-title">Was darf in eine Präsentation über mich?</h2>
+          <div class="section-content">
+            <span class="label">Kreuze an: Was darf man gut über sich teilen?</span>
+            <div class="privacy-options">
+              <label class="choice"><input type="checkbox"> Hobby</label>
+              <label class="choice"><input type="checkbox"> Lieblingsgame</label>
+              <label class="choice"><input type="checkbox"> Lieblingsessen</label>
+              <label class="choice"><input type="checkbox"> genaue Adresse</label>
+              <label class="choice"><input type="checkbox"> private Probleme</label>
+              <label class="choice"><input type="checkbox"> Lieblingsfach</label>
+              <label class="choice"><input type="checkbox"> Haustier</label>
+              <label class="choice"><input type="checkbox"> Telefonnummer</label>
+              <label class="choice"><input type="checkbox"> was ich im iB lernen möchte</label>
+            </div>
+            <div class="field-grid">
+              <label>Zwei gute Dinge
+                <input type="text" name="good-share" placeholder="1. ...     2. ...">
+              </label>
+              <label>Nicht teilen sollte man
+                <input type="text" name="not-share">
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-task="task-6" style="--accent: var(--indigo)">
+        <div class="section-number"><span>06</span><span>⌨</span></div>
+        <div class="section-body">
+          <h2 class="section-title">Werkzeuge: Tastenkombinationen</h2>
+          <div class="section-content">
+            <span class="label">Verbinde die Tastenkombination mit der passenden Bedeutung.</span>
+            <div class="matching-board" data-matching-board aria-label="Verbindungsaufgabe Tastenkombinationen">
+              <svg class="match-lines" aria-hidden="true"></svg>
+              <div class="match-column">
+                <button class="match-item" type="button" data-side="left" data-id="ctrl-s"><span class="key">Ctrl + S</span><span class="match-dot"></span></button>
+                <button class="match-item" type="button" data-side="left" data-id="ctrl-c"><span class="key">Ctrl + C</span><span class="match-dot"></span></button>
+                <button class="match-item" type="button" data-side="left" data-id="ctrl-v"><span class="key">Ctrl + V</span><span class="match-dot"></span></button>
+                <button class="match-item" type="button" data-side="left" data-id="ctrl-z"><span class="key">Ctrl + Z</span><span class="match-dot"></span></button>
+                <button class="match-item" type="button" data-side="left" data-id="alt-tab"><span class="key">Alt + Tab</span><span class="match-dot"></span></button>
+                <button class="match-item" type="button" data-side="left" data-id="f5"><span class="key">F5</span><span class="match-dot"></span></button>
+                <button class="match-item" type="button" data-side="left" data-id="f11"><span class="key">F11</span><span class="match-dot"></span></button>
+              </div>
+              <div class="match-space" aria-hidden="true"></div>
+              <div class="match-column">
+                <button class="match-item" type="button" data-side="right" data-id="fullscreen"><span class="match-dot"></span> Browser im Vollbild anzeigen</button>
+                <button class="match-item" type="button" data-side="right" data-id="paste"><span class="match-dot"></span> einfügen</button>
+                <button class="match-item" type="button" data-side="right" data-id="present"><span class="match-dot"></span> PowerPoint-Präsentation starten</button>
+                <button class="match-item" type="button" data-side="right" data-id="copy"><span class="match-dot"></span> kopieren</button>
+                <button class="match-item" type="button" data-side="right" data-id="save"><span class="match-dot"></span> speichern</button>
+                <button class="match-item" type="button" data-side="right" data-id="undo"><span class="match-dot"></span> rückgängig machen</button>
+                <button class="match-item" type="button" data-side="right" data-id="switch"><span class="match-dot"></span> zwischen Fenstern wechseln</button>
+              </div>
+            </div>
+            <div class="field-grid">
+              <label>Heute am meisten genutzt
+                <input type="text" name="most-used">
+              </label>
+              <label>Warum?
+                <input type="text" name="why-used">
+              </label>
+              <label class="wide">Möchte ich mir merken
+                <input type="text" name="remember-shortcut">
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-task="task-7" style="--accent: var(--violet)">
+        <div class="section-number"><span>07</span><span>✓</span></div>
+        <div class="section-body">
+          <h2 class="section-title">Rückblick</h2>
+          <div class="section-content">
+            <div class="field-grid">
+              <label>Heute habe ich gelernt
+                <textarea name="learned"></textarea>
+              </label>
+              <label>Das fand ich einfach
+                <textarea name="easy"></textarea>
+              </label>
+              <label>Das fand ich schwierig
+                <textarea name="difficult"></textarea>
+              </label>
+              <label>Das möchte ich im iB gerne einmal machen
+                <textarea name="future"></textarea>
+              </label>
+              <label>Fun Fact fürs Klassenquiz
+                <input type="text" name="fun-fact">
+              </label>
+              <label>Eine Quizfrage über mich
+                <input type="text" name="quiz-question">
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+      </div>
+
+      <div class="slide-controls" aria-label="Navigation">
+        <button class="round-nav" type="button" data-slide-prev aria-label="Vorheriges Thema">&lt;</button>
+        <button class="round-nav" type="button" data-slide-next aria-label="Nächstes Thema">&gt;</button>
+        <button class="print-final" type="button" data-print-final>Drucken / PDF</button>
+      </div>
+    </div>
+  </form>
+  <script>
+    (() => {
+      const form = document.querySelector("form");
+      const storageKey = "ib-startcheck:index2:v1";
+      const fields = form ? [...form.querySelectorAll("input:not([data-theme-toggle]), textarea")] : [];
+
+      const readSaved = () => {
+        try {
+          return JSON.parse(localStorage.getItem(storageKey) || "{}");
+        } catch {
+          return {};
+        }
+      };
+
+      const writeSaved = (data) => {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(data));
+        } catch {
+          // Ignore storage failures, for example in strict private browsing.
+        }
+      };
+
+      const saved = readSaved();
+
+      const themeToggle = document.querySelector("[data-theme-toggle]");
+      const setTheme = (theme, shouldSave = true) => {
+        document.body.dataset.theme = theme === "dark" ? "dark" : "white";
+        if (themeToggle) themeToggle.checked = theme === "dark";
+        if (shouldSave) {
+          const next = readSaved();
+          next.theme = document.body.dataset.theme;
+          writeSaved(next);
+        }
+      };
+
+      setTheme(saved.theme === "dark" ? "dark" : "white", false);
+
+      themeToggle?.addEventListener("change", () => {
+        setTheme(themeToggle.checked ? "dark" : "white");
+      });
+
+      const taskTiles = [...document.querySelectorAll("[data-task-target]")];
+      const tasks = [...document.querySelectorAll("[data-task]")];
+      const prevButton = document.querySelector("[data-slide-prev]");
+      const nextButton = document.querySelector("[data-slide-next]");
+      const printButton = document.querySelector("[data-print-final]");
+      let activeTaskIndex = 0;
+
+      const updateSlideControls = () => {
+        if (prevButton) prevButton.disabled = activeTaskIndex === 0;
+        if (nextButton) nextButton.disabled = activeTaskIndex === tasks.length - 1;
+        printButton?.classList.toggle("is-visible", activeTaskIndex === tasks.length - 1);
+      };
+
+      const setActiveTask = (taskId, shouldSave = true) => {
+        activeTaskIndex = Math.max(0, tasks.findIndex((task) => task.dataset.task === taskId));
+        taskTiles.forEach((tile) => {
+          tile.classList.toggle("is-active", tile.dataset.taskTarget === taskId);
+        });
+        tasks.forEach((task) => {
+          task.classList.toggle("is-active", task.dataset.task === taskId);
+        });
+        if (shouldSave) {
+          const next = readSaved();
+          next.activeTask = taskId;
+          writeSaved(next);
+        }
+        requestAnimationFrame(() => {
+          document.querySelector("[data-matching-board] .match-lines")?.dispatchEvent(new Event("redraw-lines"));
+        });
+        updateSlideControls();
+      };
+
+      taskTiles.forEach((tile) => {
+        tile.addEventListener("click", () => {
+          setActiveTask(tile.dataset.taskTarget);
+        });
+      });
+
+      if (saved.activeTask && tasks.some((task) => task.dataset.task === saved.activeTask)) {
+        setActiveTask(saved.activeTask, false);
+      } else {
+        setActiveTask(tasks[0]?.dataset.task || "task-1", false);
+      }
+
+      prevButton?.addEventListener("click", () => {
+        const previous = tasks[Math.max(0, activeTaskIndex - 1)];
+        if (previous) setActiveTask(previous.dataset.task);
+      });
+
+      nextButton?.addEventListener("click", () => {
+        const next = tasks[Math.min(tasks.length - 1, activeTaskIndex + 1)];
+        if (next) setActiveTask(next.dataset.task);
+      });
+
+      printButton?.addEventListener("click", () => window.print());
+
+      const fieldKey = (field, index) => {
+        if (field.name) {
+          return field.type === "checkbox" ? `${field.name}:${field.value || index}` : field.name;
+        }
+        return `field:${index}`;
+      };
+
+      fields.forEach((field, index) => {
+        const key = fieldKey(field, index);
+        field.dataset.storeKey = key;
+        if (Object.prototype.hasOwnProperty.call(saved, key)) {
+          if (field.type === "checkbox") {
+            field.checked = saved[key] === true;
+          } else {
+            field.value = saved[key];
+          }
+        }
+
+        const saveField = () => {
+          const next = readSaved();
+          next[key] = field.type === "checkbox" ? field.checked : field.value;
+          writeSaved(next);
+        };
+
+        field.addEventListener("blur", saveField);
+        if (field.type === "checkbox" || field.type === "date") {
+          field.addEventListener("change", saveField);
+        }
+      });
+
+      const dateInput = document.querySelector('input[name="datum"]');
+      if (dateInput && !dateInput.value) {
+        const today = new Date();
+        const offset = today.getTimezoneOffset() * 60000;
+        dateInput.value = new Date(today.getTime() - offset).toISOString().slice(0, 10);
+        const next = readSaved();
+        next[dateInput.dataset.storeKey || "datum"] = dateInput.value;
+        writeSaved(next);
+      }
+
+      const board = document.querySelector("[data-matching-board]");
+      if (!board) return;
+
+      const svg = board.querySelector(".match-lines");
+      const items = [...board.querySelectorAll(".match-item")];
+      const links = new Map(Array.isArray(saved.matches) ? saved.matches : []);
+      let selected = null;
+
+      const saveMatches = () => {
+        const next = readSaved();
+        next.matches = [...links.entries()];
+        writeSaved(next);
+      };
+
+      const dotCenter = (item) => {
+        const dot = item.querySelector(".match-dot");
+        const dotBox = dot.getBoundingClientRect();
+        const boardBox = board.getBoundingClientRect();
+        return {
+          x: dotBox.left + dotBox.width / 2 - boardBox.left,
+          y: dotBox.top + dotBox.height / 2 - boardBox.top
+        };
+      };
+
+      const updateStates = () => {
+        items.forEach((item) => {
+          const connected = [...links.entries()].some(([left, right]) => {
+            return item.dataset.id === left || item.dataset.id === right;
+          });
+          item.classList.toggle("is-selected", item === selected);
+          item.classList.toggle("is-connected", connected);
+        });
+      };
+
+      const drawLines = () => {
+        svg.replaceChildren();
+        for (const [leftId, rightId] of links) {
+          const left = board.querySelector(`[data-side="left"][data-id="${leftId}"]`);
+          const right = board.querySelector(`[data-side="right"][data-id="${rightId}"]`);
+          if (!left || !right) continue;
+
+          const start = dotCenter(left);
+          const end = dotCenter(right);
+          const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          line.setAttribute("x1", start.x);
+          line.setAttribute("y1", start.y);
+          line.setAttribute("x2", end.x);
+          line.setAttribute("y2", end.y);
+          svg.append(line);
+        }
+        updateStates();
+      };
+
+      svg.addEventListener("redraw-lines", drawLines);
+
+      const connect = (left, right) => {
+        for (const [existingLeft, existingRight] of links) {
+          if (existingRight === right.dataset.id) links.delete(existingLeft);
+        }
+        links.set(left.dataset.id, right.dataset.id);
+        selected = null;
+        drawLines();
+        saveMatches();
+      };
+
+      items.forEach((item) => {
+        item.addEventListener("click", () => {
+          if (!selected) {
+            selected = item;
+            updateStates();
+            return;
+          }
+
+          if (selected === item) {
+            selected = null;
+            updateStates();
+            return;
+          }
+
+          if (selected.dataset.side === item.dataset.side) {
+            selected = item;
+            updateStates();
+            return;
+          }
+
+          const left = selected.dataset.side === "left" ? selected : item;
+          const right = selected.dataset.side === "right" ? selected : item;
+          connect(left, right);
+        });
+      });
+
+      window.addEventListener("resize", drawLines);
+      requestAnimationFrame(drawLines);
+    })();
+  </script>
+</body>
+</html>
