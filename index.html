@@ -341,12 +341,16 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .task-tile:hover,
+    .task-tile:hover {
+      filter: brightness(1.04);
+      transform: translateY(-1px);
+    }
+
     .task-tile:focus-visible {
       filter: brightness(1.04);
       transform: translateY(-1px);
-      outline: 3px solid rgba(255, 255, 255, .72);
-      outline-offset: 3px;
+      outline: 2px solid rgba(255, 255, 255, .45);
+      outline-offset: 1px;
     }
 
     .task-tile:active {
@@ -393,7 +397,7 @@
     .task-tile.is-active.is-done {
       box-shadow:
         0 20px 44px rgba(15, 23, 42, .22),
-        inset 0 -7px 0 rgba(255, 255, 255, .86),
+        inset 0 -7px 0 rgba(34, 197, 94, .92),
         inset 0 0 0 3px rgba(34, 197, 94, .88);
     }
 
@@ -1683,22 +1687,17 @@ Wichtig:
           <div class="section-content">
             <span class="label">Kreuze an: Was darf man gut über sich teilen?</span>
             <div class="privacy-options">
-              <label class="choice"><input type="checkbox"> Hobby</label>
-              <label class="choice"><input type="checkbox"> Lieblingsgame</label>
-              <label class="choice"><input type="checkbox"> Lieblingsessen</label>
-              <label class="choice"><input type="checkbox"> genaue Adresse</label>
-              <label class="choice"><input type="checkbox"> Lieblingsfach</label>
-              <label class="choice"><input type="checkbox"> Haustier</label>
-              <label class="choice"><input type="checkbox"> Telefonnummer</label>
-              <label class="choice"><input type="checkbox"> was ich im IB lernen möchte</label>
+              <label class="choice"><input type="checkbox" name="privacy-hobby" value="good" data-privacy-answer> Hobby</label>
+              <label class="choice"><input type="checkbox" name="privacy-game" value="good" data-privacy-answer> Lieblingsgame</label>
+              <label class="choice"><input type="checkbox" name="privacy-food" value="good" data-privacy-answer> Lieblingsessen</label>
+              <label class="choice"><input type="checkbox" name="privacy-address" value="bad" data-privacy-answer> genaue Adresse</label>
+              <label class="choice"><input type="checkbox" name="privacy-subject" value="good" data-privacy-answer> Lieblingsfach</label>
+              <label class="choice"><input type="checkbox" name="privacy-pet" value="good" data-privacy-answer> Haustier</label>
+              <label class="choice"><input type="checkbox" name="privacy-phone" value="bad" data-privacy-answer> Telefonnummer</label>
             </div>
-            <div class="field-grid">
-              <label>Zwei gute Dinge
-                <input type="text" name="good-share" placeholder="1. ...     2. ...">
-              </label>
-              <label>Nicht teilen sollte man
-                <input type="text" name="not-share">
-              </label>
+            <div class="check-actions">
+              <button class="check-button" type="button" data-check-task="task-6">Aufgabe prüfen</button>
+              <span class="check-status" data-check-status="task-6" aria-live="polite"></span>
             </div>
           </div>
         </div>
@@ -1768,12 +1767,6 @@ Wichtig:
               </label>
               <label>Das möchte ich im IB gerne einmal machen
                 <textarea name="future"></textarea>
-              </label>
-              <label>Fun Fact fürs Klassenquiz
-                <input type="text" name="fun-fact">
-              </label>
-              <label>Eine Quizfrage über mich
-                <input type="text" name="quiz-question">
               </label>
             </div>
           </div>
@@ -1985,7 +1978,7 @@ Wichtig:
 
       goodFilenameInput?.addEventListener("input", syncGoodFilename);
 
-      const taskNeedsSolved = (taskId) => taskId === "task-3" || taskId === "task-7";
+      const taskNeedsSolved = (taskId) => taskId === "task-3" || taskId === "task-6" || taskId === "task-7";
 
       const taskTileLabel = (tile) => {
         const number = tile?.querySelector(".task-number")?.textContent.trim() || "";
@@ -2161,6 +2154,10 @@ Wichtig:
         setCheckStatus("task-7", "Gespeichert: Aufgabe 07 ist richtig gelöst.", "success");
       }
 
+      if (saved.solvedTasks?.["task-6"]) {
+        setCheckStatus("task-6", "Gespeichert: Aufgabe 06 ist richtig gelöst.", "success");
+      }
+
       const filenameAnswers = {
         presentation: "bad",
         lena: "good",
@@ -2228,6 +2225,44 @@ Wichtig:
           setCheckStatus("task-3", "Noch nicht alle Zeilen bewertet.", "error");
         } else {
           setCheckStatus("task-3", "Noch nicht richtig. Falsche Haken entfernt.", "error");
+        }
+      });
+
+      const privacyInputs = [...document.querySelectorAll("[data-privacy-answer]")];
+      privacyInputs.forEach((input) => {
+        input.addEventListener("change", () => {
+          saveSolvedTask("task-6", false);
+          setCheckStatus("task-6", "");
+        });
+      });
+
+      document.querySelector('[data-check-task="task-6"]')?.addEventListener("click", () => {
+        let goodChecked = 0;
+        let badRemoved = 0;
+
+        privacyInputs.forEach((input) => {
+          if (!input.checked) return;
+          if (input.value === "good") {
+            goodChecked += 1;
+            return;
+          }
+          input.checked = false;
+          syncChoiceState(input);
+          const next = readSaved();
+          next[input.dataset.storeKey] = false;
+          writeSaved(next);
+          badRemoved += 1;
+        });
+
+        const solved = badRemoved === 0 && goodChecked >= 2;
+        saveSolvedTask("task-6", solved);
+
+        if (solved) {
+          setCheckStatus("task-6", "Richtig gelöst und gespeichert.", "success");
+        } else if (badRemoved > 0) {
+          setCheckStatus("task-6", "Nicht passende Haken entfernt.", "error");
+        } else {
+          setCheckStatus("task-6", "Wähle mindestens zwei passende Dinge.", "error");
         }
       });
 
