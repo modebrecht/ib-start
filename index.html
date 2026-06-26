@@ -905,7 +905,8 @@
     }
 
     .variant-grid,
-    .auftrag-grid {
+    .auftrag-grid,
+    .info-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
@@ -1256,7 +1257,8 @@
       .check-grid,
       .privacy-options,
       .variant-grid,
-      .auftrag-grid {
+      .auftrag-grid,
+      .info-grid {
         grid-template-columns: 1fr;
       }
 
@@ -1475,7 +1477,7 @@
         <div class="section-body">
           <h2 class="section-title">Auftrag: Mini-Präsentation</h2>
           <div class="section-content">
-            <p class="auftrag-intro">Erstelle eine kurze Präsentation über dich und deine ersten Ideen für IB (Informatische Bildung).</p>
+            <p class="auftrag-intro">Erstelle eine kurze Präsentation über dich und IB (Informatische Bildung).</p>
 
             <div class="variant-grid">
               <div class="variant-card">
@@ -1492,46 +1494,44 @@
             <div class="auftrag-grid">
               <div class="auftrag-card">
                 <strong>1. Titel / Name</strong>
-                <p>Beispiel: «Kurzvorstellung – Lina»</p>
+                <p>Beispiel: «Kurzvorstellung - Lina»</p>
               </div>
               <div class="auftrag-card">
-                <strong>2. Drei Dinge über mich</strong>
-                <p>Zum Beispiel: Hobby, Haustier, Lieblingsessen, Lieblingsfach, Lieblingsgame, Lieblingsapp</p>
+                <strong>2. Drei Infos über mich</strong>
+                <p>Zum Beispiel Hobby, Lieblingsgame, Lieblingsessen oder Lieblingsfach.</p>
               </div>
               <div class="auftrag-card">
-                <strong>3. Hobby, Lieblingsgame oder Lieblingsapp</strong>
-                <p>Wähle etwas aus, das du der Klasse zeigen darfst.</p>
+                <strong>3. Was ich im IB lernen möchte</strong>
+                <p>Zum Beispiel Webseiten, Games, KI, Präsentationen oder Programmieren.</p>
               </div>
               <div class="auftrag-card">
-                <strong>4. Was ich im IB lernen möchte</strong>
-                <p>Zum Beispiel: Webseiten, Games, KI, Präsentationen, Programmieren, Hardware</p>
-              </div>
-              <div class="auftrag-card wide">
-                <strong>5. Harmloser Fun Fact</strong>
-                <p>Dieser Fakt darf später in einem Klassenquiz vorkommen.</p>
+                <strong>4. Fun Fact</strong>
+                <p>Ein kurzer Fakt, der in einem Klassenquiz vorkommen darf.</p>
               </div>
             </div>
 
-            <div class="warning-box">
-              <strong>⚠️ Wichtig</strong>
-              <p>Teile nur Informationen, die die Klasse wissen darf. Nicht in die Präsentation gehören:</p>
-              <ul class="avoid-list">
-                <li>genaue Adresse</li>
-                <li>Telefonnummer</li>
-                <li>zu persönliche Informationen</li>
-              </ul>
-              <div class="read-actions">
-                <button class="read-button" type="button" data-read-confirm="task-1-important" aria-pressed="false">Gelesen</button>
+            <div class="info-grid">
+              <div class="warning-box">
+                <strong>⚠️ Wichtig</strong>
+                <p>Nicht in die Präsentation gehören:</p>
+                <ul class="avoid-list">
+                  <li>genaue Adresse</li>
+                  <li>Telefonnummer</li>
+                  <li>zu persönliche Informationen</li>
+                </ul>
+                <div class="read-actions">
+                  <button class="read-button" type="button" data-read-confirm="task-1-important" aria-pressed="false">Gelesen</button>
+                </div>
               </div>
-            </div>
 
-            <div class="final-box">
-              <strong>🏁 Ziel</strong>
-              <p>Deine Präsentation soll im Vollbild gezeigt werden können.</p>
-              <p>Speichere deine Datei mit einem sinnvollen Namen: <span class="file-name">vorname_vorstellung.pptx</span> oder <span class="file-name">vorname_vorstellung.html</span></p>
-              <p>Danach gibst du die Datei ab oder sendest sie per Outlook.</p>
-              <div class="read-actions">
-                <button class="read-button" type="button" data-read-confirm="task-1-goal" aria-pressed="false">Gelesen</button>
+              <div class="final-box">
+                <strong>🏁 Ziel</strong>
+                <p>Deine Präsentation soll im Vollbild gezeigt werden können.</p>
+                <p>Speichere deine Datei mit einem sinnvollen Namen: <span class="file-name">vorname_vorstellung.pptx</span> oder <span class="file-name">vorname_vorstellung.html</span></p>
+                <p>Danach gibst du die Datei ab oder sendest sie per Outlook.</p>
+                <div class="read-actions">
+                  <button class="read-button" type="button" data-read-confirm="task-1-goal" aria-pressed="false">Gelesen</button>
+                </div>
               </div>
             </div>
 
@@ -1575,12 +1575,6 @@ Wichtig:
               <label class="choice"><input type="checkbox" name="created" value="submitted"> Ich habe meine Präsentation abgegeben.</label>
             </div>
             <div class="field-grid">
-              <label>Meine Präsentation heisst
-                <input type="text" name="presentation-title" placeholder="z. B. Mein Hobby Tennis">
-              </label>
-              <label>Meine Präsentation zeigt diese 3 Dinge
-                <input type="text" name="presentation-points" placeholder="1. ...   2. ...   3. ...">
-              </label>
               <label>Was ist bei PowerPoint praktisch?
                 <textarea name="powerpoint-practical"></textarea>
               </label>
@@ -1958,6 +1952,21 @@ Wichtig:
         }
       });
 
+      const goodFilenameInput = document.querySelector('input[name="good-filename"]');
+      const filenameCheckInput = document.querySelector('input[name="filename-check"]');
+      const syncGoodFilename = () => {
+        if (!goodFilenameInput || !filenameCheckInput) return;
+        const value = goodFilenameInput.value.trim();
+        if (!value || filenameCheckInput.value.trim()) return;
+        filenameCheckInput.value = value;
+        const next = readSaved();
+        next[filenameCheckInput.dataset.storeKey || "filename-check"] = value;
+        writeSaved(next);
+        updateTaskTiles();
+      };
+
+      goodFilenameInput?.addEventListener("input", syncGoodFilename);
+
       const taskNeedsSolved = (taskId) => taskId === "task-3" || taskId === "task-7";
 
       const taskTileLabel = (tile) => {
@@ -2009,6 +2018,8 @@ Wichtig:
           setDoneTile(taskId, complete && solvedOk);
         });
       };
+
+      syncGoodFilename();
 
       const missingDoneTasks = () => {
         updateTaskTiles();
