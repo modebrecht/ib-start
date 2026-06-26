@@ -136,23 +136,24 @@
       font-size: 1.15rem;
     }
 
-    .lesson-tag {
+    .student-meta {
       min-width: 180px;
-      text-align: right;
+      text-align: left;
       padding: 14px 16px;
       border: 1px solid rgba(255, 255, 255, .34);
-      border-radius: 999px;
+      border-radius: 18px;
       background: var(--lesson-bg);
       box-shadow: 0 14px 34px rgba(15, 23, 42, .16);
     }
 
-    .lesson-tag strong {
+    .student-meta strong {
       display: block;
       color: var(--lesson-strong);
       font-size: 1.12rem;
     }
 
-    .lesson-tag span {
+    .student-meta span {
+      display: block;
       color: var(--lesson-sub);
       font-size: 1rem;
     }
@@ -1262,7 +1263,7 @@
         justify-content: flex-start;
       }
 
-      .lesson-tag {
+      .student-meta {
         min-width: 0;
         text-align: left;
         width: fit-content;
@@ -1423,9 +1424,10 @@
             <p class="subtitle">Präsentieren · Speichern · KI nutzen</p>
           </div>
           <div class="header-tools">
-            <div class="lesson-tag">
-              <strong>Erste IB-Lektion</strong>
-              <span>Arbeitsblatt</span>
+            <div class="student-meta" aria-label="Schülerdaten">
+              <strong data-student-name>Vorname</strong>
+              <span>Klasse B25</span>
+              <span data-current-date>Datum</span>
             </div>
             <div class="settings-wrap">
               <button class="settings-button" type="button" data-settings-toggle aria-label="Optionen öffnen">⚙</button>
@@ -1809,6 +1811,26 @@ Wichtig:
       };
 
       const saved = readSaved();
+      const studentNameEl = document.querySelector("[data-student-name]");
+      const currentDateEl = document.querySelector("[data-current-date]");
+      const formatDate = (date) => new Intl.DateTimeFormat("de-CH", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      }).format(date);
+
+      let studentFirstName = typeof saved.studentFirstName === "string" ? saved.studentFirstName.trim() : "";
+      if (!studentFirstName) {
+        studentFirstName = (window.prompt("Vorname?") || "").trim();
+        if (studentFirstName) {
+          const next = readSaved();
+          next.studentFirstName = studentFirstName;
+          writeSaved(next);
+        }
+      }
+
+      if (studentNameEl) studentNameEl.textContent = studentFirstName || "Vorname";
+      if (currentDateEl) currentDateEl.textContent = formatDate(new Date());
 
       const themeToggle = document.querySelector("[data-theme-toggle]");
       const setTheme = (theme, shouldSave = true) => {
