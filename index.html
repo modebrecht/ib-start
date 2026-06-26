@@ -866,9 +866,6 @@
 
     .match-space {
       min-height: 100%;
-      border-left: 2px dashed var(--line);
-      border-right: 2px dashed var(--line);
-      opacity: .9;
       position: relative;
       z-index: 0;
     }
@@ -1483,8 +1480,6 @@
         <div class="section-body">
           <h2 class="section-title">Auftrag: Mini-Präsentation</h2>
           <div class="section-content">
-            <p class="auftrag-intro">Erstelle eine kurze Präsentation über dich und IB (Informatische Bildung).</p>
-
             <div class="variant-grid">
               <div class="variant-card">
                 <strong>Variante A</strong>
@@ -1503,16 +1498,16 @@
                 <p>Beispiel: «Kurzvorstellung - Lina»</p>
               </div>
               <div class="auftrag-card">
-                <strong>2. Drei Infos über mich</strong>
-                <p>Zum Beispiel Hobby, Lieblingsgame, Lieblingsessen oder Lieblingsfach.</p>
+                <strong>2. Hobbys und Interessen</strong>
+                <p>Mindestens drei Beispiele, die zu dir passen.</p>
               </div>
               <div class="auftrag-card">
-                <strong>3. Was ich im IB lernen möchte</strong>
-                <p>Zum Beispiel Webseiten, Games, KI, Präsentationen oder Programmieren.</p>
+                <strong>3. Apps oder Games</strong>
+                <p>Welche Apps oder Games nutzt du gerne?</p>
               </div>
               <div class="auftrag-card">
-                <strong>4. Fun Fact</strong>
-                <p>Ein kurzer Fakt, der in einem Klassenquiz vorkommen darf.</p>
+                <strong>4. Was ich im IB lernen möchte</strong>
+                <p>Zum Beispiel Umgang mit KI, Medien mit KI erstellen, Word, Excel, PowerPoint, Webseiten oder Games.</p>
               </div>
             </div>
 
@@ -1546,19 +1541,17 @@
                 <span class="prompt-summary-label">KI-Prompt für Variante B anzeigen</span>
                 <button class="copy-prompt" type="button" data-copy-prompt>Prompt kopieren</button>
               </summary>
-              <pre class="prompt-code"><code data-prompt-code>Erstelle eine moderne Fullscreen-HTML-Präsentation über mich mit 5 Folien.
+              <pre class="prompt-code"><code data-prompt-code>Erstelle eine moderne Fullscreen-HTML-Präsentation über mich mit 4 Folien.
 
 Titel: Meine Kurzvorstellung – [dein Vorname]
 
 Inhalt:
 1. Titel / Name
-2. Drei Dinge über mich: [1], [2], [3]
-3. Ein Hobby, Lieblingsgame oder eine Lieblingsapp: [...]
-4. Was ich im IB lernen möchte: [...]
-5. Ein harmloser Fun Fact für ein Klassenquiz: [...]
+2. Deine Hobbys und Interessen: mindestens 3 Beispiele
+3. Welche Apps oder Games nutzt du gerne?
+4. Was ich im IB lernen möchte: Umgang mit KI, Medien mit KI erstellen, Word, Excel, PowerPoint, Webseiten, Games oder Programmieren.
 
 Wichtig:
-- Keine Adresse, keine Telefonnummer und nichts zu Persönliches.
 - Grosse Schrift, gute Kontraste, moderne Gestaltung und passende Emojis.
 - Die Präsentation soll im Vollbild gut funktionieren.
 - Navigation mit Pfeiltasten und Buttons.
@@ -1577,18 +1570,17 @@ Wichtig:
             <div class="check-grid">
               <label class="choice"><input type="checkbox" name="created" value="powerpoint"> Ich habe eine PowerPoint-Präsentation erstellt.</label>
               <label class="choice"><input type="checkbox" name="created" value="html"> Ich habe eine HTML-Präsentation erstellt.</label>
-              <label class="choice"><input type="checkbox" name="created" value="both"> Ich habe beides ausprobiert.</label>
               <label class="choice"><input type="checkbox" name="created" value="submitted"> Ich habe meine Präsentation abgegeben.</label>
             </div>
             <div class="field-grid">
-              <label>Was ist bei PowerPoint praktisch?
-                <textarea name="powerpoint-practical"></textarea>
+              <label>Was hat gut funktioniert?
+                <textarea name="worked-well"></textarea>
               </label>
-              <label>Was ist bei HTML spannend?
-                <textarea name="html-ai"></textarea>
+              <label>Was war schwierig?
+                <textarea name="presentation-hard"></textarea>
               </label>
-              <label class="wide">Was war schwieriger?
-                <textarea name="harder"></textarea>
+              <label class="wide">Was würdest du nächstes Mal verbessern?
+                <textarea name="next-improvement"></textarea>
               </label>
             </div>
           </div>
@@ -1654,12 +1646,13 @@ Wichtig:
               <label>Gespeichert unter
                 <input type="text" name="location" placeholder="z. B. Desktop / Downloads / Klassenordner">
               </label>
-              <label>PowerPoint im Vollbild getestet
-                <input type="text" name="fullscreen-powerpoint">
+              <label>Im Vollbild getestet
+                <input type="text" name="fullscreen-check" placeholder="z. B. PowerPoint F5 oder Browser F11">
               </label>
-              <label>HTML / Browser im Vollbild getestet
-                <input type="text" name="fullscreen-html">
-              </label>
+            </div>
+            <div class="check-actions">
+              <button class="check-button" type="button" data-check-task="task-4">Aufgabe prüfen</button>
+              <span class="check-status" data-check-status="task-4" aria-live="polite"></span>
             </div>
           </div>
         </div>
@@ -2025,7 +2018,7 @@ Wichtig:
 
       goodFilenameInput?.addEventListener("input", syncGoodFilename);
 
-      const taskNeedsSolved = (taskId) => taskId === "task-3" || taskId === "task-6" || taskId === "task-7";
+      const taskNeedsSolved = (taskId) => taskId === "task-3" || taskId === "task-4" || taskId === "task-6" || taskId === "task-7";
 
       const taskTileLabel = (tile) => {
         const number = tile?.querySelector(".task-number")?.textContent.trim() || "";
@@ -2188,13 +2181,12 @@ Wichtig:
         status.classList.toggle("is-error", mode === "error");
       };
 
-      if (saved.solvedTasks?.["task-3"] || saved.solvedTasks?.["task-4"]) {
-        if (!saved.solvedTasks?.["task-3"] && saved.solvedTasks?.["task-4"]) {
-          const next = readSaved();
-          next.solvedTasks = { ...(next.solvedTasks || {}), "task-3": true, "task-4": false };
-          writeSaved(next);
-        }
+      if (saved.solvedTasks?.["task-3"]) {
         setCheckStatus("task-3", "Gespeichert: Aufgabe 03 ist richtig gelöst.", "success");
+      }
+
+      if (saved.solvedTasks?.["task-4"]) {
+        setCheckStatus("task-4", "Gespeichert: Aufgabe 04 ist richtig gelöst.", "success");
       }
 
       if (saved.solvedTasks?.["task-7"]) {
@@ -2273,6 +2265,36 @@ Wichtig:
           setCheckStatus("task-3", "Noch nicht alle Zeilen bewertet.", "error");
         } else {
           setCheckStatus("task-3", "Noch nicht richtig. Falsche Haken entfernt.", "error");
+        }
+      });
+
+      const task4Fields = [
+        { name: "filename-check", label: "Dateiname" },
+        { name: "location", label: "Speicherort" },
+        { name: "fullscreen-check", label: "Vollbild-Test" }
+      ].map((item) => ({
+        ...item,
+        input: document.querySelector(`[name="${item.name}"]`)
+      }));
+
+      task4Fields.forEach(({ input }) => {
+        input?.addEventListener("input", () => {
+          saveSolvedTask("task-4", false);
+          setCheckStatus("task-4", "");
+        });
+      });
+
+      document.querySelector('[data-check-task="task-4"]')?.addEventListener("click", () => {
+        const missing = task4Fields
+          .filter(({ input }) => !input?.value.trim())
+          .map(({ label }) => label);
+        const solved = missing.length === 0;
+        saveSolvedTask("task-4", solved);
+
+        if (solved) {
+          setCheckStatus("task-4", "Richtig gelöst und gespeichert.", "success");
+        } else {
+          setCheckStatus("task-4", `Noch nicht vollständig: ${missing.join(", ")}.`, "error");
         }
       });
 
