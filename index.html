@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>iB-Startcheck Arbeitsblatt</title>
+  <title>IB-Startcheck Arbeitsblatt</title>
   <style>
     :root {
       --ink: #1f2937;
@@ -96,9 +96,11 @@
     }
 
     header {
+      position: relative;
+      z-index: 20;
       padding: 32px;
       border-radius: 28px;
-      overflow: hidden;
+      overflow: visible;
       background:
         linear-gradient(90deg, rgba(15, 23, 42, .60), rgba(15, 23, 42, .12)),
         linear-gradient(
@@ -165,6 +167,93 @@
       gap: 12px;
       flex-wrap: wrap;
       justify-content: flex-end;
+      position: relative;
+    }
+
+    .settings-wrap {
+      position: relative;
+    }
+
+    .settings-button {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .34);
+      border-radius: 50%;
+      background: var(--lesson-bg);
+      color: var(--lesson-strong);
+      font: inherit;
+      font-size: 1.2rem;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 14px 34px rgba(15, 23, 42, .16);
+      transition: transform .16s ease, box-shadow .16s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .settings-button:hover,
+    .settings-button:focus-visible {
+      transform: translateY(-1px);
+      outline: 3px solid rgba(255, 255, 255, .66);
+      outline-offset: 3px;
+    }
+
+    .settings-panel {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      z-index: 10;
+      width: min(300px, calc(100vw - 36px));
+      display: none;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--slide-bg);
+      color: var(--slide-text);
+      box-shadow: 0 22px 60px rgba(15, 23, 42, .22);
+      backdrop-filter: blur(14px);
+    }
+
+    .settings-panel.is-open {
+      display: grid;
+      gap: 14px;
+    }
+
+    .settings-group {
+      display: grid;
+      gap: 8px;
+    }
+
+    .settings-title {
+      font-weight: 900;
+      color: var(--slide-title);
+    }
+
+    .admin-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .admin-row input {
+      min-width: 0;
+      margin-top: 0;
+    }
+
+    .admin-status {
+      min-height: 1.35em;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .admin-status.is-on {
+      color: var(--green);
+    }
+
+    .admin-status.is-error {
+      color: var(--red);
     }
 
     .theme-toggle {
@@ -217,6 +306,8 @@
     .color-strip { display: none; }
 
     .workspace {
+      position: relative;
+      z-index: 1;
       padding: 0;
       background: transparent;
     }
@@ -246,13 +337,24 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: space-between;
+      position: relative;
       box-shadow: 0 16px 34px rgba(15, 23, 42, .14);
       transition: filter .16s ease, transform .16s ease, box-shadow .16s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .task-tile:hover {
+    .task-tile:hover,
+    .task-tile:focus-visible {
       filter: brightness(1.04);
       transform: translateY(-1px);
+      outline: 3px solid rgba(255, 255, 255, .72);
+      outline-offset: 3px;
+    }
+
+    .task-tile:active {
+      filter: brightness(.98);
+      transform: translateY(0) scale(.985);
     }
 
     .task-tile.is-active {
@@ -260,6 +362,42 @@
         0 20px 44px rgba(15, 23, 42, .22),
         inset 0 -7px 0 rgba(255, 255, 255, .86);
       transform: translateY(-2px);
+    }
+
+    .task-tile.is-active:active {
+      transform: translateY(-1px) scale(.99);
+    }
+
+    .task-tile.is-done {
+      box-shadow:
+        0 16px 34px rgba(15, 23, 42, .14),
+        inset 0 0 0 3px rgba(34, 197, 94, .82);
+    }
+
+    .task-tile.is-done::after {
+      content: "✓";
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #22c55e;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 950;
+      box-shadow:
+        0 8px 18px rgba(15, 23, 42, .22),
+        inset 0 0 0 2px rgba(255, 255, 255, .72);
+    }
+
+    .task-tile.is-active.is-done {
+      box-shadow:
+        0 20px 44px rgba(15, 23, 42, .22),
+        inset 0 -7px 0 rgba(255, 255, 255, .86),
+        inset 0 0 0 3px rgba(34, 197, 94, .88);
     }
 
     .task-number {
@@ -298,6 +436,7 @@
     }
 
     input[type="text"],
+    input[type="password"],
     input[type="date"],
     textarea {
       width: 100%;
@@ -319,6 +458,7 @@
     }
 
     input[type="text"]:focus,
+    input[type="password"]:focus,
     input[type="date"]:focus,
     textarea:focus {
       border-color: var(--accent, var(--blue));
@@ -422,13 +562,38 @@
       border-radius: 14px;
       background: var(--panel-bg);
       box-shadow: 0 8px 20px rgba(15, 23, 42, .05);
+      cursor: pointer;
+      transition: border-color .16s ease, box-shadow .16s ease, background .16s ease, transform .16s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .check-grid .choice:hover,
+    .check-grid .choice:focus-within,
     .privacy-options .choice:hover,
-    .prompt-list .choice:hover {
+    .privacy-options .choice:focus-within,
+    .prompt-list .choice:hover,
+    .prompt-list .choice:focus-within {
       border-color: color-mix(in srgb, var(--accent, var(--blue)) 44%, var(--line));
       background: var(--field-focus-bg);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, var(--blue)) 14%, transparent);
+    }
+
+    .check-grid .choice:active,
+    .privacy-options .choice:active,
+    .prompt-list .choice:active {
+      transform: scale(.99);
+    }
+
+    .check-grid .choice:has(input:checked),
+    .check-grid .choice.is-checked,
+    .privacy-options .choice:has(input:checked),
+    .privacy-options .choice.is-checked,
+    .prompt-list .choice:has(input:checked),
+    .prompt-list .choice.is-checked {
+      border-color: color-mix(in srgb, var(--accent, var(--blue)) 62%, var(--line));
+      background: color-mix(in srgb, var(--accent, var(--blue)) 9%, var(--panel-bg));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, var(--blue)) 13%, transparent);
     }
 
     .choice input[type="checkbox"]:not([data-theme-toggle]) {
@@ -448,6 +613,13 @@
       background: var(--check-bg);
       cursor: pointer;
       vertical-align: middle;
+      transition: border-color .16s ease, background .16s ease, box-shadow .16s ease, transform .12s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    input[type="checkbox"]:not([data-theme-toggle]):active {
+      transform: scale(.92);
     }
 
     input[type="checkbox"]:not([data-theme-toggle])::after {
@@ -551,6 +723,28 @@
       stroke: var(--accent, var(--blue));
       stroke-width: 3;
       stroke-linecap: round;
+      transition: stroke .16s ease, opacity .16s ease;
+      transform-box: fill-box;
+      transform-origin: left center;
+    }
+
+    .match-lines line.is-wrong {
+      stroke: var(--red);
+    }
+
+    .match-lines line.is-fading {
+      animation: wrong-line-dissolve 1.4s ease forwards;
+    }
+
+    @keyframes wrong-line-dissolve {
+      from {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+      to {
+        opacity: 0;
+        transform: scaleX(0);
+      }
     }
 
     .match-column {
@@ -575,17 +769,33 @@
       font-weight: 650;
       text-align: left;
       cursor: pointer;
-      transition: border-color .16s ease, box-shadow .16s ease, background .16s ease;
+      transition: border-color .16s ease, box-shadow .16s ease, background .16s ease, transform .16s ease;
       user-select: none;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .match-item:hover,
+    .match-item:focus-visible,
     .match-item.is-selected {
       border-color: var(--accent, var(--blue));
       box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, var(--blue)) 16%, transparent);
+      outline: 0;
     }
 
-    .match-item.is-connected { background: var(--field-focus-bg); }
+    .match-item:active {
+      transform: scale(.985);
+    }
+
+    .match-item.is-connected {
+      border-color: color-mix(in srgb, var(--accent, var(--blue)) 42%, var(--line));
+      background: var(--field-focus-bg);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent, var(--blue)) 10%, transparent);
+    }
+
+    .match-item.just-connected {
+      animation: match-pop .42s ease;
+    }
 
     .match-item[data-side="left"] {
       justify-content: flex-start;
@@ -613,6 +823,14 @@
       box-shadow: none;
     }
 
+    .match-item[data-side="left"]:hover .key,
+    .match-item[data-side="left"]:focus-visible .key,
+    .match-item[data-side="left"].is-selected .key,
+    .match-item[data-side="left"].is-connected .key {
+      color: var(--accent, var(--blue));
+      text-shadow: 0 0 18px color-mix(in srgb, var(--accent, var(--blue)) 28%, transparent);
+    }
+
     .match-dot {
       width: 11px;
       height: 11px;
@@ -620,6 +838,25 @@
       border-radius: 50%;
       flex: 0 0 auto;
       background: var(--check-bg);
+      transition: background .16s ease, box-shadow .16s ease, transform .16s ease;
+    }
+
+    .match-item:hover .match-dot,
+    .match-item:focus-visible .match-dot,
+    .match-item.is-selected .match-dot,
+    .match-item.is-connected .match-dot {
+      background: var(--accent, var(--blue));
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent, var(--blue)) 14%, transparent);
+    }
+
+    .match-item:active .match-dot {
+      transform: scale(1.18);
+    }
+
+    @keyframes match-pop {
+      0% { transform: scale(.985); }
+      55% { transform: scale(1.018); }
+      100% { transform: scale(1); }
     }
 
     .match-space {
@@ -635,6 +872,18 @@
       display: flex;
       gap: 18px;
       flex-wrap: wrap;
+    }
+
+    .choice.is-correct {
+      border-color: color-mix(in srgb, var(--green) 62%, var(--line));
+      background: color-mix(in srgb, var(--green) 9%, var(--panel-bg));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 13%, transparent);
+    }
+
+    .choice.is-wrong {
+      border-color: color-mix(in srgb, var(--red) 62%, var(--line));
+      background: color-mix(in srgb, var(--red) 9%, var(--panel-bg));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--red) 13%, transparent);
     }
 
     .prompt-list {
@@ -727,6 +976,67 @@
       margin: 18px 0;
     }
 
+    .check-actions,
+    .read-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 16px 0 0;
+    }
+
+    .check-actions + .field-grid {
+      margin-top: 28px;
+    }
+
+    .check-button,
+    .read-button {
+      border: 0;
+      border-radius: 999px;
+      background: var(--accent, var(--blue));
+      color: #fff;
+      font: inherit;
+      font-weight: 850;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: filter .16s ease, transform .16s ease, box-shadow .16s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .check-button:hover,
+    .check-button:focus-visible,
+    .read-button:hover,
+    .read-button:focus-visible {
+      filter: brightness(1.05);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, var(--blue)) 18%, transparent);
+      outline: 0;
+    }
+
+    .check-button:active,
+    .read-button:active {
+      transform: scale(.97);
+    }
+
+    .read-button.is-read {
+      background: var(--green);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 18%, transparent);
+    }
+
+    .check-status {
+      min-height: 1.45em;
+      font-weight: 850;
+      color: var(--muted);
+    }
+
+    .check-status.is-success {
+      color: var(--green);
+    }
+
+    .check-status.is-error {
+      color: var(--red);
+    }
+
     .file-name {
       display: inline-flex;
       align-items: center;
@@ -744,16 +1054,39 @@
       overflow: hidden;
     }
 
+    .prompt-box summary {
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .prompt-box summary::-webkit-details-marker {
+      display: none;
+    }
+
     .prompt-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--line);
+      padding: 13px 14px;
       background: color-mix(in srgb, var(--accent, var(--blue)) 10%, var(--panel-bg));
       font-weight: 850;
       color: var(--slide-title);
+    }
+
+    .prompt-box[open] .prompt-head {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .prompt-summary-label::before {
+      content: "▸";
+      display: inline-block;
+      margin-right: 8px;
+      transition: transform .16s ease;
+    }
+
+    .prompt-box[open] .prompt-summary-label::before {
+      transform: rotate(90deg);
     }
 
     .copy-prompt {
@@ -767,6 +1100,20 @@
       padding: 8px 12px;
       cursor: pointer;
       white-space: nowrap;
+      transition: filter .16s ease, transform .16s ease, box-shadow .16s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .copy-prompt:hover,
+    .copy-prompt:focus-visible {
+      filter: brightness(1.05);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, var(--blue)) 18%, transparent);
+      outline: 0;
+    }
+
+    .copy-prompt:active {
+      transform: scale(.97);
     }
 
     .prompt-code {
@@ -803,12 +1150,28 @@
       font-weight: 900;
       line-height: 1;
       cursor: pointer;
+      transition: background .16s ease, box-shadow .16s ease, transform .16s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .round-nav:hover,
+    .round-nav:focus-visible {
+      box-shadow:
+        0 12px 28px rgba(15, 23, 42, .16),
+        0 0 0 3px color-mix(in srgb, var(--accent, var(--blue)) 16%, transparent);
+      outline: 0;
+    }
+
+    .round-nav:active {
+      transform: scale(.94);
     }
 
     .round-nav:disabled {
       opacity: .36;
       cursor: default;
       box-shadow: none;
+      transform: none;
     }
 
     .print-final {
@@ -823,6 +1186,9 @@
       padding: 0 22px;
       cursor: pointer;
       box-shadow: 0 12px 28px rgba(15, 23, 42, .18);
+      transition: filter .16s ease, transform .16s ease, box-shadow .16s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .print-final.is-visible {
@@ -830,7 +1196,40 @@
       align-items: center;
     }
 
-    button:not(.match-item):not(.task-tile):not(.round-nav):not(.print-final):not(.copy-prompt) {
+    .print-final:hover,
+    .print-final:focus-visible {
+      filter: brightness(1.05);
+      box-shadow:
+        0 12px 28px rgba(15, 23, 42, .18),
+        0 0 0 3px color-mix(in srgb, var(--violet) 16%, transparent);
+      outline: 0;
+    }
+
+    .print-final:active {
+      transform: scale(.97);
+    }
+
+    .print-status {
+      width: min(620px, 100%);
+      color: var(--muted);
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .print-status.is-error {
+      color: var(--red);
+    }
+
+    .print-status.is-admin {
+      color: var(--green);
+    }
+
+    .print-status ul {
+      margin: 6px 0 0;
+      padding-left: 1.2rem;
+    }
+
+    button:not(.match-item):not(.task-tile):not(.round-nav):not(.print-final):not(.copy-prompt):not(.check-button):not(.read-button):not(.settings-button):not(.admin-unlock) {
       border: 0;
       border-radius: 10px;
       background: var(--ink);
@@ -1028,20 +1427,36 @@
       <div class="header-panel">
         <div class="title-row">
           <div>
-            <h1>iB-Startcheck</h1>
+            <h1>IB-Startcheck</h1>
             <p class="subtitle">Präsentieren · Speichern · KI nutzen</p>
           </div>
           <div class="header-tools">
             <div class="lesson-tag">
-              <strong>Erste iB-Lektion</strong>
+              <strong>Erste IB-Lektion</strong>
               <span>Arbeitsblatt</span>
             </div>
-            <label class="theme-toggle">
-              <span>White</span>
-              <input type="checkbox" data-theme-toggle aria-label="Dark Theme aktivieren">
-              <span class="theme-slider" aria-hidden="true"></span>
-              <span>Dark</span>
-            </label>
+            <div class="settings-wrap">
+              <button class="settings-button" type="button" data-settings-toggle aria-label="Optionen öffnen">⚙</button>
+              <div class="settings-panel" data-settings-panel>
+                <div class="settings-group">
+                  <span class="settings-title">Theme</span>
+                  <label class="theme-toggle">
+                    <span>White</span>
+                    <input type="checkbox" data-theme-toggle aria-label="Dark Theme aktivieren">
+                    <span class="theme-slider" aria-hidden="true"></span>
+                    <span>Dark</span>
+                  </label>
+                </div>
+                <div class="settings-group">
+                  <span class="settings-title">Admin Mode</span>
+                  <div class="admin-row">
+                    <input type="password" data-admin-password placeholder="Passwort" autocomplete="off">
+                    <button class="admin-unlock" type="button" data-admin-unlock>Freischalten</button>
+                  </div>
+                  <span class="admin-status" data-admin-status aria-live="polite"></span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1050,10 +1465,10 @@
 
     <div class="workspace">
       <nav class="task-nav" aria-label="Aufgaben">
-        <button class="task-tile is-active" type="button" data-task-target="task-1" style="--tile-color: var(--red)"><span class="task-number">01</span><span class="task-label">Auftrag: Das bin ich</span></button>
+        <button class="task-tile is-active" type="button" data-task-target="task-1" style="--tile-color: var(--red)"><span class="task-number">01</span><span class="task-label">Auftrag: Mini-Präsentation</span></button>
         <button class="task-tile" type="button" data-task-target="task-2" style="--tile-color: var(--orange)"><span class="task-number">02</span><span class="task-label">Meine Präsentation</span></button>
-        <button class="task-tile" type="button" data-task-target="task-3" style="--tile-color: var(--yellow)"><span class="task-number">03</span><span class="task-label">Speichern und testen</span></button>
-        <button class="task-tile" type="button" data-task-target="task-4" style="--tile-color: var(--green)"><span class="task-number">04</span><span class="task-label">Gute Dateinamen erkennen</span></button>
+        <button class="task-tile" type="button" data-task-target="task-3" style="--tile-color: var(--yellow)"><span class="task-number">03</span><span class="task-label">Gute Dateinamen erkennen</span></button>
+        <button class="task-tile" type="button" data-task-target="task-4" style="--tile-color: var(--green)"><span class="task-number">04</span><span class="task-label">Speichern und testen</span></button>
         <button class="task-tile" type="button" data-task-target="task-5" style="--tile-color: var(--blue)"><span class="task-number">05</span><span class="task-label">KI richtig nutzen</span></button>
         <button class="task-tile" type="button" data-task-target="task-6" style="--tile-color: var(--indigo)"><span class="task-number">06</span><span class="task-label">Was darf über mich rein?</span></button>
         <button class="task-tile" type="button" data-task-target="task-7" style="--tile-color: var(--violet)"><span class="task-number">07</span><span class="task-label">Werkzeuge: Tastenkombinationen</span></button>
@@ -1064,9 +1479,9 @@
       <section class="section is-active" data-task="task-1" style="--accent: var(--red)">
         <div class="section-number"><span>01</span><span>★</span></div>
         <div class="section-body">
-          <h2 class="section-title">Auftrag: Mini-Präsentation «Das bin ich»</h2>
+          <h2 class="section-title">Auftrag: Mini-Präsentation</h2>
           <div class="section-content">
-            <p class="auftrag-intro">Erstelle eine kurze Präsentation über dich.</p>
+            <p class="auftrag-intro">Erstelle eine kurze Präsentation über dich und deine ersten Ideen für IB (Informatische Bildung).</p>
 
             <div class="variant-grid">
               <div class="variant-card">
@@ -1075,7 +1490,7 @@
               </div>
               <div class="variant-card">
                 <strong>Variante B</strong>
-                HTML-Präsentation mit KI
+                HTML-Präsentation erzeugen mittels KI
               </div>
             </div>
             <p class="auftrag-intro"><strong>Beide Varianten sind gleichwertig.</strong></p>
@@ -1083,7 +1498,7 @@
             <div class="auftrag-grid">
               <div class="auftrag-card">
                 <strong>1. Titel / Name</strong>
-                <p>Beispiel: «Das bin ich – Lina»</p>
+                <p>Beispiel: «Kurzvorstellung – Lina»</p>
               </div>
               <div class="auftrag-card">
                 <strong>2. Drei Dinge über mich</strong>
@@ -1094,7 +1509,7 @@
                 <p>Wähle etwas aus, das du der Klasse zeigen darfst.</p>
               </div>
               <div class="auftrag-card">
-                <strong>4. Was ich im iB lernen möchte</strong>
+                <strong>4. Was ich im IB lernen möchte</strong>
                 <p>Zum Beispiel: Webseiten, Games, KI, Präsentationen, Programmieren, Hardware</p>
               </div>
               <div class="auftrag-card wide">
@@ -1104,48 +1519,51 @@
             </div>
 
             <div class="warning-box">
-              <strong>Wichtig</strong>
+              <strong>⚠️ Wichtig</strong>
               <p>Teile nur Informationen, die die Klasse wissen darf. Nicht in die Präsentation gehören:</p>
               <ul class="avoid-list">
                 <li>genaue Adresse</li>
                 <li>Telefonnummer</li>
-                <li>private Probleme</li>
-                <li>peinliche Informationen</li>
-                <li>Dinge, die du nicht vor der Klasse zeigen möchtest</li>
+                <li>zu persönliche Informationen</li>
               </ul>
+              <div class="read-actions">
+                <button class="read-button" type="button" data-read-confirm="task-1-important" aria-pressed="false">Gelesen</button>
+              </div>
             </div>
 
             <div class="final-box">
-              <strong>Am Schluss</strong>
+              <strong>🏁 Ziel</strong>
               <p>Deine Präsentation soll im Vollbild gezeigt werden können.</p>
               <p>Speichere deine Datei mit einem sinnvollen Namen: <span class="file-name">vorname_vorstellung.pptx</span> oder <span class="file-name">vorname_vorstellung.html</span></p>
               <p>Danach gibst du die Datei ab oder sendest sie per Outlook.</p>
+              <div class="read-actions">
+                <button class="read-button" type="button" data-read-confirm="task-1-goal" aria-pressed="false">Gelesen</button>
+              </div>
             </div>
 
-            <div class="prompt-box">
-              <div class="prompt-head">
-                <span>KI-Prompt für Variante B zum Kopieren</span>
+            <details class="prompt-box">
+              <summary class="prompt-head">
+                <span class="prompt-summary-label">KI-Prompt für Variante B anzeigen</span>
                 <button class="copy-prompt" type="button" data-copy-prompt>Prompt kopieren</button>
-              </div>
+              </summary>
               <pre class="prompt-code"><code data-prompt-code>Erstelle eine moderne Fullscreen-HTML-Präsentation über mich mit 5 Folien.
 
-Titel: Das bin ich – [dein Vorname]
+Titel: Meine Kurzvorstellung – [dein Vorname]
 
 Inhalt:
 1. Titel / Name
 2. Drei Dinge über mich: [1], [2], [3]
 3. Ein Hobby, Lieblingsgame oder eine Lieblingsapp: [...]
-4. Was ich im iB lernen möchte: [...]
+4. Was ich im IB lernen möchte: [...]
 5. Ein harmloser Fun Fact für ein Klassenquiz: [...]
 
 Wichtig:
-- Verwende nur Informationen, die die Klasse wissen darf.
-- Keine Adresse, keine Telefonnummer, keine privaten Probleme und nichts Peinliches.
+- Keine Adresse, keine Telefonnummer und nichts zu Persönliches.
 - Grosse Schrift, gute Kontraste, moderne Gestaltung und passende Emojis.
 - Die Präsentation soll im Vollbild gut funktionieren.
 - Navigation mit Pfeiltasten und Buttons.
 - Gib mir alles in einer einzigen HTML-Datei.</code></pre>
-            </div>
+            </details>
           </div>
         </div>
       </section>
@@ -1184,7 +1602,54 @@ Wichtig:
       </section>
 
       <section class="section" data-task="task-3" style="--accent: var(--yellow)">
-        <div class="section-number"><span>03</span><span>⛶</span></div>
+        <div class="section-number"><span>03</span><span>◆</span></div>
+        <div class="section-body">
+          <h2 class="section-title">Gute Dateinamen erkennen</h2>
+          <div class="section-content">
+            <span class="label">Kreuze an: Ist der Dateiname gut oder schlecht?</span>
+            <table class="mini-table">
+              <thead>
+                <tr>
+                  <th>Dateiname</th>
+                  <th>Bewertung</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>präsentation.pptx</td>
+                  <td class="rating" data-filename-row="presentation"><label class="choice"><input type="checkbox" name="filename-presentation" value="good" data-file-answer> gut</label><label class="choice"><input type="checkbox" name="filename-presentation" value="bad" data-file-answer> schlecht</label></td>
+                </tr>
+                <tr>
+                  <td>lena_vorstellung.pptx</td>
+                  <td class="rating" data-filename-row="lena"><label class="choice"><input type="checkbox" name="filename-lena" value="good" data-file-answer> gut</label><label class="choice"><input type="checkbox" name="filename-lena" value="bad" data-file-answer> schlecht</label></td>
+                </tr>
+                <tr>
+                  <td>asdfasdf.html</td>
+                  <td class="rating" data-filename-row="asdf"><label class="choice"><input type="checkbox" name="filename-asdf" value="good" data-file-answer> gut</label><label class="choice"><input type="checkbox" name="filename-asdf" value="bad" data-file-answer> schlecht</label></td>
+                </tr>
+                <tr>
+                  <td>noah_ib_start.html</td>
+                  <td class="rating" data-filename-row="noah"><label class="choice"><input type="checkbox" name="filename-noah" value="good" data-file-answer> gut</label><label class="choice"><input type="checkbox" name="filename-noah" value="bad" data-file-answer> schlecht</label></td>
+                </tr>
+                <tr>
+                  <td>meine neue neue finale version 3.pptx</td>
+                  <td class="rating" data-filename-row="final"><label class="choice"><input type="checkbox" name="filename-final" value="good" data-file-answer> gut</label><label class="choice"><input type="checkbox" name="filename-final" value="bad" data-file-answer> schlecht</label></td>
+                </tr>
+              </tbody>
+            </table>
+            <label>Mein guter Dateiname
+              <input type="text" name="good-filename">
+            </label>
+            <div class="check-actions">
+              <button class="check-button" type="button" data-check-task="task-3">Aufgabe prüfen</button>
+              <span class="check-status" data-check-status="task-3" aria-live="polite"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-task="task-4" style="--accent: var(--green)">
+        <div class="section-number"><span>04</span><span>⛶</span></div>
         <div class="section-body">
           <h2 class="section-title">Speichern und testen</h2>
           <div class="section-content">
@@ -1202,49 +1667,6 @@ Wichtig:
                 <input type="text" name="fullscreen-html">
               </label>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" data-task="task-4" style="--accent: var(--green)">
-        <div class="section-number"><span>04</span><span>◆</span></div>
-        <div class="section-body">
-          <h2 class="section-title">Gute Dateinamen erkennen</h2>
-          <div class="section-content">
-            <span class="label">Kreuze an: Ist der Dateiname gut oder schlecht?</span>
-            <table class="mini-table">
-              <thead>
-                <tr>
-                  <th>Dateiname</th>
-                  <th>Bewertung</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>präsentation.pptx</td>
-                  <td class="rating"><label class="choice"><input type="checkbox"> gut</label><label class="choice"><input type="checkbox"> schlecht</label></td>
-                </tr>
-                <tr>
-                  <td>lena_vorstellung.pptx</td>
-                  <td class="rating"><label class="choice"><input type="checkbox"> gut</label><label class="choice"><input type="checkbox"> schlecht</label></td>
-                </tr>
-                <tr>
-                  <td>asdfasdf.html</td>
-                  <td class="rating"><label class="choice"><input type="checkbox"> gut</label><label class="choice"><input type="checkbox"> schlecht</label></td>
-                </tr>
-                <tr>
-                  <td>noah_ib_start.html</td>
-                  <td class="rating"><label class="choice"><input type="checkbox"> gut</label><label class="choice"><input type="checkbox"> schlecht</label></td>
-                </tr>
-                <tr>
-                  <td>meine neue neue finale version 3.pptx</td>
-                  <td class="rating"><label class="choice"><input type="checkbox"> gut</label><label class="choice"><input type="checkbox"> schlecht</label></td>
-                </tr>
-              </tbody>
-            </table>
-            <label>Mein guter Dateiname
-              <input type="text" name="good-filename">
-            </label>
           </div>
         </div>
       </section>
@@ -1279,11 +1701,10 @@ Wichtig:
               <label class="choice"><input type="checkbox"> Lieblingsgame</label>
               <label class="choice"><input type="checkbox"> Lieblingsessen</label>
               <label class="choice"><input type="checkbox"> genaue Adresse</label>
-              <label class="choice"><input type="checkbox"> private Probleme</label>
               <label class="choice"><input type="checkbox"> Lieblingsfach</label>
               <label class="choice"><input type="checkbox"> Haustier</label>
               <label class="choice"><input type="checkbox"> Telefonnummer</label>
-              <label class="choice"><input type="checkbox"> was ich im iB lernen möchte</label>
+              <label class="choice"><input type="checkbox"> was ich im IB lernen möchte</label>
             </div>
             <div class="field-grid">
               <label>Zwei gute Dinge
@@ -1325,6 +1746,10 @@ Wichtig:
                 <button class="match-item" type="button" data-side="right" data-id="switch"><span class="match-dot"></span> zwischen Fenstern wechseln</button>
               </div>
             </div>
+            <div class="check-actions">
+              <button class="check-button" type="button" data-check-task="task-7">Verbindungen prüfen</button>
+              <span class="check-status" data-check-status="task-7" aria-live="polite"></span>
+            </div>
             <div class="field-grid">
               <label>Heute am meisten genutzt
                 <input type="text" name="most-used">
@@ -1355,7 +1780,7 @@ Wichtig:
               <label>Das fand ich schwierig
                 <textarea name="difficult"></textarea>
               </label>
-              <label>Das möchte ich im iB gerne einmal machen
+              <label>Das möchte ich im IB gerne einmal machen
                 <textarea name="future"></textarea>
               </label>
               <label>Fun Fact fürs Klassenquiz
@@ -1373,6 +1798,7 @@ Wichtig:
         <button class="round-nav" type="button" data-slide-prev aria-label="Vorheriges Thema">&lt;</button>
         <button class="round-nav" type="button" data-slide-next aria-label="Nächstes Thema">&gt;</button>
         <button class="print-final" type="button" data-print-final>Drucken / PDF</button>
+        <div class="print-status" data-print-status aria-live="polite"></div>
       </div>
     </div>
   </form>
@@ -1422,6 +1848,13 @@ Wichtig:
       const prevButton = document.querySelector("[data-slide-prev]");
       const nextButton = document.querySelector("[data-slide-next]");
       const printButton = document.querySelector("[data-print-final]");
+      const printStatus = document.querySelector("[data-print-status]");
+      const settingsToggle = document.querySelector("[data-settings-toggle]");
+      const settingsPanel = document.querySelector("[data-settings-panel]");
+      const adminPassword = document.querySelector("[data-admin-password]");
+      const adminUnlock = document.querySelector("[data-admin-unlock]");
+      const adminStatus = document.querySelector("[data-admin-status]");
+      let adminMode = saved.adminMode === true;
       let activeTaskIndex = 0;
 
       const updateSlideControls = () => {
@@ -1471,12 +1904,11 @@ Wichtig:
         if (next) setActiveTask(next.dataset.task);
       });
 
-      printButton?.addEventListener("click", () => window.print());
-
-
       const copyPromptButton = document.querySelector("[data-copy-prompt]");
       const promptCode = document.querySelector("[data-prompt-code]");
-      copyPromptButton?.addEventListener("click", async () => {
+      copyPromptButton?.addEventListener("click", async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         const text = promptCode?.textContent || "";
         if (!text.trim()) return;
         try {
@@ -1495,6 +1927,11 @@ Wichtig:
         return `field:${index}`;
       };
 
+      const syncChoiceState = (field) => {
+        if (field.type !== "checkbox") return;
+        field.closest(".choice")?.classList.toggle("is-checked", field.checked);
+      };
+
       fields.forEach((field, index) => {
         const key = fieldKey(field, index);
         field.dataset.storeKey = key;
@@ -1506,15 +1943,261 @@ Wichtig:
           }
         }
 
+        syncChoiceState(field);
+
         const saveField = () => {
           const next = readSaved();
           next[key] = field.type === "checkbox" ? field.checked : field.value;
           writeSaved(next);
+          updateTaskTiles();
         };
 
         field.addEventListener("blur", saveField);
+        if (field.type !== "checkbox" && field.type !== "date") {
+          field.addEventListener("input", () => updateTaskTiles());
+        }
         if (field.type === "checkbox" || field.type === "date") {
-          field.addEventListener("change", saveField);
+          field.addEventListener("change", () => {
+            syncChoiceState(field);
+            saveField();
+          });
+        }
+      });
+
+      const taskNeedsSolved = (taskId) => taskId === "task-3" || taskId === "task-7";
+
+      const taskTileLabel = (tile) => {
+        const number = tile?.querySelector(".task-number")?.textContent.trim() || "";
+        const label = tile?.querySelector(".task-label")?.textContent.trim() || tile?.textContent.trim() || "";
+        return `${number} ${label}`.trim();
+      };
+
+      const setDoneTile = (taskId, done) => {
+        const tile = document.querySelector(`[data-task-target="${taskId}"]`);
+        const ariaLabel = taskTileLabel(tile);
+        tile?.classList.toggle("is-done", Boolean(done));
+        tile?.setAttribute("aria-label", done ? `${ariaLabel} vollständig` : ariaLabel);
+      };
+
+      const isTextFieldComplete = (field) => field.value.trim().length > 0;
+
+      const isCheckboxAreaComplete = (area) => {
+        return Boolean(area.querySelector('input[type="checkbox"]:not([data-theme-toggle]):checked'));
+      };
+
+      const isReadConfirmComplete = (button) => button.getAttribute("aria-pressed") === "true";
+
+      const isTaskComplete = (taskId) => {
+        const task = document.querySelector(`[data-task="${taskId}"]`);
+        if (!task) return false;
+
+        const textFields = [...task.querySelectorAll('input[type="text"], input[type="date"], textarea')];
+        const textComplete = textFields.every(isTextFieldComplete);
+
+        const checkboxAreas = [...task.querySelectorAll(".check-grid, .rating, .prompt-list, .privacy-options")];
+        const checkboxComplete = checkboxAreas.every(isCheckboxAreaComplete);
+
+        const readButtons = [...task.querySelectorAll("[data-read-confirm]")];
+        const readComplete = readButtons.every(isReadConfirmComplete);
+
+        const hasMatchingBoard = Boolean(task.querySelector("[data-matching-board]"));
+        const matchingComplete = !hasMatchingBoard || links.size === items.filter((item) => item.dataset.side === "left").length;
+
+        return textComplete && checkboxComplete && readComplete && matchingComplete;
+      };
+
+      const updateTaskTiles = () => {
+        const latest = readSaved();
+        taskTiles.forEach((tile) => {
+          const taskId = tile.dataset.taskTarget;
+          const complete = isTaskComplete(taskId);
+          const solvedOk = !taskNeedsSolved(taskId) || latest.solvedTasks?.[taskId] === true;
+          setDoneTile(taskId, complete && solvedOk);
+        });
+      };
+
+      const missingDoneTasks = () => {
+        updateTaskTiles();
+        return taskTiles.filter((tile) => !tile.classList.contains("is-done"));
+      };
+
+      const setPrintStatus = (html = "", mode = "idle") => {
+        if (!printStatus) return;
+        printStatus.innerHTML = html;
+        printStatus.classList.toggle("is-error", mode === "error");
+        printStatus.classList.toggle("is-admin", mode === "admin");
+      };
+
+      const setAdminStatus = (text, mode = "idle") => {
+        if (!adminStatus) return;
+        adminStatus.textContent = text;
+        adminStatus.classList.toggle("is-on", mode === "on");
+        adminStatus.classList.toggle("is-error", mode === "error");
+      };
+
+      const setAdminMode = (enabled) => {
+        adminMode = Boolean(enabled);
+        const next = readSaved();
+        next.adminMode = adminMode;
+        writeSaved(next);
+        setAdminStatus(adminMode ? "Admin Mode aktiv: PDF darf immer erstellt werden." : "", adminMode ? "on" : "idle");
+        settingsToggle?.classList.toggle("is-admin", adminMode);
+      };
+
+      setAdminMode(adminMode);
+
+      settingsToggle?.addEventListener("click", () => {
+        settingsPanel?.classList.toggle("is-open");
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!settingsPanel?.classList.contains("is-open")) return;
+        if (event.target.closest(".settings-wrap")) return;
+        settingsPanel.classList.remove("is-open");
+      });
+
+      adminUnlock?.addEventListener("click", () => {
+        if (adminPassword?.value === "SamusAran") {
+          setAdminMode(true);
+          adminPassword.value = "";
+          setPrintStatus("Admin Mode aktiv. PDF kann auch ohne vollständige Kacheln erstellt werden.", "admin");
+        } else {
+          setAdminStatus("Falsches Passwort.", "error");
+        }
+      });
+
+      adminPassword?.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          adminUnlock?.click();
+        }
+      });
+
+      const handlePrint = () => {
+        const missing = missingDoneTasks();
+        if (missing.length === 0 || adminMode) {
+          if (adminMode && missing.length > 0) {
+            setPrintStatus("Admin Override aktiv: PDF wird trotz fehlender Kacheln erstellt.", "admin");
+          } else {
+            setPrintStatus("");
+          }
+          window.print();
+          return;
+        }
+
+        const list = missing.map((tile) => `<li>${taskTileLabel(tile)}</li>`).join("");
+        setPrintStatus(`PDF noch gesperrt. Diese Aufgaben fehlen noch:<ul>${list}</ul>`, "error");
+      };
+
+      printButton?.addEventListener("click", handlePrint);
+
+      const setReadButton = (button, isRead) => {
+        button.classList.toggle("is-read", isRead);
+        button.setAttribute("aria-pressed", isRead ? "true" : "false");
+        button.textContent = isRead ? "✓ Gelesen" : "Gelesen";
+      };
+
+      document.querySelectorAll("[data-read-confirm]").forEach((button) => {
+        const key = button.dataset.readConfirm;
+        setReadButton(button, saved.readConfirmations?.[key] === true);
+        button.addEventListener("click", () => {
+          const nextState = button.getAttribute("aria-pressed") !== "true";
+          const next = readSaved();
+          next.readConfirmations = { ...(next.readConfirmations || {}), [key]: nextState };
+          writeSaved(next);
+          setReadButton(button, nextState);
+          updateTaskTiles();
+        });
+      });
+
+      const saveSolvedTask = (taskId, solved) => {
+        const next = readSaved();
+        next.solvedTasks = { ...(next.solvedTasks || {}), [taskId]: Boolean(solved) };
+        writeSaved(next);
+        updateTaskTiles();
+      };
+
+      const setCheckStatus = (taskId, text, mode = "idle") => {
+        const status = document.querySelector(`[data-check-status="${taskId}"]`);
+        if (!status) return;
+        status.textContent = text;
+        status.classList.toggle("is-success", mode === "success");
+        status.classList.toggle("is-error", mode === "error");
+      };
+
+      if (saved.solvedTasks?.["task-3"] || saved.solvedTasks?.["task-4"]) {
+        if (!saved.solvedTasks?.["task-3"] && saved.solvedTasks?.["task-4"]) {
+          const next = readSaved();
+          next.solvedTasks = { ...(next.solvedTasks || {}), "task-3": true, "task-4": false };
+          writeSaved(next);
+        }
+        setCheckStatus("task-3", "Gespeichert: Aufgabe 03 ist richtig gelöst.", "success");
+      }
+
+      if (saved.solvedTasks?.["task-7"]) {
+        setCheckStatus("task-7", "Gespeichert: Aufgabe 07 ist richtig gelöst.", "success");
+      }
+
+      const filenameAnswers = {
+        presentation: "bad",
+        lena: "good",
+        asdf: "bad",
+        noah: "good",
+        final: "bad"
+      };
+
+      const clearFilenameFeedback = () => {
+        document.querySelectorAll("[data-file-answer]").forEach((input) => {
+          input.closest(".choice")?.classList.remove("is-correct", "is-wrong");
+        });
+      };
+
+      document.querySelectorAll("[data-file-answer]").forEach((input) => {
+        input.addEventListener("change", () => {
+          if (input.checked) {
+            input.closest(".rating")?.querySelectorAll("[data-file-answer]").forEach((other) => {
+              if (other !== input) {
+                other.checked = false;
+                syncChoiceState(other);
+                const next = readSaved();
+                next[other.dataset.storeKey] = false;
+                writeSaved(next);
+              }
+            });
+          }
+          clearFilenameFeedback();
+          saveSolvedTask("task-3", false);
+          setCheckStatus("task-3", "");
+        });
+      });
+
+      document.querySelector('[data-check-task="task-3"]')?.addEventListener("click", () => {
+        clearFilenameFeedback();
+        let correctCount = 0;
+        let answeredCount = 0;
+
+        Object.entries(filenameAnswers).forEach(([rowId, expected]) => {
+          const row = document.querySelector(`[data-filename-row="${rowId}"]`);
+          const checked = row?.querySelector("[data-file-answer]:checked");
+          if (!row || !checked) return;
+
+          answeredCount += 1;
+          const choice = checked.closest(".choice");
+          const isCorrect = checked.value === expected;
+          choice?.classList.add(isCorrect ? "is-correct" : "is-wrong");
+          if (isCorrect) correctCount += 1;
+        });
+
+        const total = Object.keys(filenameAnswers).length;
+        const solved = correctCount === total;
+        saveSolvedTask("task-3", solved);
+
+        if (solved) {
+          setCheckStatus("task-3", "Richtig gelöst und gespeichert.", "success");
+        } else if (answeredCount < total) {
+          setCheckStatus("task-3", "Noch nicht alle Zeilen bewertet.", "error");
+        } else {
+          setCheckStatus("task-3", "Noch nicht richtig. Rote Auswahl prüfen.", "error");
         }
       });
 
@@ -1535,11 +2218,38 @@ Wichtig:
       const items = [...board.querySelectorAll(".match-item")];
       const links = new Map(Array.isArray(saved.matches) ? saved.matches : []);
       let selected = null;
+      let wrongLinks = new Set();
+      let wrongFadeTimer = null;
+      let wrongRemoveTimer = null;
+
+      const shortcutAnswers = {
+        "ctrl-s": "save",
+        "ctrl-c": "copy",
+        "ctrl-v": "paste",
+        "ctrl-z": "undo",
+        "alt-tab": "switch",
+        f5: "present",
+        f11: "fullscreen"
+      };
+
+      const linkKey = (leftId, rightId) => `${leftId}:${rightId}`;
+
+      const clearWrongTimers = () => {
+        if (wrongFadeTimer) clearTimeout(wrongFadeTimer);
+        if (wrongRemoveTimer) clearTimeout(wrongRemoveTimer);
+        wrongFadeTimer = null;
+        wrongRemoveTimer = null;
+      };
+
+      items.forEach((item) => {
+        item.setAttribute("aria-pressed", "false");
+      });
 
       const saveMatches = () => {
         const next = readSaved();
         next.matches = [...links.entries()];
         writeSaved(next);
+        updateTaskTiles();
       };
 
       const dotCenter = (item) => {
@@ -1559,6 +2269,7 @@ Wichtig:
           });
           item.classList.toggle("is-selected", item === selected);
           item.classList.toggle("is-connected", connected);
+          item.setAttribute("aria-pressed", item === selected || connected ? "true" : "false");
         });
       };
 
@@ -1576,6 +2287,9 @@ Wichtig:
           line.setAttribute("y1", start.y);
           line.setAttribute("x2", end.x);
           line.setAttribute("y2", end.y);
+          line.dataset.leftId = leftId;
+          line.dataset.rightId = rightId;
+          line.classList.toggle("is-wrong", wrongLinks.has(linkKey(leftId, rightId)));
           svg.append(line);
         }
         updateStates();
@@ -1583,18 +2297,79 @@ Wichtig:
 
       svg.addEventListener("redraw-lines", drawLines);
 
+      const flashPair = (left, right) => {
+        left.classList.add("just-connected");
+        right.classList.add("just-connected");
+        setTimeout(() => {
+          left.classList.remove("just-connected");
+          right.classList.remove("just-connected");
+        }, 420);
+      };
+
       const connect = (left, right) => {
+        clearWrongTimers();
+        wrongLinks = new Set();
         for (const [existingLeft, existingRight] of links) {
           if (existingRight === right.dataset.id) links.delete(existingLeft);
         }
         links.set(left.dataset.id, right.dataset.id);
         selected = null;
         drawLines();
+        flashPair(left, right);
         saveMatches();
+        saveSolvedTask("task-7", false);
+        setCheckStatus("task-7", "");
       };
+
+      document.querySelector('[data-check-task="task-7"]')?.addEventListener("click", () => {
+        clearWrongTimers();
+        wrongLinks = new Set();
+
+        for (const [leftId, rightId] of links) {
+          if (shortcutAnswers[leftId] !== rightId) {
+            wrongLinks.add(linkKey(leftId, rightId));
+          }
+        }
+
+        drawLines();
+
+        const total = Object.keys(shortcutAnswers).length;
+        const solved = links.size === total && wrongLinks.size === 0;
+        saveSolvedTask("task-7", solved);
+
+        if (solved) {
+          setCheckStatus("task-7", "Richtig gelöst und gespeichert.", "success");
+          return;
+        }
+
+        if (wrongLinks.size > 0) {
+          setCheckStatus("task-7", `${wrongLinks.size} falsche Verbindung${wrongLinks.size === 1 ? "" : "en"} rot markiert.`, "error");
+          wrongFadeTimer = setTimeout(() => {
+            svg.querySelectorAll("line.is-wrong").forEach((line) => line.classList.add("is-fading"));
+            wrongRemoveTimer = setTimeout(() => {
+              wrongLinks.forEach((key) => {
+                const [leftId] = key.split(":");
+                links.delete(leftId);
+              });
+              wrongLinks = new Set();
+              drawLines();
+              saveMatches();
+              setCheckStatus("task-7", "Falsche Verbindungen entfernt. Versuche es nochmal.", "error");
+            }, 1400);
+          }, 5000);
+          return;
+        }
+
+        setCheckStatus("task-7", "Noch nicht alle Verbindungen gesetzt.", "error");
+      });
 
       items.forEach((item) => {
         item.addEventListener("click", () => {
+          clearWrongTimers();
+          if (wrongLinks.size > 0) {
+            wrongLinks = new Set();
+            drawLines();
+          }
           if (!selected) {
             selected = item;
             updateStates();
@@ -1620,7 +2395,10 @@ Wichtig:
       });
 
       window.addEventListener("resize", drawLines);
-      requestAnimationFrame(drawLines);
+      requestAnimationFrame(() => {
+        drawLines();
+        updateTaskTiles();
+      });
     })();
   </script>
 </body>
