@@ -543,6 +543,10 @@
       margin: 12px 0 22px;
     }
 
+    .privacy-task + .privacy-task {
+      margin-top: 28px;
+    }
+
     .choice {
       display: flex;
       align-items: flex-start;
@@ -1468,7 +1472,7 @@
         <button class="task-tile" type="button" data-task-target="task-3" style="--tile-color: var(--yellow)"><span class="task-number">03</span><span class="task-label">Gute Dateinamen erkennen</span></button>
         <button class="task-tile" type="button" data-task-target="task-4" style="--tile-color: var(--green)"><span class="task-number">04</span><span class="task-label">Speichern und testen</span></button>
         <button class="task-tile" type="button" data-task-target="task-5" style="--tile-color: var(--blue)"><span class="task-number">05</span><span class="task-label">KI richtig nutzen</span></button>
-        <button class="task-tile" type="button" data-task-target="task-6" style="--tile-color: var(--indigo)"><span class="task-number">06</span><span class="task-label">Was darf über mich rein?</span></button>
+        <button class="task-tile" type="button" data-task-target="task-6" style="--tile-color: var(--indigo)"><span class="task-number">06</span><span class="task-label">Was darf ich teilen?</span></button>
         <button class="task-tile" type="button" data-task-target="task-7" style="--tile-color: var(--violet)"><span class="task-number">07</span><span class="task-label">Werkzeuge: Tastenkombinationen</span></button>
         <button class="task-tile" type="button" data-task-target="task-8" style="--tile-color: var(--cyan)"><span class="task-number">08</span><span class="task-label">Rückblick</span></button>
       </nav>
@@ -1517,7 +1521,7 @@
                 <strong>⚠️ Wichtig</strong>
                 <p>Nicht in die Präsentation gehören:</p>
                 <ul class="avoid-list">
-                  <li>genaue Adresse</li>
+                  <li>Adresse</li>
                   <li>Telefonnummer</li>
                   <li>zu persönliche Informationen</li>
                 </ul>
@@ -1683,21 +1687,53 @@ Wichtig:
       <section class="section" data-task="task-6" style="--accent: var(--indigo)">
         <div class="section-number"><span>06</span><span>◉</span></div>
         <div class="section-body">
-          <h2 class="section-title">Was darf in eine Präsentation über mich?</h2>
+          <h2 class="section-title">Was darf ich teilen?</h2>
           <div class="section-content">
-            <span class="label">Kreuze an: Was darf man gut über sich teilen?</span>
-            <div class="privacy-options">
-              <label class="choice"><input type="checkbox" name="privacy-hobby" value="good" data-privacy-answer> Hobby</label>
-              <label class="choice"><input type="checkbox" name="privacy-game" value="good" data-privacy-answer> Lieblingsgame</label>
-              <label class="choice"><input type="checkbox" name="privacy-food" value="good" data-privacy-answer> Lieblingsessen</label>
-              <label class="choice"><input type="checkbox" name="privacy-address" value="bad" data-privacy-answer> genaue Adresse</label>
-              <label class="choice"><input type="checkbox" name="privacy-subject" value="good" data-privacy-answer> Lieblingsfach</label>
-              <label class="choice"><input type="checkbox" name="privacy-pet" value="good" data-privacy-answer> Haustier</label>
-              <label class="choice"><input type="checkbox" name="privacy-phone" value="bad" data-privacy-answer> Telefonnummer</label>
+            <div class="privacy-task" data-privacy-group="presentation">
+              <span class="label">Was darf in eine Präsentation über mich?</span>
+              <div class="privacy-options" data-randomize-options>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-hobby" value="good" data-privacy-answer> Hobby</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-game" value="good" data-privacy-answer> Lieblingsgame</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-food" value="good" data-privacy-answer> Lieblingsessen</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-address" value="bad" data-privacy-answer> Adresse</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-subject" value="good" data-privacy-answer> Lieblingsfach</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-pet" value="good" data-privacy-answer> Haustier</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-phone" value="bad" data-privacy-answer> Telefonnummer</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-first-name" value="good" data-privacy-answer> Vorname</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-last-name" value="good" data-privacy-answer> Nachname</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-club" value="good" data-privacy-answer> Verein</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-birthday" value="good" data-privacy-answer> Geburtsdatum</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-favorite-app" value="good" data-privacy-answer> Lieblingsapp</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-password" value="bad" data-privacy-answer> Passwort</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-pin" value="bad" data-privacy-answer> PIN</label>
+              </div>
+              <div class="check-actions">
+                <button class="check-button" type="button" data-check-privacy="presentation">Präsentation prüfen</button>
+                <span class="check-status" data-check-status="task-6-presentation" aria-live="polite"></span>
+              </div>
             </div>
-            <div class="check-actions">
-              <button class="check-button" type="button" data-check-task="task-6">Aufgabe prüfen</button>
-              <span class="check-status" data-check-status="task-6" aria-live="polite"></span>
+            <div class="privacy-task" data-privacy-group="ai">
+              <span class="label">Welche Informationen passen in unseren KI-Prompt?</span>
+              <div class="privacy-options" data-randomize-options>
+                <label class="choice"><input type="checkbox" name="privacy-ai-hobby" value="good" data-privacy-answer> Hobby</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-game" value="good" data-privacy-answer> Lieblingsgame</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-food" value="good" data-privacy-answer> Lieblingsessen</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-subject" value="good" data-privacy-answer> Lieblingsfach</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-pet" value="good" data-privacy-answer> Haustier</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-favorite-app" value="good" data-privacy-answer> Lieblingsapp</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-first-name" value="good" data-privacy-answer> Vorname</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-last-name" value="bad" data-privacy-answer> Nachname</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-address" value="bad" data-privacy-answer> Adresse</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-phone" value="bad" data-privacy-answer> Telefonnummer</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-club" value="good" data-privacy-answer> Verein</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-birthday" value="bad" data-privacy-answer> Geburtsdatum</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-password" value="bad" data-privacy-answer> Passwort</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-pin" value="bad" data-privacy-answer> PIN</label>
+              </div>
+              <div class="check-actions">
+                <button class="check-button" type="button" data-check-privacy="ai">KI-Prompt prüfen</button>
+                <span class="check-status" data-check-status="task-6-ai" aria-live="polite"></span>
+              </div>
             </div>
           </div>
         </div>
@@ -1804,6 +1840,17 @@ Wichtig:
       };
 
       const saved = readSaved();
+      const shuffleOptions = (container) => {
+        const options = [...container.children];
+        for (let index = options.length - 1; index > 0; index -= 1) {
+          const randomIndex = Math.floor(Math.random() * (index + 1));
+          [options[index], options[randomIndex]] = [options[randomIndex], options[index]];
+        }
+        options.forEach((option) => container.appendChild(option));
+      };
+
+      document.querySelectorAll("[data-randomize-options]").forEach(shuffleOptions);
+
       const studentNameEl = document.querySelector("[data-student-name]");
       const currentDateEl = document.querySelector("[data-current-date]");
       const formatDate = (date) => new Intl.DateTimeFormat("de-CH", {
@@ -2155,7 +2202,8 @@ Wichtig:
       }
 
       if (saved.solvedTasks?.["task-6"]) {
-        setCheckStatus("task-6", "Gespeichert: Aufgabe 06 ist richtig gelöst.", "success");
+        setCheckStatus("task-6-presentation", "Gespeichert.", "success");
+        setCheckStatus("task-6-ai", "Gespeichert.", "success");
       }
 
       const filenameAnswers = {
@@ -2229,41 +2277,69 @@ Wichtig:
       });
 
       const privacyInputs = [...document.querySelectorAll("[data-privacy-answer]")];
+      const isPrivacySolved = () => {
+        return privacyInputs.every((input) => {
+          return input.value === "good" ? input.checked : !input.checked;
+        });
+      };
+      const isPrivacyGroupSolved = (inputs) => {
+        return inputs.every((input) => {
+          return input.value === "good" ? input.checked : !input.checked;
+        });
+      };
+
+      if (saved.solvedTasks?.["task-6"] && !isPrivacySolved()) {
+        const next = readSaved();
+        next.solvedTasks = { ...(next.solvedTasks || {}), "task-6": false };
+        writeSaved(next);
+        setCheckStatus("task-6-presentation", "");
+        setCheckStatus("task-6-ai", "");
+      }
+
       privacyInputs.forEach((input) => {
         input.addEventListener("change", () => {
           saveSolvedTask("task-6", false);
-          setCheckStatus("task-6", "");
+          const task = input.closest("[data-privacy-group]");
+          setCheckStatus(`task-6-${task?.dataset.privacyGroup || ""}`, "");
         });
       });
 
-      document.querySelector('[data-check-task="task-6"]')?.addEventListener("click", () => {
-        let goodChecked = 0;
-        let badRemoved = 0;
+      document.querySelectorAll("[data-check-privacy]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const group = button.dataset.checkPrivacy;
+          const task = button.closest("[data-privacy-group]");
+          const inputs = [...(task?.querySelectorAll("[data-privacy-answer]") || [])];
+          const statusKey = `task-6-${group}`;
+          let goodChecked = 0;
+          let goodTotal = 0;
+          let badRemoved = 0;
 
-        privacyInputs.forEach((input) => {
-          if (!input.checked) return;
-          if (input.value === "good") {
-            goodChecked += 1;
-            return;
+          inputs.forEach((input) => {
+            if (input.value === "good") {
+              goodTotal += 1;
+              if (input.checked) goodChecked += 1;
+              return;
+            }
+            if (!input.checked) return;
+            input.checked = false;
+            syncChoiceState(input);
+            const next = readSaved();
+            next[input.dataset.storeKey] = false;
+            writeSaved(next);
+            badRemoved += 1;
+          });
+
+          const groupSolved = badRemoved === 0 && goodChecked === goodTotal && isPrivacyGroupSolved(inputs);
+          saveSolvedTask("task-6", isPrivacySolved());
+
+          if (groupSolved) {
+            setCheckStatus(statusKey, "Richtig.", "success");
+          } else if (badRemoved > 0) {
+            setCheckStatus(statusKey, "Nicht passende Haken entfernt.", "error");
+          } else {
+            setCheckStatus(statusKey, "Noch nicht alle passenden Dinge ausgewählt.", "error");
           }
-          input.checked = false;
-          syncChoiceState(input);
-          const next = readSaved();
-          next[input.dataset.storeKey] = false;
-          writeSaved(next);
-          badRemoved += 1;
         });
-
-        const solved = badRemoved === 0 && goodChecked >= 2;
-        saveSolvedTask("task-6", solved);
-
-        if (solved) {
-          setCheckStatus("task-6", "Richtig gelöst und gespeichert.", "success");
-        } else if (badRemoved > 0) {
-          setCheckStatus("task-6", "Nicht passende Haken entfernt.", "error");
-        } else {
-          setCheckStatus("task-6", "Wähle mindestens zwei passende Dinge.", "error");
-        }
       });
 
       const dateInput = document.querySelector('input[name="datum"]');
