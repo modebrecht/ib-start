@@ -1832,7 +1832,7 @@ Wichtig:
               </div>
             </div>
             <div class="privacy-task" data-privacy-group="ai">
-              <span class="label">Welche Informationen passen in unseren KI-Prompt?</span>
+              <span class="label">Welche Informationen darf ich in einen KI-Prompt schreiben?</span>
               <div class="privacy-options" data-randomize-options>
                 <label class="choice"><input type="checkbox" name="privacy-ai-hobby" value="good" data-privacy-answer> Hobby</label>
                 <label class="choice"><input type="checkbox" name="privacy-ai-game" value="good" data-privacy-answer> Lieblingsgame</label>
@@ -1844,7 +1844,7 @@ Wichtig:
                 <label class="choice"><input type="checkbox" name="privacy-ai-last-name" value="bad" data-privacy-answer> Nachname</label>
                 <label class="choice"><input type="checkbox" name="privacy-ai-address" value="bad" data-privacy-answer> Adresse</label>
                 <label class="choice"><input type="checkbox" name="privacy-ai-phone" value="bad" data-privacy-answer> Telefonnummer</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-club" value="good" data-privacy-answer> Verein</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-club" value="bad" data-privacy-answer> spezifischer Verein</label>
                 <label class="choice"><input type="checkbox" name="privacy-ai-birthday" value="bad" data-privacy-answer> Geburtsdatum</label>
                 <label class="choice"><input type="checkbox" name="privacy-ai-password" value="bad" data-privacy-answer> Passwort</label>
                 <label class="choice"><input type="checkbox" name="privacy-ai-pin" value="bad" data-privacy-answer> PIN</label>
@@ -2527,7 +2527,7 @@ Wichtig:
           saveSolvedTask("task-6", isPrivacySolved());
 
           if (groupSolved) {
-            setCheckStatus(statusKey, "Richtig.", "success");
+            setCheckStatus(statusKey, "Richtig gelöst.", "success");
           } else if (badRemoved > 0) {
             setCheckStatus(statusKey, "Nicht passende Haken entfernt.", "error");
           } else {
