@@ -1161,17 +1161,28 @@
     }
 
     .slide-controls {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: center;
+      gap: 12px 16px;
+      padding: 24px 32px 34px;
+      background: transparent;
+    }
+
+    .arrow-controls {
+      grid-column: 2;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 16px;
-      padding: 24px 32px 34px;
-      background: transparent;
     }
 
     .round-nav {
       width: 54px;
       height: 54px;
+      display: grid;
+      place-items: center;
+      padding: 0;
       border-radius: 50%;
       border: 0;
       background: var(--control-bg);
@@ -1185,6 +1196,11 @@
       transition: background .16s ease, box-shadow .16s ease, transform .16s ease;
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
+    }
+
+    .round-nav[data-slide-home] {
+      padding-bottom: 3px;
+      font-size: 1.6rem;
     }
 
     .round-nav:hover,
@@ -1226,6 +1242,8 @@
     .print-final.is-visible {
       display: inline-flex;
       align-items: center;
+      justify-self: start;
+      grid-column: 3;
     }
 
     .print-final:hover,
@@ -1242,6 +1260,8 @@
     }
 
     .print-status {
+      grid-column: 1 / -1;
+      justify-self: center;
       width: min(620px, 100%);
       color: var(--muted);
       font-weight: 800;
@@ -1402,6 +1422,16 @@
       .section-title {
         font-size: 1.38rem;
         padding: 16px 16px 0;
+      }
+
+      .print-final.is-visible {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        justify-self: center;
+      }
+
+      .print-status {
+        grid-row: 3;
       }
 
       .section-content {
@@ -1908,8 +1938,11 @@ Wichtig:
       </section>      </div>
 
       <div class="slide-controls" aria-label="Navigation">
-        <button class="round-nav" type="button" data-slide-prev aria-label="Vorheriges Thema">&lt;</button>
-        <button class="round-nav" type="button" data-slide-next aria-label="Nächstes Thema">&gt;</button>
+        <div class="arrow-controls">
+          <button class="round-nav" type="button" data-slide-home aria-label="Zu Aufgabe 1" title="Aufgabe 1">⌂</button>
+          <button class="round-nav" type="button" data-slide-prev aria-label="Vorheriges Thema">&lt;</button>
+          <button class="round-nav" type="button" data-slide-next aria-label="Nächstes Thema">&gt;</button>
+        </div>
         <button class="print-final" type="button" data-print-final>Drucken / PDF</button>
         <div class="print-status" data-print-status aria-live="polite"></div>
       </div>
@@ -1989,6 +2022,7 @@ Wichtig:
 
       const taskTiles = [...document.querySelectorAll("[data-task-target]")];
       const tasks = [...document.querySelectorAll("[data-task]")];
+      const homeButton = document.querySelector("[data-slide-home]");
       const prevButton = document.querySelector("[data-slide-prev]");
       const nextButton = document.querySelector("[data-slide-next]");
       const printButton = document.querySelector("[data-print-final]");
@@ -2007,7 +2041,7 @@ Wichtig:
         printButton?.classList.toggle("is-visible", activeTaskIndex === tasks.length - 1);
       };
 
-      const setActiveTask = (taskId, shouldSave = true) => {
+      const setActiveTask = (taskId, shouldSave = true, keepAtBottom = false) => {
         activeTaskIndex = Math.max(0, tasks.findIndex((task) => task.dataset.task === taskId));
         taskTiles.forEach((tile) => {
           tile.classList.toggle("is-active", tile.dataset.taskTarget === taskId);
@@ -2022,6 +2056,7 @@ Wichtig:
         }
         requestAnimationFrame(() => {
           document.querySelector("[data-matching-board] .match-lines")?.dispatchEvent(new Event("redraw-lines"));
+          if (keepAtBottom) window.scrollTo(0, document.documentElement.scrollHeight);
         });
         updateSlideControls();
       };
@@ -2038,14 +2073,31 @@ Wichtig:
         setActiveTask(tasks[0]?.dataset.task || "task-1", false);
       }
 
+      homeButton?.addEventListener("click", () => {
+        setActiveTask("task-1", true, true);
+      });
+
       prevButton?.addEventListener("click", () => {
         const previous = tasks[Math.max(0, activeTaskIndex - 1)];
-        if (previous) setActiveTask(previous.dataset.task);
+        if (previous) setActiveTask(previous.dataset.task, true, true);
       });
 
       nextButton?.addEventListener("click", () => {
         const next = tasks[Math.min(tasks.length - 1, activeTaskIndex + 1)];
-        if (next) setActiveTask(next.dataset.task);
+        if (next) setActiveTask(next.dataset.task, true, true);
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.altKey || event.ctrlKey || event.metaKey) return;
+        if (event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          prevButton?.click();
+        }
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          nextButton?.click();
+        }
       });
 
       const copyPromptButton = document.querySelector("[data-copy-prompt]");
