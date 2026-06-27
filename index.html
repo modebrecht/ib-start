@@ -239,6 +239,37 @@
       margin-top: 0;
     }
 
+    .admin-unlock {
+      min-height: 44px;
+      flex: 0 0 auto;
+      border: 0;
+      border-radius: 10px;
+      background: var(--violet);
+      color: #fff;
+      font: inherit;
+      font-weight: 850;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: filter .16s ease, transform .16s ease, box-shadow .16s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .admin-unlock:hover,
+    .admin-unlock:focus-visible {
+      filter: brightness(1.06);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--violet) 18%, transparent);
+      outline: 0;
+    }
+
+    .admin-unlock:active {
+      transform: scale(.97);
+    }
+
+    .admin-unlock.is-logout {
+      background: var(--red);
+    }
+
     .admin-status {
       min-height: 1.35em;
       color: var(--muted);
@@ -2172,6 +2203,12 @@ Wichtig:
         writeSaved(next);
         setAdminStatus(adminMode ? "Admin Mode aktiv: PDF darf immer erstellt werden." : "", adminMode ? "on" : "idle");
         settingsToggle?.classList.toggle("is-admin", adminMode);
+        adminUnlock?.classList.toggle("is-logout", adminMode);
+        if (adminUnlock) adminUnlock.textContent = adminMode ? "Abmelden" : "Freischalten";
+        if (adminPassword) {
+          adminPassword.hidden = adminMode;
+          adminPassword.value = "";
+        }
       };
 
       setAdminMode(adminMode);
@@ -2187,9 +2224,15 @@ Wichtig:
       });
 
       adminUnlock?.addEventListener("click", () => {
+        if (adminMode) {
+          setAdminMode(false);
+          setAdminStatus("Admin Mode deaktiviert.");
+          setPrintStatus("");
+          return;
+        }
+
         if (adminPassword?.value === "SamusAran") {
           setAdminMode(true);
-          adminPassword.value = "";
           setPrintStatus("Admin Mode aktiv. PDF kann auch ohne vollständige Kacheln erstellt werden.", "admin");
         } else {
           setAdminStatus("Falsches Passwort.", "error");
