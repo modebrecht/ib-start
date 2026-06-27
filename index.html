@@ -1718,7 +1718,7 @@ Wichtig:
         <div class="section-body">
           <h2 class="section-title">Gute Dateinamen erkennen</h2>
           <div class="section-content">
-            <span class="label">Kreuze an: Ist der Dateiname gut oder schlecht?</span>
+            <span class="label">Kreuze pro Zeile genau eine Option an: gut oder schlecht</span>
             <table class="mini-table">
               <thead>
                 <tr>
@@ -1773,7 +1773,7 @@ Wichtig:
                 <input type="text" name="location" placeholder="z. B. Desktop / Downloads / Klassenordner">
               </label>
               <label>Im Vollbild getestet
-                <input type="text" name="fullscreen-check" placeholder="z. B. PowerPoint F5 oder Browser F11">
+                <input type="text" name="fullscreen-check" placeholder="z.B. PowerPoint mit F5 / HTML im Browser mit F11">
               </label>
             </div>
             <div class="check-actions">
@@ -2425,15 +2425,18 @@ Wichtig:
         });
 
         const total = Object.keys(filenameAnswers).length;
-        const solved = correctCount === total;
+        const ownFilenameComplete = Boolean(goodFilenameInput?.value.trim());
+        const solved = correctCount === total && ownFilenameComplete;
         saveSolvedTask("task-3", solved);
 
         if (solved) {
           setCheckStatus("task-3", "Richtig gelöst und gespeichert.", "success");
         } else if (answeredCount < total) {
           setCheckStatus("task-3", "Noch nicht alle Zeilen bewertet.", "error");
-        } else {
+        } else if (correctCount < total) {
           setCheckStatus("task-3", "Noch nicht richtig. Falsche Haken entfernt.", "error");
+        } else {
+          setCheckStatus("task-3", "Bitte auch einen eigenen guten Dateinamen eintragen.", "error");
         }
       });
 
@@ -2461,7 +2464,7 @@ Wichtig:
         saveSolvedTask("task-4", solved);
 
         if (solved) {
-          setCheckStatus("task-4", "Richtig gelöst und gespeichert.", "success");
+          setCheckStatus("task-4", "Vollständig ausgefüllt und gespeichert.", "success");
         } else {
           setCheckStatus("task-4", `Noch nicht vollständig: ${missing.join(", ")}.`, "error");
         }
