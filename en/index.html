@@ -1,0 +1,2795 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IB Start Check Worksheet</title>
+  <style>
+    :root {
+      --ink: #1f2937;
+      --muted: #52607a;
+      --line: #d8e0ef;
+      --paper: rgba(255, 255, 255, .90);
+      --soft: rgba(248, 250, 255, .94);
+      --red: #e11d48;
+      --orange: #f97316;
+      --yellow: #f59e0b;
+      --green: #16a34a;
+      --blue: #2563eb;
+      --indigo: #4f46e5;
+      --violet: #7c3aed;
+      --cyan: #0891b2;
+      --shadow: 0 26px 90px rgba(31, 41, 55, .16);
+      --backdrop:
+        radial-gradient(circle at 8% 8%, rgba(37, 99, 235, .13), transparent 30%),
+        radial-gradient(circle at 92% 2%, rgba(245, 158, 11, .16), transparent 28%),
+        linear-gradient(135deg, #eef4ff 0%, #f9fbff 44%, #fff7ed 100%);
+      --field-bg: #fbfdff;
+      --field-focus-bg: #ffffff;
+      --field-color: var(--ink);
+      --label-color: #475569;
+      --slide-bg: rgba(255, 255, 255, .93);
+      --slide-title: var(--ink);
+      --slide-text: var(--ink);
+      --panel-bg: rgba(251, 253, 255, .95);
+      --table-head-bg: #f3f7ff;
+      --table-head-color: #475569;
+      --check-border: #94a3b8;
+      --check-bg: #ffffff;
+      --placeholder: rgba(71, 85, 105, .62);
+      --control-bg: #ffffff;
+      --control-color: var(--ink);
+      --lesson-bg: rgba(255, 255, 255, .86);
+      --lesson-strong: #1d4ed8;
+      --lesson-sub: #334155;
+    }
+
+    body[data-theme="dark"] {
+      --ink: #f8fafc;
+      --muted: rgba(255, 255, 255, .76);
+      --line: rgba(255, 255, 255, .24);
+      --paper: transparent;
+      --soft: rgba(15, 23, 42, .18);
+      --backdrop:
+        radial-gradient(circle at 10% 8%, rgba(225, 29, 72, .34), transparent 34%),
+        radial-gradient(circle at 88% 10%, rgba(124, 58, 237, .28), transparent 32%),
+        linear-gradient(135deg, #101827 0%, #172033 48%, #261321 100%);
+      --field-bg: rgba(15, 23, 42, .56);
+      --field-focus-bg: rgba(15, 23, 42, .76);
+      --field-color: #ffffff;
+      --label-color: rgba(255, 255, 255, .88);
+      --slide-bg: rgba(15, 23, 42, .72);
+      --slide-title: #ffffff;
+      --slide-text: #ffffff;
+      --panel-bg: rgba(15, 23, 42, .40);
+      --table-head-bg: rgba(15, 23, 42, .55);
+      --table-head-color: rgba(255, 255, 255, .86);
+      --check-border: rgba(255, 255, 255, .70);
+      --check-bg: rgba(15, 23, 42, .50);
+      --placeholder: rgba(255, 255, 255, .58);
+      --control-bg: rgba(15, 23, 42, .66);
+      --control-color: #ffffff;
+      --lesson-bg: rgba(15, 23, 42, .30);
+      --lesson-strong: #ffffff;
+      --lesson-sub: rgba(255, 255, 255, .80);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Aptos, "Segoe UI", Arial, sans-serif;
+      font-size: var(--regular-font-size, 100%);
+      color: var(--ink);
+      background: var(--backdrop);
+      background-attachment: fixed;
+      line-height: 1.45;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 32px auto;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      overflow: visible;
+    }
+
+    header {
+      position: relative;
+      z-index: 20;
+      padding: 32px;
+      border-radius: 28px;
+      overflow: visible;
+      background:
+        linear-gradient(90deg, rgba(15, 23, 42, .62), rgba(15, 23, 42, .12)),
+        radial-gradient(circle at 15% 18%, rgba(225, 29, 72, .62), transparent 36%),
+        radial-gradient(circle at 43% 6%, rgba(245, 158, 11, .46), transparent 32%),
+        radial-gradient(circle at 59% 18%, rgba(22, 163, 74, .38), transparent 31%),
+        radial-gradient(circle at 78% 10%, rgba(37, 99, 235, .42), transparent 28%),
+        radial-gradient(circle at 90% 24%, rgba(124, 58, 237, .64), transparent 42%),
+        linear-gradient(135deg, #7f1d3a 0%, #a43d2a 30%, #9a5f14 43%, #0f766e 58%, #1d4ed8 70%, #6d28d9 100%);
+      box-shadow: var(--shadow);
+    }
+
+    .header-panel { padding: 0; }
+
+    .title-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: .95;
+      letter-spacing: 0;
+      color: #ffffff;
+      text-shadow: 0 2px 18px rgba(15, 23, 42, .28);
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      color: rgba(255, 255, 255, .88);
+      font-size: 1.15em;
+    }
+
+    .student-meta {
+      min-width: 180px;
+      text-align: left;
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, .34);
+      border-radius: 18px;
+      background: var(--lesson-bg);
+      box-shadow: 0 14px 34px rgba(15, 23, 42, .16);
+    }
+
+    .student-meta strong {
+      display: block;
+      color: var(--lesson-strong);
+      font-size: 1.12em;
+    }
+
+    .student-meta span {
+      display: block;
+      color: var(--lesson-sub);
+      font-size: 1em;
+    }
+
+    .header-tools {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      position: relative;
+    }
+
+    .settings-wrap {
+      position: relative;
+    }
+
+    .settings-button {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .34);
+      border-radius: 50%;
+      background: var(--lesson-bg);
+      color: var(--lesson-strong);
+      font: inherit;
+      font-size: 1.2em;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 14px 34px rgba(15, 23, 42, .16);
+      transition: transform .16s ease, box-shadow .16s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .settings-button:hover,
+    .settings-button:focus-visible {
+      transform: translateY(-1px);
+      outline: 3px solid rgba(255, 255, 255, .66);
+      outline-offset: 3px;
+    }
+
+    .settings-panel {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      z-index: 10;
+      width: min(300px, calc(100vw - 36px));
+      display: none;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--slide-bg);
+      color: var(--slide-text);
+      box-shadow: 0 22px 60px rgba(15, 23, 42, .22);
+      backdrop-filter: blur(14px);
+    }
+
+    .settings-panel.is-open {
+      display: grid;
+      gap: 14px;
+    }
+
+    .settings-group {
+      display: grid;
+      gap: 8px;
+    }
+
+    .settings-title {
+      font-weight: 900;
+      color: var(--slide-title);
+    }
+
+    .font-scale-control {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px 12px;
+      align-items: center;
+    }
+
+    .font-scale-control input[type="range"] {
+      grid-column: 1 / -1;
+      width: 100%;
+      margin: 0;
+      accent-color: var(--violet);
+      cursor: pointer;
+    }
+
+    .font-scale-value {
+      min-width: 4ch;
+      text-align: right;
+      color: var(--slide-title);
+      font-weight: 900;
+    }
+
+    .admin-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .admin-row input {
+      min-width: 0;
+      margin-top: 0;
+    }
+
+    .admin-unlock {
+      min-height: 44px;
+      flex: 0 0 auto;
+      border: 0;
+      border-radius: 10px;
+      background: var(--violet);
+      color: #fff;
+      font: inherit;
+      font-weight: 850;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: filter .16s ease, transform .16s ease, box-shadow .16s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .admin-unlock:hover,
+    .admin-unlock:focus-visible {
+      filter: brightness(1.06);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--violet) 18%, transparent);
+      outline: 0;
+    }
+
+    .admin-unlock:active {
+      transform: scale(.97);
+    }
+
+    .admin-unlock.is-logout {
+      background: var(--red);
+    }
+
+    .admin-status {
+      min-height: 1.35em;
+      color: var(--muted);
+      font-weight: 800;
+    }
+
+    .admin-status.is-on {
+      color: var(--green);
+    }
+
+    .admin-status.is-error {
+      color: var(--red);
+    }
+
+    .theme-toggle {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, .34);
+      border-radius: 999px;
+      background: var(--lesson-bg);
+      color: var(--lesson-sub);
+      font-size: .9em;
+      font-weight: 800;
+      user-select: none;
+    }
+
+    .theme-toggle input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .theme-slider {
+      width: 46px;
+      height: 25px;
+      position: relative;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, .22);
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, .12);
+    }
+
+    .theme-slider::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 3px 10px rgba(15, 23, 42, .22);
+      transition: transform .16s ease;
+    }
+
+    .theme-toggle input:checked + .theme-slider::after {
+      transform: translateX(21px);
+    }
+
+    .color-strip { display: none; }
+
+    .workspace {
+      position: relative;
+      z-index: 1;
+      padding: 0;
+      background: transparent;
+    }
+
+    .task-nav {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 28px 0 0;
+      padding: 0;
+    }
+
+    .task-tile {
+      min-height: 118px;
+      border: 0;
+      border-radius: 22px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, .20), rgba(15, 23, 42, .14)),
+        var(--tile-color);
+      color: #fff;
+      font: inherit;
+      font-weight: 850;
+      text-align: left;
+      padding: 16px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: 0 16px 34px rgba(15, 23, 42, .14);
+      transition: filter .16s ease, transform .16s ease, box-shadow .16s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .task-tile:hover {
+      filter: brightness(1.04);
+      transform: translateY(-1px);
+    }
+
+    .task-tile:focus-visible {
+      filter: brightness(1.04);
+      transform: translateY(-1px);
+      outline: 2px solid rgba(255, 255, 255, .45);
+      outline-offset: 1px;
+    }
+
+    .task-tile:active {
+      filter: brightness(.98);
+      transform: translateY(0) scale(.985);
+    }
+
+    .task-tile.is-active {
+      box-shadow:
+        0 20px 44px rgba(15, 23, 42, .22),
+        inset 0 -7px 0 rgba(255, 255, 255, .86);
+      transform: translateY(-2px);
+    }
+
+    .task-tile.is-active:active {
+      transform: translateY(-1px) scale(.99);
+    }
+
+    .task-tile.is-done {
+      box-shadow:
+        0 16px 34px rgba(15, 23, 42, .14),
+        inset 0 0 0 3px rgba(34, 197, 94, .82);
+    }
+
+    .task-tile.is-done::after {
+      content: "✓";
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #22c55e;
+      color: #fff;
+      font-size: 1em;
+      font-weight: 950;
+      box-shadow:
+        0 8px 18px rgba(15, 23, 42, .22),
+        inset 0 0 0 2px rgba(255, 255, 255, .72);
+    }
+
+    .task-tile.is-active.is-done {
+      box-shadow:
+        0 20px 44px rgba(15, 23, 42, .22),
+        inset 0 -7px 0 rgba(34, 197, 94, .92),
+        inset 0 0 0 3px rgba(34, 197, 94, .88);
+    }
+
+    .task-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 40px;
+      height: 32px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .22);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .30);
+      font-size: .95em;
+      letter-spacing: .02em;
+    }
+
+    .task-label {
+      display: block;
+      font-size: 1.02em;
+      line-height: 1.15;
+      overflow-wrap: anywhere;
+      text-shadow: 0 1px 12px rgba(15, 23, 42, .24);
+    }
+
+    .task-stage {
+      padding: 36px 0 0;
+      background: transparent;
+    }
+
+    label,
+    .label {
+      display: block;
+      font-weight: 750;
+      color: var(--label-color);
+      font-size: .96em;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="date"],
+    textarea {
+      width: 100%;
+      margin-top: 7px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--field-bg);
+      color: var(--field-color);
+      font: inherit;
+      padding: 12px 13px;
+      outline: none;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55);
+      transition: border-color .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    textarea {
+      min-height: 82px;
+      resize: vertical;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus,
+    input[type="date"]:focus,
+    textarea:focus {
+      border-color: var(--accent, var(--blue));
+      background: var(--field-focus-bg);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .58),
+        0 0 0 4px color-mix(in srgb, var(--accent, var(--blue)) 16%, transparent);
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: var(--placeholder);
+      opacity: 1;
+    }
+
+    .section {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr);
+      border: 1px solid color-mix(in srgb, var(--accent, var(--blue)) 28%, var(--line));
+      border-radius: 28px;
+      overflow: hidden;
+      margin-top: 0;
+      background: var(--slide-bg);
+      box-shadow: 0 28px 90px rgba(15, 23, 42, .18);
+      backdrop-filter: blur(10px);
+    }
+
+    .task-stage .section { display: none; }
+
+    .task-stage .section.is-active {
+      display: grid;
+    }
+
+    .section-number {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      padding: 24px 10px;
+      color: #fff;
+      font-weight: 900;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, .18), rgba(15, 23, 42, .12)),
+        var(--accent, var(--blue));
+    }
+
+    .section-number span:first-child {
+      font-size: 1.5em;
+      letter-spacing: .04em;
+    }
+
+    .section-number span:last-child {
+      font-size: 1.2em;
+    }
+
+    .section-body {
+      min-width: 0;
+    }
+
+    .section-title {
+      margin: 0;
+      padding: 28px 34px 0;
+      font-size: clamp(2rem, 4vw, 3.45rem);
+      line-height: 1.12;
+      color: var(--slide-title);
+      background: transparent;
+      border-bottom: 0;
+      text-shadow: none;
+    }
+
+    .section-content {
+      padding: 28px 34px 36px;
+      color: var(--slide-text);
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin: 12px 0 22px;
+    }
+
+    .privacy-task + .privacy-task {
+      margin-top: 28px;
+    }
+
+    .choice {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-weight: 600;
+      color: var(--slide-text);
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .check-grid .choice,
+    .privacy-options .choice,
+    .prompt-list .choice {
+      align-items: center;
+      min-height: 52px;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel-bg);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, .05);
+      cursor: pointer;
+      transition: border-color .16s ease, box-shadow .16s ease, background .16s ease, transform .16s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .check-grid .choice:hover,
+    .check-grid .choice:focus-within,
+    .privacy-options .choice:hover,
+    .privacy-options .choice:focus-within,
+    .prompt-list .choice:hover,
+    .prompt-list .choice:focus-within {
+      border-color: color-mix(in srgb, var(--accent, var(--blue)) 44%, var(--line));
+      background: var(--field-focus-bg);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, var(--blue)) 14%, transparent);
+    }
+
+    .check-grid .choice:active,
+    .privacy-options .choice:active,
+    .prompt-list .choice:active {
+      transform: scale(.99);
+    }
+
+    .check-grid .choice:has(input:checked),
+    .check-grid .choice.is-checked,
+    .privacy-options .choice:has(input:checked),
+    .privacy-options .choice.is-checked,
+    .prompt-list .choice:has(input:checked),
+    .prompt-list .choice.is-checked {
+      border-color: color-mix(in srgb, var(--accent, var(--blue)) 62%, var(--line));
+      background: color-mix(in srgb, var(--accent, var(--blue)) 9%, var(--panel-bg));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, var(--blue)) 13%, transparent);
+    }
+
+    .choice input[type="checkbox"]:not([data-theme-toggle]) {
+      width: 20px;
+      height: 20px;
+      margin-top: 1px;
+      flex: 0 0 auto;
+    }
+
+    input[type="checkbox"]:not([data-theme-toggle]) {
+      appearance: none;
+      position: relative;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--check-border);
+      border-radius: 6px;
+      background: var(--check-bg);
+      cursor: pointer;
+      vertical-align: middle;
+      transition: border-color .16s ease, background .16s ease, box-shadow .16s ease, transform .12s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    input[type="checkbox"]:not([data-theme-toggle]):active {
+      transform: scale(.92);
+    }
+
+    input[type="checkbox"]:not([data-theme-toggle])::after {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 1px;
+      width: 6px;
+      height: 11px;
+      border: solid #ffffff;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg) scale(.6);
+      opacity: 0;
+      transition: opacity .12s ease, transform .12s ease;
+    }
+
+    input[type="checkbox"]:not([data-theme-toggle]):checked {
+      border-color: var(--accent, var(--blue));
+      background: var(--accent, var(--blue));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, var(--blue)) 15%, transparent);
+    }
+
+    input[type="checkbox"]:not([data-theme-toggle]):checked::after {
+      opacity: 1;
+      transform: rotate(45deg) scale(1);
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .wide { grid-column: 1 / -1; }
+
+    .mini-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      margin: 10px 0 18px;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: var(--panel-bg);
+    }
+
+    .mini-table th,
+    .mini-table td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: middle;
+      color: var(--slide-text);
+    }
+
+    .mini-table th {
+      background: var(--table-head-bg);
+      color: var(--table-head-color);
+      font-size: .92em;
+    }
+
+    .mini-table tr:last-child td { border-bottom: 0; }
+
+    .key {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 82px;
+      padding: 5px 10px;
+      border: 1px solid #cbd5e1;
+      border-bottom-width: 3px;
+      border-radius: 8px;
+      background: var(--panel-bg);
+      color: var(--slide-text);
+      font-weight: 850;
+      font-size: .95em;
+    }
+
+    .matching-board {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(150px, 1fr) minmax(80px, .45fr) minmax(240px, 1.35fr);
+      gap: 12px;
+      margin: 12px 0 20px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--panel-bg);
+    }
+
+    .match-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .print-match-lines {
+      display: none;
+    }
+
+    .match-lines line {
+      stroke: var(--accent, var(--blue));
+      stroke-width: 3;
+      stroke-linecap: round;
+      transition: stroke .16s ease, opacity .16s ease;
+      transform-box: fill-box;
+      transform-origin: left center;
+    }
+
+    .match-lines line.is-wrong {
+      stroke: var(--red);
+    }
+
+    .match-lines line.is-fading {
+      animation: wrong-line-dissolve 1.4s ease forwards;
+    }
+
+    @keyframes wrong-line-dissolve {
+      from {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+      to {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+    }
+
+    .match-column {
+      display: grid;
+      gap: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .match-item {
+      width: 100%;
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
+      border: 1px solid #dbe4f3;
+      border-radius: 10px;
+      background: var(--field-bg);
+      color: var(--slide-text);
+      font: inherit;
+      font-weight: 650;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color .16s ease, box-shadow .16s ease, background .16s ease, transform .16s ease;
+      user-select: none;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .match-item:hover,
+    .match-item:focus-visible,
+    .match-item.is-selected {
+      border-color: var(--accent, var(--blue));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, var(--blue)) 16%, transparent);
+      outline: 0;
+    }
+
+    .match-item:active {
+      transform: scale(.985);
+    }
+
+    .match-item.is-connected {
+      border-color: color-mix(in srgb, var(--accent, var(--blue)) 42%, var(--line));
+      background: var(--field-focus-bg);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent, var(--blue)) 10%, transparent);
+    }
+
+    .match-item.just-connected {
+      animation: match-pop .42s ease;
+    }
+
+    .match-item[data-side="left"] {
+      justify-content: flex-start;
+      border-color: transparent;
+      background: transparent;
+      padding-left: 0;
+      box-shadow: none;
+    }
+
+    .match-item[data-side="left"]:hover,
+    .match-item[data-side="left"].is-selected,
+    .match-item[data-side="left"].is-connected {
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    .match-item[data-side="left"] .key {
+      min-width: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      font-size: 1em;
+      box-shadow: none;
+    }
+
+    .match-item[data-side="left"]:hover .key,
+    .match-item[data-side="left"]:focus-visible .key,
+    .match-item[data-side="left"].is-selected .key,
+    .match-item[data-side="left"].is-connected .key {
+      color: var(--accent, var(--blue));
+      text-shadow: 0 0 18px color-mix(in srgb, var(--accent, var(--blue)) 28%, transparent);
+    }
+
+    .match-dot {
+      width: 11px;
+      height: 11px;
+      border: 2px solid var(--accent, var(--blue));
+      border-radius: 50%;
+      flex: 0 0 auto;
+      background: var(--check-bg);
+      transition: background .16s ease, box-shadow .16s ease, transform .16s ease;
+    }
+
+    .match-item:hover .match-dot,
+    .match-item:focus-visible .match-dot,
+    .match-item.is-selected .match-dot,
+    .match-item.is-connected .match-dot {
+      background: var(--accent, var(--blue));
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent, var(--blue)) 14%, transparent);
+    }
+
+    .match-item:active .match-dot {
+      transform: scale(1.18);
+    }
+
+    @keyframes match-pop {
+      0% { transform: scale(.985); }
+      55% { transform: scale(1.018); }
+      100% { transform: scale(1); }
+    }
+
+    .match-space {
+      min-height: 100%;
+      position: relative;
+      z-index: 0;
+    }
+
+    .rating {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .choice.is-correct {
+      border-color: color-mix(in srgb, var(--green) 62%, var(--line));
+      background: color-mix(in srgb, var(--green) 9%, var(--panel-bg));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 13%, transparent);
+    }
+
+    .prompt-list {
+      display: grid;
+      gap: 10px;
+      margin: 10px 0 18px;
+    }
+
+    .prompt-list .choice {
+      line-height: 1.35;
+    }
+
+    .privacy-options {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px 14px;
+      margin: 10px 0 20px;
+    }
+
+
+    .auftrag-intro {
+      margin: 0 0 18px;
+      font-size: 1.08em;
+      color: var(--slide-text);
+    }
+
+    .variant-grid,
+    .auftrag-grid,
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 14px 0 20px;
+    }
+
+    .variant-card,
+    .auftrag-card,
+    .prompt-box,
+    .warning-box,
+    .final-box {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel-bg);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, .06);
+    }
+
+    .variant-card,
+    .auftrag-card,
+    .warning-box,
+    .final-box {
+      padding: 15px 16px;
+    }
+
+    .variant-card strong,
+    .auftrag-card strong,
+    .warning-box strong,
+    .final-box strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--slide-title);
+      font-size: 1.02em;
+    }
+
+    .auftrag-card p,
+    .warning-box p,
+    .final-box p {
+      margin: 0;
+      color: var(--slide-text);
+    }
+
+    .auftrag-list,
+    .avoid-list {
+      margin: 10px 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .auftrag-list li,
+    .avoid-list li {
+      margin: 6px 0;
+    }
+
+    .warning-box {
+      border-color: color-mix(in srgb, var(--red) 34%, var(--line));
+      background: color-mix(in srgb, var(--red) 7%, var(--panel-bg));
+      margin: 18px 0;
+    }
+
+    .final-box {
+      border-color: color-mix(in srgb, var(--green) 32%, var(--line));
+      background: color-mix(in srgb, var(--green) 7%, var(--panel-bg));
+      margin: 18px 0;
+    }
+
+    .check-actions,
+    .read-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 16px 0 0;
+    }
+
+    .check-actions + .field-grid {
+      margin-top: 28px;
+    }
+
+    .check-button,
+    .read-button {
+      border: 0;
+      border-radius: 999px;
+      background: var(--accent, var(--blue));
+      color: #fff;
+      font: inherit;
+      font-weight: 850;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: filter .16s ease, transform .16s ease, box-shadow .16s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .check-button:hover,
+    .check-button:focus-visible,
+    .read-button:hover,
+    .read-button:focus-visible {
+      filter: brightness(1.05);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, var(--blue)) 18%, transparent);
+      outline: 0;
+    }
+
+    .check-button:active,
+    .read-button:active {
+      transform: scale(.97);
+    }
+
+    .read-button.is-read {
+      background: var(--green);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 18%, transparent);
+    }
+
+    .check-status {
+      min-height: 1.45em;
+      font-weight: 850;
+      color: var(--muted);
+    }
+
+    .check-status.is-success {
+      color: var(--green);
+    }
+
+    .check-status.is-error {
+      color: var(--red);
+    }
+
+    .file-name {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 8px;
+      border-radius: 8px;
+      background: var(--field-bg);
+      border: 1px solid var(--line);
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 800;
+      color: var(--slide-text);
+    }
+
+    .prompt-box {
+      margin: 18px 0 0;
+      overflow: hidden;
+    }
+
+    .prompt-box summary {
+      list-style: none;
+      cursor: pointer;
+    }
+
+    .prompt-box summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .prompt-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 14px;
+      background: color-mix(in srgb, var(--accent, var(--blue)) 10%, var(--panel-bg));
+      font-weight: 850;
+      color: var(--slide-title);
+    }
+
+    .prompt-box[open] .prompt-head {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .prompt-summary-label::before {
+      content: "▸";
+      display: inline-block;
+      margin-right: 8px;
+      transition: transform .16s ease;
+    }
+
+    .prompt-box[open] .prompt-summary-label::before {
+      transform: rotate(90deg);
+    }
+
+    .copy-prompt {
+      border: 0;
+      border-radius: 999px;
+      background: var(--accent, var(--blue));
+      color: #fff;
+      font: inherit;
+      font-size: .9em;
+      font-weight: 850;
+      padding: 8px 12px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: filter .16s ease, transform .16s ease, box-shadow .16s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .copy-prompt:hover,
+    .copy-prompt:focus-visible {
+      filter: brightness(1.05);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, var(--blue)) 18%, transparent);
+      outline: 0;
+    }
+
+    .copy-prompt:active {
+      transform: scale(.97);
+    }
+
+    .prompt-code {
+      margin: 0;
+      padding: 16px;
+      overflow: auto;
+      white-space: pre-wrap;
+      background: var(--field-bg);
+      color: var(--slide-text);
+      font-family: Consolas, "Courier New", monospace;
+      font-size: .92em;
+      line-height: 1.45;
+    }
+
+    .slide-controls {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: center;
+      gap: 12px 16px;
+      padding: 24px 32px 34px;
+      background: transparent;
+    }
+
+    .arrow-controls {
+      grid-column: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .round-nav {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border-radius: 50%;
+      border: 0;
+      background: var(--control-bg);
+      color: var(--control-color);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, .16);
+      font: inherit;
+      font-size: 1.75em;
+      font-weight: 900;
+      line-height: 1;
+      cursor: pointer;
+      transition: background .16s ease, box-shadow .16s ease, transform .16s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .round-nav[data-slide-home] {
+      padding-bottom: 3px;
+      font-size: 1.6em;
+    }
+
+    .round-nav:hover,
+    .round-nav:focus-visible {
+      box-shadow:
+        0 12px 28px rgba(15, 23, 42, .16),
+        0 0 0 3px color-mix(in srgb, var(--accent, var(--blue)) 16%, transparent);
+      outline: 0;
+    }
+
+    .round-nav:active {
+      transform: scale(.94);
+    }
+
+    .round-nav:disabled {
+      opacity: .36;
+      cursor: default;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .print-final {
+      display: none;
+      min-height: 54px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--violet);
+      color: #fff;
+      font: inherit;
+      font-weight: 850;
+      padding: 0 22px;
+      cursor: pointer;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, .18);
+      transition: filter .16s ease, transform .16s ease, box-shadow .16s ease;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .print-final.is-visible {
+      display: inline-flex;
+      align-items: center;
+      justify-self: start;
+      grid-column: 3;
+    }
+
+    .print-final:hover,
+    .print-final:focus-visible {
+      filter: brightness(1.05);
+      box-shadow:
+        0 12px 28px rgba(15, 23, 42, .18),
+        0 0 0 3px color-mix(in srgb, var(--violet) 16%, transparent);
+      outline: 0;
+    }
+
+    .print-final:active {
+      transform: scale(.97);
+    }
+
+    .print-status {
+      grid-column: 1 / -1;
+      justify-self: center;
+      width: min(620px, 100%);
+      color: var(--muted);
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .print-status.is-error {
+      color: var(--red);
+    }
+
+    .print-status.is-admin {
+      color: var(--green);
+    }
+
+    .print-status ul {
+      margin: 6px 0 0;
+      padding-left: 1.2rem;
+    }
+
+    button:not(.match-item):not(.task-tile):not(.round-nav):not(.print-final):not(.copy-prompt):not(.check-button):not(.read-button):not(.settings-button):not(.admin-unlock) {
+      border: 0;
+      border-radius: 10px;
+      background: var(--ink);
+      color: #fff;
+      font: inherit;
+      font-weight: 800;
+      padding: 11px 16px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 980px) {
+      .task-nav {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        width: calc(100% - 18px);
+        margin: 9px auto;
+      }
+
+      header {
+        padding: 22px 18px;
+        border-radius: 20px;
+      }
+
+      .title-row,
+      .field-grid,
+      .check-grid,
+      .privacy-options,
+      .variant-grid,
+      .auftrag-grid,
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header-tools {
+        justify-content: flex-start;
+      }
+
+      .student-meta {
+        min-width: 0;
+        text-align: left;
+        width: fit-content;
+        max-width: 100%;
+        justify-self: start;
+      }
+
+      .task-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 16px;
+      }
+
+      .task-tile {
+        min-height: 92px;
+        padding: 13px;
+        border-radius: 16px;
+      }
+
+      .task-label {
+        font-size: .95em;
+      }
+
+      .task-stage {
+        padding-top: 18px;
+      }
+
+      .section,
+      .task-stage .section.is-active {
+        display: block;
+        border-radius: 20px;
+      }
+
+      .section-number {
+        flex-direction: row;
+        justify-content: flex-start;
+        padding: 11px 14px;
+        gap: 12px;
+      }
+
+      .section-number span:first-child,
+      .section-number span:last-child {
+        font-size: 1.05em;
+      }
+
+      .mini-table {
+        table-layout: fixed;
+      }
+
+      .mini-table th,
+      .mini-table td {
+        padding: 10px 8px;
+        overflow-wrap: anywhere;
+      }
+
+      .mini-table th:first-child,
+      .mini-table td:first-child {
+        width: 48%;
+      }
+
+      .rating {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      .matching-board {
+        grid-template-columns: 1fr .22fr 1fr;
+        gap: 8px;
+        padding: 10px;
+      }
+
+      .match-item {
+        min-height: 52px;
+        padding: 8px;
+        font-size: .92em;
+      }
+
+      .choice {
+        display: grid;
+        grid-template-columns: 20px minmax(0, 1fr);
+        align-items: center;
+      }
+
+      .choice input[type="checkbox"]:not([data-theme-toggle]) {
+        position: static;
+        margin: 0;
+      }
+
+      .check-grid .choice,
+      .privacy-options .choice,
+      .prompt-list .choice {
+        padding: 12px;
+      }
+
+      .section-title {
+        font-size: 1.38rem;
+        padding: 16px 16px 0;
+      }
+
+      .print-final.is-visible {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        justify-self: center;
+      }
+
+      .print-status {
+        grid-row: 3;
+      }
+
+      .section-content {
+        padding: 16px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .page {
+        width: 100%;
+        margin: 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .task-nav,
+      .slide-controls,
+      .theme-toggle {
+        display: none !important;
+      }
+
+      header {
+        display: block;
+        padding: 0 0 14px;
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+      }
+
+      .title-row {
+        display: block;
+      }
+
+      header h1,
+      header .subtitle,
+      .settings-wrap {
+        display: none !important;
+      }
+
+      .header-tools {
+        display: block;
+      }
+
+      .student-meta {
+        display: flex;
+        align-items: baseline;
+        gap: 18px;
+        width: 100%;
+        min-width: 0;
+        padding: 10px 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        background: #fff;
+        box-shadow: none;
+      }
+
+      .student-meta strong,
+      .student-meta span {
+        display: inline;
+        color: #111827;
+      }
+
+      .workspace {
+        padding: 0;
+      }
+
+      .task-stage .section,
+      .task-stage .section.is-active {
+        display: grid;
+        margin: 0 0 12px;
+        break-inside: avoid;
+        box-shadow: none;
+        border-radius: 8px;
+      }
+
+      .section-title {
+        font-size: 1.35rem;
+        padding: 15px 18px 0;
+        text-shadow: none;
+      }
+
+      .section-content {
+        padding: 15px 18px 18px;
+      }
+
+      .matching-board > .match-lines {
+        display: none;
+      }
+
+      .matching-board > .print-match-lines {
+        display: block;
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .print-match-lines line {
+        stroke: var(--accent, #7c3aed);
+        stroke-width: 3;
+        stroke-linecap: round;
+        vector-effect: non-scaling-stroke;
+      }
+    }
+  </style>
+</head>
+<body>
+  <form class="page">
+    <header>
+      <div class="header-panel">
+        <div class="title-row">
+          <div>
+            <h1>IB Start Check</h1>
+            <p class="subtitle">Present · Save · Use AI</p>
+          </div>
+          <div class="header-tools">
+            <div class="student-meta" aria-label="Student details">
+              <strong data-student-name>First name</strong>
+              <span>Class B25</span>
+              <span data-current-date>Date</span>
+            </div>
+            <div class="settings-wrap">
+              <button class="settings-button" type="button" data-settings-toggle aria-label="Open settings">⚙</button>
+              <div class="settings-panel" data-settings-panel>
+                <div class="settings-group">
+                  <span class="settings-title">Theme</span>
+                  <label class="theme-toggle">
+                    <span>White</span>
+                    <input type="checkbox" data-theme-toggle aria-label="Enable dark theme">
+                    <span class="theme-slider" aria-hidden="true"></span>
+                    <span>Dark</span>
+                  </label>
+                </div>
+                <div class="settings-group font-scale-control">
+                  <label class="settings-title" for="font-scale">Text size</label>
+                  <output class="font-scale-value" for="font-scale" data-font-scale-value>100%</output>
+                  <input id="font-scale" type="range" min="80" max="250" step="5" value="100" data-font-scale aria-label="Text size in percent">
+                </div>
+                <div class="settings-group">
+                  <span class="settings-title">Admin Mode</span>
+                  <div class="admin-row">
+                    <input type="password" data-admin-password placeholder="Password" autocomplete="off">
+                    <button class="admin-unlock" type="button" data-admin-unlock>Unlock</button>
+                  </div>
+                  <span class="admin-status" data-admin-status aria-live="polite"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="color-strip" aria-hidden="true"></div>
+    </header>
+
+    <div class="workspace">
+      <nav class="task-nav" aria-label="Tasks">
+        <button class="task-tile is-active" type="button" data-task-target="task-1" style="--tile-color: var(--red)"><span class="task-number">01</span><span class="task-label">Task: Mini presentation</span></button>
+        <button class="task-tile" type="button" data-task-target="task-2" style="--tile-color: var(--orange)"><span class="task-number">02</span><span class="task-label">My presentation</span></button>
+        <button class="task-tile" type="button" data-task-target="task-3" style="--tile-color: var(--yellow)"><span class="task-number">03</span><span class="task-label">Identify good filenames</span></button>
+        <button class="task-tile" type="button" data-task-target="task-4" style="--tile-color: var(--green)"><span class="task-number">04</span><span class="task-label">Save and test</span></button>
+        <button class="task-tile" type="button" data-task-target="task-5" style="--tile-color: var(--blue)"><span class="task-number">05</span><span class="task-label">Use AI effectively</span></button>
+        <button class="task-tile" type="button" data-task-target="task-6" style="--tile-color: var(--indigo)"><span class="task-number">06</span><span class="task-label">What may I share?</span></button>
+        <button class="task-tile" type="button" data-task-target="task-7" style="--tile-color: var(--violet)"><span class="task-number">07</span><span class="task-label">Tools: Keyboard shortcuts</span></button>
+        <button class="task-tile" type="button" data-task-target="task-8" style="--tile-color: var(--cyan)"><span class="task-number">08</span><span class="task-label">Review</span></button>
+      </nav>
+
+      <div class="task-stage">
+      <section class="section is-active" data-task="task-1" style="--accent: var(--red)">
+        <div class="section-number"><span>01</span><span>★</span></div>
+        <div class="section-body">
+          <h2 class="section-title">Task: Mini presentation</h2>
+          <div class="section-content">
+            <div class="variant-grid">
+              <div class="variant-card">
+                <strong>Option A</strong>
+                PowerPoint presentation
+              </div>
+              <div class="variant-card">
+                <strong>Option B</strong>
+                Create an HTML presentation with AI
+              </div>
+            </div>
+            <p class="auftrag-intro"><strong>Both options are equally valid.</strong></p>
+
+            <div class="auftrag-grid">
+              <div class="auftrag-card">
+                <strong>1. Title / name</strong>
+                <p>Example: “Short introduction – Lina”</p>
+              </div>
+              <div class="auftrag-card">
+                <strong>2. Hobbies and interests</strong>
+                <p>At least three examples that suit you.</p>
+              </div>
+              <div class="auftrag-card">
+                <strong>3. Favourite animal and favourite food</strong>
+                <p>Which animal and which food do you like best?</p>
+              </div>
+              <div class="auftrag-card">
+                <strong>4. Apps or games</strong>
+                <p>Which apps or games do you enjoy using?</p>
+              </div>
+              <div class="auftrag-card">
+                <strong>5. What I would like to learn in IB</strong>
+                <p>For example: using AI, creating media with AI, Word, Excel, PowerPoint, websites, and programming small apps or games.</p>
+              </div>
+            </div>
+
+            <div class="info-grid">
+              <div class="warning-box">
+                <strong>⚠️ Important</strong>
+                <p>Do not include these in the presentation:</p>
+                <ul class="avoid-list">
+                  <li>Address</li>
+                  <li>Phone number</li>
+                  <li>information that is too personal</li>
+                </ul>
+                <div class="read-actions">
+                  <button class="read-button" type="button" data-read-confirm="task-1-important" aria-pressed="false">Read</button>
+                </div>
+              </div>
+
+              <div class="final-box">
+                <strong>🏁 Goal</strong>
+                <p>Save your file with a meaningful name: <span class="file-name">first-name_introduction.pptx</span> or <span class="file-name">first-name_introduction.html</span></p>
+                <p>Then submit the file or send it via Outlook.</p>
+                <div class="read-actions">
+                  <button class="read-button" type="button" data-read-confirm="task-1-goal" aria-pressed="false">Read</button>
+                </div>
+              </div>
+            </div>
+
+            <details class="prompt-box">
+              <summary class="prompt-head">
+                <span class="prompt-summary-label">Show AI prompt for Option B</span>
+                <button class="copy-prompt" type="button" data-copy-prompt>Copy prompt</button>
+              </summary>
+              <pre class="prompt-code"><code data-prompt-code>Create a modern full-screen HTML presentation about me with 5 slides.
+
+Title: My short introduction – [your first name]
+
+Content:
+1. Title / name
+2. Your hobbies and interests: at least 3 examples
+3. Your favourite animal and your favourite food
+4. Which apps or games do you enjoy using?
+5. What I would like to learn in computing lessons: using AI, creating media with AI, Word, Excel, PowerPoint, websites, and programming small apps or games.
+
+Important:
+- Large text, good contrast, modern design, and suitable emojis.
+- The presentation should work well in full-screen mode.
+- Navigation with arrow keys and buttons.
+- Provide everything in a single HTML file.</code></pre>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-task="task-2" style="--accent: var(--orange)">
+        <div class="section-number"><span>02</span><span>▣</span></div>
+        <div class="section-body">
+          <h2 class="section-title">My presentation</h2>
+          <div class="section-content">
+            <span class="label">Tick what you did today:</span>
+            <div class="check-grid">
+              <label class="choice"><input type="checkbox" name="created" value="powerpoint"> I created a PowerPoint presentation.</label>
+              <label class="choice"><input type="checkbox" name="created" value="html"> I created an HTML presentation.</label>
+              <label class="choice"><input type="checkbox" name="created" value="submitted"> I submitted my presentation.</label>
+            </div>
+            <div class="field-grid">
+              <label>What worked well?
+                <textarea name="worked-well"></textarea>
+              </label>
+              <label>What was difficult?
+                <textarea name="presentation-hard"></textarea>
+              </label>
+              <label class="wide">What would you improve next time?
+                <textarea name="next-improvement"></textarea>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-task="task-3" style="--accent: var(--yellow)">
+        <div class="section-number"><span>03</span><span>◆</span></div>
+        <div class="section-body">
+          <h2 class="section-title">Identify good filenames</h2>
+          <div class="section-content">
+            <span class="label">Select exactly one option per row: good or bad</span>
+            <table class="mini-table">
+              <thead>
+                <tr>
+                  <th>Filename</th>
+                  <th>Rating</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>presentation.pptx</td>
+                  <td class="rating" data-filename-row="presentation"><label class="choice"><input type="checkbox" name="filename-presentation" value="good" data-file-answer> good</label><label class="choice"><input type="checkbox" name="filename-presentation" value="bad" data-file-answer> bad</label></td>
+                </tr>
+                <tr>
+                  <td>lena_introduction.pptx</td>
+                  <td class="rating" data-filename-row="lena"><label class="choice"><input type="checkbox" name="filename-lena" value="good" data-file-answer> good</label><label class="choice"><input type="checkbox" name="filename-lena" value="bad" data-file-answer> bad</label></td>
+                </tr>
+                <tr>
+                  <td>asdfasdf.html</td>
+                  <td class="rating" data-filename-row="asdf"><label class="choice"><input type="checkbox" name="filename-asdf" value="good" data-file-answer> good</label><label class="choice"><input type="checkbox" name="filename-asdf" value="bad" data-file-answer> bad</label></td>
+                </tr>
+                <tr>
+                  <td>noah_ib_start.html</td>
+                  <td class="rating" data-filename-row="noah"><label class="choice"><input type="checkbox" name="filename-noah" value="good" data-file-answer> good</label><label class="choice"><input type="checkbox" name="filename-noah" value="bad" data-file-answer> bad</label></td>
+                </tr>
+                <tr>
+                  <td>my new new final version 3.pptx</td>
+                  <td class="rating" data-filename-row="final"><label class="choice"><input type="checkbox" name="filename-final" value="good" data-file-answer> good</label><label class="choice"><input type="checkbox" name="filename-final" value="bad" data-file-answer> bad</label></td>
+                </tr>
+              </tbody>
+            </table>
+            <label>My good filename
+              <input type="text" name="good-filename">
+            </label>
+            <div class="check-actions">
+              <button class="check-button" type="button" data-check-task="task-3">Check task</button>
+              <span class="check-status" data-check-status="task-3" aria-live="polite"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-task="task-4" style="--accent: var(--green)">
+        <div class="section-number"><span>04</span><span>⛶</span></div>
+        <div class="section-body">
+          <h2 class="section-title">Save and test</h2>
+          <div class="section-content">
+            <div class="field-grid">
+              <label>Filename
+                <input type="text" name="filename-check" placeholder="e.g. noah_ib_start.html">
+              </label>
+              <label>Saved in
+                <input type="text" name="location" placeholder="e.g. Desktop / Downloads / class folder">
+              </label>
+              <label>Tested in full-screen mode
+                <input type="text" name="fullscreen-check" placeholder="e.g. PowerPoint with F5 / HTML in the browser with F11">
+              </label>
+            </div>
+            <div class="check-actions">
+              <button class="check-button" type="button" data-check-task="task-4">Check task</button>
+              <span class="check-status" data-check-status="task-4" aria-live="polite"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-task="task-5" style="--accent: var(--blue)">
+        <div class="section-number"><span>05</span><span>✦</span></div>
+        <div class="section-body">
+          <h2 class="section-title">Use AI effectively</h2>
+          <div class="section-content">
+            <span class="label">Tick the good prompts:</span>
+            <div class="prompt-list">
+              <label class="choice"><input type="checkbox"> Create a presentation.</label>
+              <label class="choice"><input type="checkbox"> Create a modern full-screen presentation about me with 5 slides. Use large text, emojis, and arrow keys for navigation.</label>
+              <label class="choice"><input type="checkbox"> Create something nice.</label>
+              <label class="choice"><input type="checkbox"> Create a presentation about my hobby, tennis, with a title, 3 facts, an image idea, and a final slide.</label>
+            </div>
+            <label>Why is a precise prompt better?
+              <textarea name="prompt-reason"></textarea>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-task="task-6" style="--accent: var(--indigo)">
+        <div class="section-number"><span>06</span><span>◉</span></div>
+        <div class="section-body">
+          <h2 class="section-title">What may I share?</h2>
+          <div class="section-content">
+            <div class="privacy-task" data-privacy-group="presentation">
+              <span class="label">What may be included in a presentation about me?</span>
+              <div class="privacy-options" data-randomize-options>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-hobby" value="good" data-privacy-answer> Hobby</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-game" value="good" data-privacy-answer> Favourite game</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-food" value="good" data-privacy-answer> Favourite food</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-address" value="bad" data-privacy-answer> Address</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-subject" value="good" data-privacy-answer> Favourite subject</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-pet" value="good" data-privacy-answer> Pet</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-phone" value="bad" data-privacy-answer> Phone number</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-first-name" value="good" data-privacy-answer> First name</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-last-name" value="good" data-privacy-answer> Last name</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-club" value="good" data-privacy-answer> Club</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-birthday" value="good" data-privacy-answer> Date of birth</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-favorite-app" value="good" data-privacy-answer> Favourite app</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-password" value="bad" data-privacy-answer> Password</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-pin" value="bad" data-privacy-answer> PIN</label>
+              </div>
+              <div class="check-actions">
+                <button class="check-button" type="button" data-check-privacy="presentation">Check presentation</button>
+                <span class="check-status" data-check-status="task-6-presentation" aria-live="polite"></span>
+              </div>
+            </div>
+            <div class="privacy-task" data-privacy-group="ai">
+              <span class="label">Which information may I include in an AI prompt?</span>
+              <div class="privacy-options" data-randomize-options>
+                <label class="choice"><input type="checkbox" name="privacy-ai-hobby" value="good" data-privacy-answer> Hobby</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-game" value="good" data-privacy-answer> Favourite game</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-food" value="good" data-privacy-answer> Favourite food</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-subject" value="good" data-privacy-answer> Favourite subject</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-pet" value="good" data-privacy-answer> Pet</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-favorite-app" value="good" data-privacy-answer> Favourite app</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-first-name" value="good" data-privacy-answer> First name</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-last-name" value="bad" data-privacy-answer> Last name</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-address" value="bad" data-privacy-answer> Address</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-phone" value="bad" data-privacy-answer> Phone number</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-club" value="bad" data-privacy-answer> specific club</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-birthday" value="bad" data-privacy-answer> Date of birth</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-password" value="bad" data-privacy-answer> Password</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-pin" value="bad" data-privacy-answer> PIN</label>
+              </div>
+              <div class="check-actions">
+                <button class="check-button" type="button" data-check-privacy="ai">Check AI prompt</button>
+                <span class="check-status" data-check-status="task-6-ai" aria-live="polite"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-task="task-7" style="--accent: var(--violet)">
+        <div class="section-number"><span>07</span><span>⌨</span></div>
+        <div class="section-body">
+          <h2 class="section-title">Tools: Keyboard shortcuts</h2>
+          <div class="section-content">
+            <span class="label">Connect each keyboard shortcut to its meaning.</span>
+            <div class="matching-board" data-matching-board aria-label="Keyboard shortcut matching task">
+              <svg class="match-lines" aria-hidden="true"></svg>
+              <svg class="print-match-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                <line x1="14" y1="9" x2="56" y2="64"></line>
+                <line x1="14" y1="23" x2="56" y2="50"></line>
+                <line x1="14" y1="36" x2="56" y2="23"></line>
+                <line x1="14" y1="50" x2="56" y2="77"></line>
+                <line x1="14" y1="64" x2="56" y2="91"></line>
+                <line x1="14" y1="77" x2="56" y2="36"></line>
+                <line x1="14" y1="91" x2="56" y2="9"></line>
+              </svg>
+              <div class="match-column">
+                <button class="match-item" type="button" data-side="left" data-id="ctrl-s"><span class="key">Ctrl + S</span><span class="match-dot"></span></button>
+                <button class="match-item" type="button" data-side="left" data-id="ctrl-c"><span class="key">Ctrl + C</span><span class="match-dot"></span></button>
+                <button class="match-item" type="button" data-side="left" data-id="ctrl-v"><span class="key">Ctrl + V</span><span class="match-dot"></span></button>
+                <button class="match-item" type="button" data-side="left" data-id="ctrl-z"><span class="key">Ctrl + Z</span><span class="match-dot"></span></button>
+                <button class="match-item" type="button" data-side="left" data-id="alt-tab"><span class="key">Alt + Tab</span><span class="match-dot"></span></button>
+                <button class="match-item" type="button" data-side="left" data-id="f5"><span class="key">F5</span><span class="match-dot"></span></button>
+                <button class="match-item" type="button" data-side="left" data-id="f11"><span class="key">F11</span><span class="match-dot"></span></button>
+              </div>
+              <div class="match-space" aria-hidden="true"></div>
+              <div class="match-column">
+                <button class="match-item" type="button" data-side="right" data-id="fullscreen"><span class="match-dot"></span> Show browser in full-screen mode</button>
+                <button class="match-item" type="button" data-side="right" data-id="paste"><span class="match-dot"></span> paste</button>
+                <button class="match-item" type="button" data-side="right" data-id="present"><span class="match-dot"></span> start PowerPoint presentation</button>
+                <button class="match-item" type="button" data-side="right" data-id="copy"><span class="match-dot"></span> copy</button>
+                <button class="match-item" type="button" data-side="right" data-id="save"><span class="match-dot"></span> save</button>
+                <button class="match-item" type="button" data-side="right" data-id="undo"><span class="match-dot"></span> undo</button>
+                <button class="match-item" type="button" data-side="right" data-id="switch"><span class="match-dot"></span> switch between windows</button>
+              </div>
+            </div>
+            <div class="check-actions">
+              <button class="check-button" type="button" data-check-task="task-7">Check connections</button>
+              <span class="check-status" data-check-status="task-7" aria-live="polite"></span>
+            </div>
+            <div class="field-grid">
+              <label>Used most today
+                <input type="text" name="most-used">
+              </label>
+              <label>Why?
+                <input type="text" name="why-used">
+              </label>
+              <label class="wide">I want to remember
+                <input type="text" name="remember-shortcut">
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-task="task-8" style="--accent: var(--cyan)">
+        <div class="section-number"><span>08</span><span>✓</span></div>
+        <div class="section-body">
+          <h2 class="section-title">Review</h2>
+          <div class="section-content">
+            <div class="field-grid">
+              <label>Today I learned
+                <textarea name="learned"></textarea>
+              </label>
+              <label>I found this easy
+                <textarea name="easy"></textarea>
+              </label>
+              <label>I found this difficult
+                <textarea name="difficult"></textarea>
+              </label>
+              <label>I would like to do this in IB
+                <textarea name="future"></textarea>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>      </div>
+
+      <div class="slide-controls" aria-label="Navigation">
+        <div class="arrow-controls">
+          <button class="round-nav" type="button" data-slide-home aria-label="Go to task 1" title="Task 1">⌂</button>
+          <button class="round-nav" type="button" data-slide-prev aria-label="Previous topic">&lt;</button>
+          <button class="round-nav" type="button" data-slide-next aria-label="Next topic">&gt;</button>
+        </div>
+        <button class="print-final" type="button" data-print-final>Print / PDF</button>
+        <div class="print-status" data-print-status aria-live="polite"></div>
+      </div>
+    </div>
+  </form>
+  <script>
+    (() => {
+      const form = document.querySelector("form");
+      const storageKey = "ib-startcheck:en:index2:v2";
+      const fields = form ? [...form.querySelectorAll("input:not([data-theme-toggle]), textarea")] : [];
+
+      const readSaved = () => {
+        try {
+          return JSON.parse(localStorage.getItem(storageKey) || "{}");
+        } catch {
+          return {};
+        }
+      };
+
+      const writeSaved = (data) => {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(data));
+        } catch {
+          // Ignore storage failures, for example in strict private browsing.
+        }
+      };
+
+      const saved = readSaved();
+      const shuffleOptions = (container) => {
+        const options = [...container.children];
+        for (let index = options.length - 1; index > 0; index -= 1) {
+          const randomIndex = Math.floor(Math.random() * (index + 1));
+          [options[index], options[randomIndex]] = [options[randomIndex], options[index]];
+        }
+        options.forEach((option) => container.appendChild(option));
+      };
+
+      document.querySelectorAll("[data-randomize-options]").forEach(shuffleOptions);
+
+      const studentNameEl = document.querySelector("[data-student-name]");
+      const currentDateEl = document.querySelector("[data-current-date]");
+      const formatDate = (date) => new Intl.DateTimeFormat("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      }).format(date);
+
+      let studentFirstName = typeof saved.studentFirstName === "string" ? saved.studentFirstName.trim() : "";
+      if (!studentFirstName) {
+        studentFirstName = (window.prompt("First name?") || "").trim();
+        if (studentFirstName) {
+          const next = readSaved();
+          next.studentFirstName = studentFirstName;
+          writeSaved(next);
+        }
+      }
+
+      if (studentNameEl) studentNameEl.textContent = studentFirstName || "First name";
+      if (currentDateEl) currentDateEl.textContent = formatDate(new Date());
+
+      const themeToggle = document.querySelector("[data-theme-toggle]");
+      const setTheme = (theme, shouldSave = true) => {
+        document.body.dataset.theme = theme === "dark" ? "dark" : "white";
+        if (themeToggle) themeToggle.checked = theme === "dark";
+        if (shouldSave) {
+          const next = readSaved();
+          next.theme = document.body.dataset.theme;
+          writeSaved(next);
+        }
+      };
+
+      setTheme(saved.theme === "dark" ? "dark" : "white", false);
+
+      themeToggle?.addEventListener("change", () => {
+        setTheme(themeToggle.checked ? "dark" : "white");
+      });
+
+      const fontScale = document.querySelector("[data-font-scale]");
+      const fontScaleValue = document.querySelector("[data-font-scale-value]");
+      const setFontScale = (value, shouldSave = true) => {
+        const scale = Math.min(250, Math.max(80, Number(value) || 100));
+        document.body.style.setProperty("--regular-font-size", `${scale}%`);
+        if (fontScale) fontScale.value = String(scale);
+        if (fontScaleValue) fontScaleValue.textContent = `${scale}%`;
+        if (shouldSave) {
+          const next = readSaved();
+          next.fontScale = scale;
+          writeSaved(next);
+        }
+      };
+
+      setFontScale(saved.fontScale, false);
+      fontScale?.addEventListener("input", () => setFontScale(fontScale.value));
+
+      const taskTiles = [...document.querySelectorAll("[data-task-target]")];
+      const tasks = [...document.querySelectorAll("[data-task]")];
+      const homeButton = document.querySelector("[data-slide-home]");
+      const prevButton = document.querySelector("[data-slide-prev]");
+      const nextButton = document.querySelector("[data-slide-next]");
+      const printButton = document.querySelector("[data-print-final]");
+      const printStatus = document.querySelector("[data-print-status]");
+      const settingsToggle = document.querySelector("[data-settings-toggle]");
+      const settingsPanel = document.querySelector("[data-settings-panel]");
+      const adminPassword = document.querySelector("[data-admin-password]");
+      const adminUnlock = document.querySelector("[data-admin-unlock]");
+      const adminStatus = document.querySelector("[data-admin-status]");
+      let adminMode = saved.adminMode === true;
+      let activeTaskIndex = 0;
+
+      const updateSlideControls = () => {
+        if (prevButton) prevButton.disabled = activeTaskIndex === 0;
+        if (nextButton) nextButton.disabled = activeTaskIndex === tasks.length - 1;
+        printButton?.classList.toggle("is-visible", activeTaskIndex === tasks.length - 1);
+      };
+
+      const setActiveTask = (taskId, shouldSave = true, keepAtBottom = false) => {
+        activeTaskIndex = Math.max(0, tasks.findIndex((task) => task.dataset.task === taskId));
+        taskTiles.forEach((tile) => {
+          tile.classList.toggle("is-active", tile.dataset.taskTarget === taskId);
+        });
+        tasks.forEach((task) => {
+          task.classList.toggle("is-active", task.dataset.task === taskId);
+        });
+        if (shouldSave) {
+          const next = readSaved();
+          next.activeTask = taskId;
+          writeSaved(next);
+        }
+        requestAnimationFrame(() => {
+          document.querySelector("[data-matching-board] .match-lines")?.dispatchEvent(new Event("redraw-lines"));
+          if (keepAtBottom) window.scrollTo(0, document.documentElement.scrollHeight);
+        });
+        updateSlideControls();
+      };
+
+      taskTiles.forEach((tile) => {
+        tile.addEventListener("click", () => {
+          setActiveTask(tile.dataset.taskTarget);
+        });
+      });
+
+      if (saved.activeTask && tasks.some((task) => task.dataset.task === saved.activeTask)) {
+        setActiveTask(saved.activeTask, false);
+      } else {
+        setActiveTask(tasks[0]?.dataset.task || "task-1", false);
+      }
+
+      homeButton?.addEventListener("click", () => {
+        setActiveTask("task-1", true, true);
+      });
+
+      prevButton?.addEventListener("click", () => {
+        const previous = tasks[Math.max(0, activeTaskIndex - 1)];
+        if (previous) setActiveTask(previous.dataset.task, true, true);
+      });
+
+      nextButton?.addEventListener("click", () => {
+        const next = tasks[Math.min(tasks.length - 1, activeTaskIndex + 1)];
+        if (next) setActiveTask(next.dataset.task, true, true);
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.altKey || event.ctrlKey || event.metaKey) return;
+        if (event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+        if (event.key === "ArrowLeft") {
+          event.preventDefault();
+          prevButton?.click();
+        }
+        if (event.key === "ArrowRight") {
+          event.preventDefault();
+          nextButton?.click();
+        }
+      });
+
+      const copyPromptButton = document.querySelector("[data-copy-prompt]");
+      const promptCode = document.querySelector("[data-prompt-code]");
+      copyPromptButton?.addEventListener("click", async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const text = promptCode?.textContent || "";
+        if (!text.trim()) return;
+        try {
+          await navigator.clipboard.writeText(text);
+          copyPromptButton.textContent = "Copied ✓";
+          setTimeout(() => { copyPromptButton.textContent = "Copy prompt"; }, 1400);
+        } catch {
+          copyPromptButton.textContent = "Select and copy";
+        }
+      });
+
+      const fieldKey = (field, index) => {
+        if (field.name) {
+          return field.type === "checkbox" ? `${field.name}:${field.value || index}` : field.name;
+        }
+        return `field:${index}`;
+      };
+
+      const syncChoiceState = (field) => {
+        if (field.type !== "checkbox") return;
+        field.closest(".choice")?.classList.toggle("is-checked", field.checked);
+      };
+
+      fields.forEach((field, index) => {
+        const key = fieldKey(field, index);
+        field.dataset.storeKey = key;
+        if (Object.prototype.hasOwnProperty.call(saved, key)) {
+          if (field.type === "checkbox") {
+            field.checked = saved[key] === true;
+          } else {
+            field.value = saved[key];
+          }
+        }
+
+        syncChoiceState(field);
+
+        const saveField = () => {
+          const next = readSaved();
+          next[key] = field.type === "checkbox" ? field.checked : field.value;
+          writeSaved(next);
+          updateTaskTiles();
+        };
+
+        field.addEventListener("blur", saveField);
+        if (field.type !== "checkbox" && field.type !== "date") {
+          field.addEventListener("input", () => updateTaskTiles());
+        }
+        if (field.type === "checkbox" || field.type === "date") {
+          field.addEventListener("change", () => {
+            syncChoiceState(field);
+            saveField();
+          });
+        }
+      });
+
+      const goodFilenameInput = document.querySelector('input[name="good-filename"]');
+      const filenameCheckInput = document.querySelector('input[name="filename-check"]');
+      const syncGoodFilename = () => {
+        if (!goodFilenameInput || !filenameCheckInput) return;
+        const value = goodFilenameInput.value.trim();
+        if (!value || filenameCheckInput.value.trim()) return;
+        filenameCheckInput.value = value;
+        const next = readSaved();
+        next[filenameCheckInput.dataset.storeKey || "filename-check"] = value;
+        writeSaved(next);
+        updateTaskTiles();
+      };
+
+      goodFilenameInput?.addEventListener("input", syncGoodFilename);
+
+      const taskNeedsSolved = (taskId) => taskId === "task-3" || taskId === "task-4" || taskId === "task-6" || taskId === "task-7";
+
+      const taskTileLabel = (tile) => {
+        const number = tile?.querySelector(".task-number")?.textContent.trim() || "";
+        const label = tile?.querySelector(".task-label")?.textContent.trim() || tile?.textContent.trim() || "";
+        return `${number} ${label}`.trim();
+      };
+
+      const setDoneTile = (taskId, done) => {
+        const tile = document.querySelector(`[data-task-target="${taskId}"]`);
+        const ariaLabel = taskTileLabel(tile);
+        tile?.classList.toggle("is-done", Boolean(done));
+        tile?.setAttribute("aria-label", done ? `${ariaLabel} complete` : ariaLabel);
+      };
+
+      const isTextFieldComplete = (field) => field.value.trim().length > 0;
+
+      const isCheckboxAreaComplete = (area) => {
+        return Boolean(area.querySelector('input[type="checkbox"]:not([data-theme-toggle]):checked'));
+      };
+
+      const isReadConfirmComplete = (button) => button.getAttribute("aria-pressed") === "true";
+
+      const isTaskComplete = (taskId) => {
+        const task = document.querySelector(`[data-task="${taskId}"]`);
+        if (!task) return false;
+
+        const textFields = [...task.querySelectorAll('input[type="text"], input[type="date"], textarea')];
+        const textComplete = textFields.every(isTextFieldComplete);
+
+        const checkboxAreas = [...task.querySelectorAll(".check-grid, .rating, .prompt-list, .privacy-options")];
+        const checkboxComplete = checkboxAreas.every(isCheckboxAreaComplete);
+
+        const readButtons = [...task.querySelectorAll("[data-read-confirm]")];
+        const readComplete = readButtons.every(isReadConfirmComplete);
+
+        const hasMatchingBoard = Boolean(task.querySelector("[data-matching-board]"));
+        const matchingComplete = !hasMatchingBoard || links.size === items.filter((item) => item.dataset.side === "left").length;
+
+        return textComplete && checkboxComplete && readComplete && matchingComplete;
+      };
+
+      const updateTaskTiles = () => {
+        const latest = readSaved();
+        taskTiles.forEach((tile) => {
+          const taskId = tile.dataset.taskTarget;
+          const complete = isTaskComplete(taskId);
+          const solvedOk = !taskNeedsSolved(taskId) || latest.solvedTasks?.[taskId] === true;
+          setDoneTile(taskId, complete && solvedOk);
+        });
+      };
+
+      syncGoodFilename();
+
+      const missingDoneTasks = () => {
+        updateTaskTiles();
+        return taskTiles.filter((tile) => !tile.classList.contains("is-done"));
+      };
+
+      const setPrintStatus = (html = "", mode = "idle") => {
+        if (!printStatus) return;
+        printStatus.innerHTML = html;
+        printStatus.classList.toggle("is-error", mode === "error");
+        printStatus.classList.toggle("is-admin", mode === "admin");
+      };
+
+      const setAdminStatus = (text, mode = "idle") => {
+        if (!adminStatus) return;
+        adminStatus.textContent = text;
+        adminStatus.classList.toggle("is-on", mode === "on");
+        adminStatus.classList.toggle("is-error", mode === "error");
+      };
+
+      const setAdminMode = (enabled) => {
+        adminMode = Boolean(enabled);
+        const next = readSaved();
+        next.adminMode = adminMode;
+        writeSaved(next);
+        setAdminStatus(adminMode ? "Admin mode active: PDFs can always be created." : "", adminMode ? "on" : "idle");
+        settingsToggle?.classList.toggle("is-admin", adminMode);
+        adminUnlock?.classList.toggle("is-logout", adminMode);
+        if (adminUnlock) adminUnlock.textContent = adminMode ? "Log out" : "Unlock";
+        if (adminPassword) {
+          adminPassword.hidden = adminMode;
+          adminPassword.value = "";
+        }
+      };
+
+      setAdminMode(adminMode);
+
+      settingsToggle?.addEventListener("click", () => {
+        settingsPanel?.classList.toggle("is-open");
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!settingsPanel?.classList.contains("is-open")) return;
+        if (event.target.closest(".settings-wrap")) return;
+        settingsPanel.classList.remove("is-open");
+      });
+
+      adminUnlock?.addEventListener("click", () => {
+        if (adminMode) {
+          setAdminMode(false);
+          setAdminStatus("Admin mode disabled.");
+          setPrintStatus("");
+          return;
+        }
+
+        if (adminPassword?.value === "SamusAran") {
+          setAdminMode(true);
+          setPrintStatus("Admin mode active. A PDF can be created even if tiles are incomplete.", "admin");
+        } else {
+          setAdminStatus("Incorrect password.", "error");
+        }
+      });
+
+      adminPassword?.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          adminUnlock?.click();
+        }
+      });
+
+      const handlePrint = () => {
+        const missing = missingDoneTasks();
+        if (missing.length === 0 || adminMode) {
+          if (adminMode && missing.length > 0) {
+            setPrintStatus("Admin override active: the PDF will be created despite incomplete tiles.", "admin");
+          } else {
+            setPrintStatus("");
+          }
+          window.print();
+          return;
+        }
+
+        const list = missing.map((tile) => `<li>${taskTileLabel(tile)}</li>`).join("");
+        setPrintStatus(`PDF is still locked. Complete these tasks:<ul>${list}</ul>`, "error");
+      };
+
+      printButton?.addEventListener("click", handlePrint);
+
+      const setReadButton = (button, isRead) => {
+        button.classList.toggle("is-read", isRead);
+        button.setAttribute("aria-pressed", isRead ? "true" : "false");
+        button.textContent = isRead ? "✓ Read" : "Read";
+      };
+
+      document.querySelectorAll("[data-read-confirm]").forEach((button) => {
+        const key = button.dataset.readConfirm;
+        setReadButton(button, saved.readConfirmations?.[key] === true);
+        button.addEventListener("click", () => {
+          const nextState = button.getAttribute("aria-pressed") !== "true";
+          const next = readSaved();
+          next.readConfirmations = { ...(next.readConfirmations || {}), [key]: nextState };
+          writeSaved(next);
+          setReadButton(button, nextState);
+          updateTaskTiles();
+        });
+      });
+
+      const saveSolvedTask = (taskId, solved) => {
+        const next = readSaved();
+        next.solvedTasks = { ...(next.solvedTasks || {}), [taskId]: Boolean(solved) };
+        writeSaved(next);
+        updateTaskTiles();
+      };
+
+      const setCheckStatus = (taskId, text, mode = "idle") => {
+        const status = document.querySelector(`[data-check-status="${taskId}"]`);
+        if (!status) return;
+        status.textContent = text;
+        status.classList.toggle("is-success", mode === "success");
+        status.classList.toggle("is-error", mode === "error");
+      };
+
+      if (saved.solvedTasks?.["task-3"]) {
+        setCheckStatus("task-3", "Saved: Task 03 is solved correctly.", "success");
+      }
+
+      if (saved.solvedTasks?.["task-4"]) {
+        setCheckStatus("task-4", "Saved: Task 04 is solved correctly.", "success");
+      }
+
+      if (saved.solvedTasks?.["task-7"]) {
+        setCheckStatus("task-7", "Saved: Task 07 is solved correctly.", "success");
+      }
+
+      if (saved.solvedTasks?.["task-6"]) {
+        setCheckStatus("task-6-presentation", "Saved.", "success");
+        setCheckStatus("task-6-ai", "Saved.", "success");
+      }
+
+      const filenameAnswers = {
+        presentation: "bad",
+        lena: "good",
+        asdf: "bad",
+        noah: "good",
+        final: "bad"
+      };
+
+      const clearFilenameFeedback = () => {
+        document.querySelectorAll("[data-file-answer]").forEach((input) => {
+          input.closest(".choice")?.classList.remove("is-correct");
+        });
+      };
+
+      document.querySelectorAll("[data-file-answer]").forEach((input) => {
+        input.addEventListener("change", () => {
+          if (input.checked) {
+            input.closest(".rating")?.querySelectorAll("[data-file-answer]").forEach((other) => {
+              if (other !== input) {
+                other.checked = false;
+                syncChoiceState(other);
+                const next = readSaved();
+                next[other.dataset.storeKey] = false;
+                writeSaved(next);
+              }
+            });
+          }
+          clearFilenameFeedback();
+          saveSolvedTask("task-3", false);
+          setCheckStatus("task-3", "");
+        });
+      });
+
+      document.querySelector('[data-check-task="task-3"]')?.addEventListener("click", () => {
+        clearFilenameFeedback();
+        let correctCount = 0;
+        let answeredCount = 0;
+
+        Object.entries(filenameAnswers).forEach(([rowId, expected]) => {
+          const row = document.querySelector(`[data-filename-row="${rowId}"]`);
+          const checked = row?.querySelector("[data-file-answer]:checked");
+          if (!row || !checked) return;
+
+          answeredCount += 1;
+          const choice = checked.closest(".choice");
+          const isCorrect = checked.value === expected;
+          if (isCorrect) choice?.classList.add("is-correct");
+          if (!isCorrect) {
+            checked.checked = false;
+            syncChoiceState(checked);
+            const next = readSaved();
+            next[checked.dataset.storeKey] = false;
+            writeSaved(next);
+          }
+          if (isCorrect) correctCount += 1;
+        });
+
+        const total = Object.keys(filenameAnswers).length;
+        const ownFilenameComplete = Boolean(goodFilenameInput?.value.trim());
+        const solved = correctCount === total && ownFilenameComplete;
+        saveSolvedTask("task-3", solved);
+
+        if (solved) {
+          setCheckStatus("task-3", "Solved correctly and saved.", "success");
+        } else if (answeredCount < total) {
+          setCheckStatus("task-3", "Not all rows have been rated yet.", "error");
+        } else if (correctCount < total) {
+          setCheckStatus("task-3", "Not correct yet. Incorrect selections were removed.", "error");
+        } else {
+          setCheckStatus("task-3", "Please also enter your own good filename.", "error");
+        }
+      });
+
+      const task4Fields = [
+        { name: "filename-check", label: "Filename" },
+        { name: "location", label: "Save location" },
+        { name: "fullscreen-check", label: "Full-screen test" }
+      ].map((item) => ({
+        ...item,
+        input: document.querySelector(`[name="${item.name}"]`)
+      }));
+
+      task4Fields.forEach(({ input }) => {
+        input?.addEventListener("input", () => {
+          saveSolvedTask("task-4", false);
+          setCheckStatus("task-4", "");
+        });
+      });
+
+      document.querySelector('[data-check-task="task-4"]')?.addEventListener("click", () => {
+        const missing = task4Fields
+          .filter(({ input }) => !input?.value.trim())
+          .map(({ label }) => label);
+        const solved = missing.length === 0;
+        saveSolvedTask("task-4", solved);
+
+        if (solved) {
+          setCheckStatus("task-4", "Completed and saved.", "success");
+        } else {
+          setCheckStatus("task-4", `Not complete yet: ${missing.join(", ")}.`, "error");
+        }
+      });
+
+      const privacyInputs = [...document.querySelectorAll("[data-privacy-answer]")];
+      const isPrivacySolved = () => {
+        return privacyInputs.every((input) => {
+          return input.value === "good" ? input.checked : !input.checked;
+        });
+      };
+      const isPrivacyGroupSolved = (inputs) => {
+        return inputs.every((input) => {
+          return input.value === "good" ? input.checked : !input.checked;
+        });
+      };
+
+      if (saved.solvedTasks?.["task-6"] && !isPrivacySolved()) {
+        const next = readSaved();
+        next.solvedTasks = { ...(next.solvedTasks || {}), "task-6": false };
+        writeSaved(next);
+        setCheckStatus("task-6-presentation", "");
+        setCheckStatus("task-6-ai", "");
+      }
+
+      privacyInputs.forEach((input) => {
+        input.addEventListener("change", () => {
+          saveSolvedTask("task-6", false);
+          const task = input.closest("[data-privacy-group]");
+          setCheckStatus(`task-6-${task?.dataset.privacyGroup || ""}`, "");
+        });
+      });
+
+      document.querySelectorAll("[data-check-privacy]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const group = button.dataset.checkPrivacy;
+          const task = button.closest("[data-privacy-group]");
+          const inputs = [...(task?.querySelectorAll("[data-privacy-answer]") || [])];
+          const statusKey = `task-6-${group}`;
+          let goodChecked = 0;
+          let goodTotal = 0;
+          let badRemoved = 0;
+
+          inputs.forEach((input) => {
+            if (input.value === "good") {
+              goodTotal += 1;
+              if (input.checked) goodChecked += 1;
+              return;
+            }
+            if (!input.checked) return;
+            input.checked = false;
+            syncChoiceState(input);
+            const next = readSaved();
+            next[input.dataset.storeKey] = false;
+            writeSaved(next);
+            badRemoved += 1;
+          });
+
+          const groupSolved = badRemoved === 0 && goodChecked === goodTotal && isPrivacyGroupSolved(inputs);
+          saveSolvedTask("task-6", isPrivacySolved());
+
+          if (groupSolved) {
+            setCheckStatus(statusKey, "Solved correctly.", "success");
+          } else if (badRemoved > 0) {
+            setCheckStatus(statusKey, "Incorrect selections were removed.", "error");
+          } else {
+            setCheckStatus(statusKey, "Not all suitable items have been selected yet.", "error");
+          }
+        });
+      });
+
+      const dateInput = document.querySelector('input[name="datum"]');
+      if (dateInput && !dateInput.value) {
+        const today = new Date();
+        const offset = today.getTimezoneOffset() * 60000;
+        dateInput.value = new Date(today.getTime() - offset).toISOString().slice(0, 10);
+        const next = readSaved();
+        next[dateInput.dataset.storeKey || "datum"] = dateInput.value;
+        writeSaved(next);
+      }
+
+      const board = document.querySelector("[data-matching-board]");
+      if (!board) return;
+
+      const svg = board.querySelector(".match-lines");
+      const items = [...board.querySelectorAll(".match-item")];
+      const links = new Map(Array.isArray(saved.matches) ? saved.matches : []);
+      let selected = null;
+      let wrongLinks = new Set();
+      let wrongFadeTimer = null;
+      let wrongRemoveTimer = null;
+
+      const shortcutAnswers = {
+        "ctrl-s": "save",
+        "ctrl-c": "copy",
+        "ctrl-v": "paste",
+        "ctrl-z": "undo",
+        "alt-tab": "switch",
+        f5: "present",
+        f11: "fullscreen"
+      };
+
+      const linkKey = (leftId, rightId) => `${leftId}:${rightId}`;
+
+      const clearWrongTimers = () => {
+        if (wrongFadeTimer) clearTimeout(wrongFadeTimer);
+        if (wrongRemoveTimer) clearTimeout(wrongRemoveTimer);
+        wrongFadeTimer = null;
+        wrongRemoveTimer = null;
+      };
+
+      items.forEach((item) => {
+        item.setAttribute("aria-pressed", "false");
+      });
+
+      const saveMatches = () => {
+        const next = readSaved();
+        next.matches = [...links.entries()];
+        writeSaved(next);
+        updateTaskTiles();
+      };
+
+      const dotCenter = (item) => {
+        const dot = item.querySelector(".match-dot");
+        const dotBox = dot.getBoundingClientRect();
+        const boardBox = board.getBoundingClientRect();
+        return {
+          x: dotBox.left + dotBox.width / 2 - boardBox.left,
+          y: dotBox.top + dotBox.height / 2 - boardBox.top
+        };
+      };
+
+      const updateStates = () => {
+        items.forEach((item) => {
+          const connected = [...links.entries()].some(([left, right]) => {
+            return item.dataset.id === left || item.dataset.id === right;
+          });
+          item.classList.toggle("is-selected", item === selected);
+          item.classList.toggle("is-connected", connected);
+          item.setAttribute("aria-pressed", item === selected || connected ? "true" : "false");
+        });
+      };
+
+      const drawLines = () => {
+        const boardBox = board.getBoundingClientRect();
+        svg.setAttribute("viewBox", `0 0 ${boardBox.width} ${boardBox.height}`);
+        svg.setAttribute("width", boardBox.width);
+        svg.setAttribute("height", boardBox.height);
+        svg.replaceChildren();
+        for (const [leftId, rightId] of links) {
+          const left = board.querySelector(`[data-side="left"][data-id="${leftId}"]`);
+          const right = board.querySelector(`[data-side="right"][data-id="${rightId}"]`);
+          if (!left || !right) continue;
+
+          const start = dotCenter(left);
+          const end = dotCenter(right);
+          const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          line.setAttribute("x1", start.x);
+          line.setAttribute("y1", start.y);
+          line.setAttribute("x2", end.x);
+          line.setAttribute("y2", end.y);
+          line.dataset.leftId = leftId;
+          line.dataset.rightId = rightId;
+          line.classList.toggle("is-wrong", wrongLinks.has(linkKey(leftId, rightId)));
+          svg.append(line);
+        }
+        updateStates();
+      };
+
+      svg.addEventListener("redraw-lines", drawLines);
+
+      const flashPair = (left, right) => {
+        left.classList.add("just-connected");
+        right.classList.add("just-connected");
+        setTimeout(() => {
+          left.classList.remove("just-connected");
+          right.classList.remove("just-connected");
+        }, 420);
+      };
+
+      const connect = (left, right) => {
+        clearWrongTimers();
+        wrongLinks = new Set();
+        for (const [existingLeft, existingRight] of links) {
+          if (existingRight === right.dataset.id) links.delete(existingLeft);
+        }
+        links.set(left.dataset.id, right.dataset.id);
+        selected = null;
+        drawLines();
+        flashPair(left, right);
+        saveMatches();
+        saveSolvedTask("task-7", false);
+        setCheckStatus("task-7", "");
+      };
+
+      document.querySelector('[data-check-task="task-7"]')?.addEventListener("click", () => {
+        clearWrongTimers();
+        wrongLinks = new Set();
+
+        for (const [leftId, rightId] of links) {
+          if (shortcutAnswers[leftId] !== rightId) {
+            wrongLinks.add(linkKey(leftId, rightId));
+          }
+        }
+
+        drawLines();
+
+        const total = Object.keys(shortcutAnswers).length;
+        const solved = links.size === total && wrongLinks.size === 0;
+        saveSolvedTask("task-7", solved);
+
+        if (solved) {
+          setCheckStatus("task-7", "Solved correctly and saved.", "success");
+          return;
+        }
+
+        if (wrongLinks.size > 0) {
+          setCheckStatus("task-7", `${wrongLinks.size} incorrect connection${wrongLinks.size === 1 ? "" : "s"} marked in red.`, "error");
+          wrongFadeTimer = setTimeout(() => {
+            svg.querySelectorAll("line.is-wrong").forEach((line) => line.classList.add("is-fading"));
+            wrongRemoveTimer = setTimeout(() => {
+              wrongLinks.forEach((key) => {
+                const [leftId] = key.split(":");
+                links.delete(leftId);
+              });
+              wrongLinks = new Set();
+              drawLines();
+              saveMatches();
+              setCheckStatus("task-7", "Incorrect connections removed. Try again.", "error");
+            }, 1400);
+          }, 5000);
+          return;
+        }
+
+        setCheckStatus("task-7", "Not all connections have been made yet.", "error");
+      });
+
+      items.forEach((item) => {
+        item.addEventListener("click", () => {
+          clearWrongTimers();
+          if (wrongLinks.size > 0) {
+            wrongLinks = new Set();
+            drawLines();
+          }
+          if (!selected) {
+            selected = item;
+            updateStates();
+            return;
+          }
+
+          if (selected === item) {
+            selected = null;
+            updateStates();
+            return;
+          }
+
+          if (selected.dataset.side === item.dataset.side) {
+            selected = item;
+            updateStates();
+            return;
+          }
+
+          const left = selected.dataset.side === "left" ? selected : item;
+          const right = selected.dataset.side === "right" ? selected : item;
+          connect(left, right);
+        });
+      });
+
+      window.addEventListener("resize", drawLines);
+      window.addEventListener("beforeprint", drawLines);
+      window.addEventListener("afterprint", () => requestAnimationFrame(drawLines));
+      requestAnimationFrame(() => {
+        drawLines();
+        updateTaskTiles();
+      });
+    })();
+  </script>
+</body>
+</html>
