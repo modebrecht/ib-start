@@ -1245,8 +1245,21 @@
       transform: none;
     }
 
-    .print-final {
+    .final-actions {
       display: none;
+      grid-column: 3;
+      gap: 10px;
+      align-items: center;
+      justify-self: start;
+      flex-wrap: wrap;
+    }
+
+    .final-actions.is-visible {
+      display: flex;
+    }
+
+    .print-final,
+    .download-json {
       min-height: 54px;
       border: 0;
       border-radius: 999px;
@@ -1262,15 +1275,10 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .print-final.is-visible {
-      display: inline-flex;
-      align-items: center;
-      justify-self: start;
-      grid-column: 3;
-    }
-
     .print-final:hover,
-    .print-final:focus-visible {
+    .print-final:focus-visible,
+    .download-json:hover,
+    .download-json:focus-visible {
       filter: brightness(1.05);
       box-shadow:
         0 12px 28px rgba(15, 23, 42, .18),
@@ -1278,7 +1286,8 @@
       outline: 0;
     }
 
-    .print-final:active {
+    .print-final:active,
+    .download-json:active {
       transform: scale(.97);
     }
 
@@ -1447,7 +1456,7 @@
         padding: 16px 16px 0;
       }
 
-      .print-final.is-visible {
+      .final-actions.is-visible {
         grid-column: 1 / -1;
         grid-row: 2;
         justify-self: center;
@@ -1975,7 +1984,10 @@ Important:
           <button class="round-nav" type="button" data-slide-prev aria-label="Previous topic">&lt;</button>
           <button class="round-nav" type="button" data-slide-next aria-label="Next topic">&gt;</button>
         </div>
-        <button class="print-final" type="button" data-print-final>Print / PDF</button>
+        <div class="final-actions" data-final-actions>
+          <button class="print-final" type="button" data-print-final>Print / PDF</button>
+          <button class="download-json" type="button" data-download-json>Download JSON</button>
+        </div>
         <div class="print-status" data-print-status aria-live="polite"></div>
       </div>
     </div>
@@ -1984,7 +1996,7 @@ Important:
     (() => {
       const form = document.querySelector("form");
       const storageKey = "ib-startcheck:en:index2:v2";
-      const fields = form ? [...form.querySelectorAll("input:not([data-theme-toggle]), textarea")] : [];
+      const fields = form ? [...form.querySelectorAll('input:not([data-theme-toggle]):not([type="password"]):not([type="range"]), textarea')] : [];
 
       const readSaved = () => {
         try {
@@ -2075,6 +2087,8 @@ Important:
       const prevButton = document.querySelector("[data-slide-prev]");
       const nextButton = document.querySelector("[data-slide-next]");
       const printButton = document.querySelector("[data-print-final]");
+      const downloadJsonButton = document.querySelector("[data-download-json]");
+      const finalActions = document.querySelector("[data-final-actions]");
       const printStatus = document.querySelector("[data-print-status]");
       const settingsToggle = document.querySelector("[data-settings-toggle]");
       const settingsPanel = document.querySelector("[data-settings-panel]");
@@ -2087,7 +2101,7 @@ Important:
       const updateSlideControls = () => {
         if (prevButton) prevButton.disabled = activeTaskIndex === 0;
         if (nextButton) nextButton.disabled = activeTaskIndex === tasks.length - 1;
-        printButton?.classList.toggle("is-visible", activeTaskIndex === tasks.length - 1);
+        finalActions?.classList.toggle("is-visible", activeTaskIndex === tasks.length - 1);
       };
 
       const setActiveTask = (taskId, shouldSave = true, keepAtBottom = false) => {
@@ -2364,6 +2378,48 @@ Important:
       };
 
       printButton?.addEventListener("click", handlePrint);
+
+      downloadJsonButton?.addEventListener("click", () => {
+        const answers = {};
+        form?.querySelectorAll("input[name], textarea[name], select[name]").forEach((field) => {
+          if (field.type === "password") return;
+          const value = field.type === "checkbox" ? field.checked : field.value;
+          if (Object.prototype.hasOwnProperty.call(answers, field.name)) {
+            if (!Array.isArray(answers[field.name])) answers[field.name] = [answers[field.name]];
+            answers[field.name].push(value);
+          } else {
+            answers[field.name] = value;
+          }
+        });
+
+        const currentState = readSaved();
+        const exportData = {
+          exportVersion: 1,
+          exportedAt: new Date().toISOString(),
+          studentFirstName: studentFirstName || "",
+          answers,
+          progress: {
+            activeTask: currentState.activeTask || "task-1",
+            readConfirmations: currentState.readConfirmations || {},
+            solvedTasks: currentState.solvedTasks || {},
+            matches: currentState.matches || [],
+            theme: currentState.theme || "white",
+            fontScale: currentState.fontScale || 100
+          }
+        };
+        const safeName = (studentFirstName || "student").toLowerCase().replace(/[^a-z0-9_-]+/gi, "-");
+        const date = new Date().toISOString().slice(0, 10);
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `${safeName}_ib-startcheck_${date}.json`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 0);
+        setPrintStatus("JSON backup downloaded.", "admin");
+      });
 
       const setReadButton = (button, isRead) => {
         button.classList.toggle("is-read", isRead);
