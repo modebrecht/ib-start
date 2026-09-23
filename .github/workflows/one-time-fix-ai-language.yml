@@ -40,3 +40,5 @@ jobs:
           git add index.html .github/scripts .github/workflows
           git commit -m "fix: simplify AI language for first lesson"
           git push origin HEAD:dev
+
+# one-time trigger
