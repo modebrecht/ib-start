@@ -1,0 +1,219 @@
+caption{
+  position:absolute;
+  left:18px;
+  bottom:18px;
+  max-width:65%;
+  padding:10px 14px;
+  border-radius:999px;
+  background:rgba(7,12,22,.62);
+  border:1px solid rgba(255,255,255,.13);
+  backdrop-filter:blur(8px);
+  color:#f5f8ff;
+  font-size:clamp(1.08rem,1.25vw,1.3rem);
+  letter-spacing:.01em;
+}
+.image-chip{
+  position:absolute;
+  left:18px;
+  top:18px;
+  padding:8px 13px;
+  border-radius:999px;
+  background:rgba(7,12,22,.62);
+  border:1px solid rgba(255,255,255,.13);
+  backdrop-filter:blur(8px);
+  font-size:clamp(1.05rem,1.18vw,1.24rem);
+  font-weight:700;
+  color:#f5f8ff;
+}
+@media(max-width:800px){
+  .alt-map{height:62vh}
+  .image-slide{padding:1.5vh 1.5vw 5vh}
+  .hero-image-wrap{width:99vw;height:83vh}
+  .image-caption{max-width:88%;font-size:.9rem}
+}
+</style>
+</head>
+<body>
+<div class="presentation">
+
+<section class="slide active">
+  <div class="number">01 / 05</div>
+  <div class="eyebrow">Willkommen</div>
+  <h1>Meine<br><span class="gradient">Kurzvorstellung</span></h1>
+  <p class="subtitle">Hallo! Ich bin <strong>Matthias</strong>. Hier erfährst du etwas über meine Hobbys, meine Lieblingstiere und darüber, was ich im Informatikunterricht noch lernen möchte.</p>
+</section>
+
+<section class="slide">
+  <div class="number">02 / 05</div>
+  <div class="eyebrow">Das mache ich gerne</div>
+  <h2>Meine <span class="gradient">Hobbys</span></h2>
+  <div class="scene-grid hobby-grid">
+
+    <div class="scene-card">
+      <svg class="scene-svg" viewBox="0 0 220 140" aria-label="Animierte Tennisszene">
+        <defs><linearGradient id="court" x1="0" x2="1"><stop stop-color="#142d52"/><stop offset="1" stop-color="#0c6f79"/></linearGradient></defs>
+        <rect x="8" y="18" width="204" height="112" rx="24" fill="url(#court)" opacity=".95"/>
+        <path d="M18 102 H202 M110 62 V125" stroke="#aef6ff" stroke-width="2" opacity=".65"/>
+        <path d="M18 72 H202" stroke="#d8fbff" stroke-width="4" opacity=".85"/>
+        <g class="swing">
+          <ellipse cx="78" cy="60" rx="23" ry="31" fill="none" stroke="#77e8ff" stroke-width="5"/>
+          <path d="M93 82 L114 111" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+          <path d="M64 42 L91 78 M60 55 L95 63 M61 68 L92 49" stroke="#77e8ff" stroke-width="1.5" opacity=".9"/>
+        </g>
+        <circle class="slideBall" cx="88" cy="45" r="9" fill="#dfff48"/>
+        <path d="M72 100 Q92 79 111 100" stroke="#ff72cf" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <circle cx="90" cy="91" r="8" fill="#ffe0c9"/>
+        <circle class="spark" cx="187" cy="35" r="4" fill="#fff"/><circle class="spark" cx="34" cy="39" r="3" fill="#7fe8ff"/>
+      </svg>
+      <h3>Tennis</h3><p>Bewegung, Fokus, Match.</p>
+    </div>
+
+    <div class="scene-card">
+      <svg class="scene-svg" viewBox="0 0 220 140" aria-label="Animierte Leseszene">
+        <rect x="10" y="18" width="200" height="112" rx="24" fill="#201b48"/>
+        <circle cx="48" cy="45" r="17" fill="#ffd86a" opacity=".92"/><path d="M48 17 V30" stroke="#ffd86a" stroke-width="4"/>
+        <path d="M58 95 Q87 76 109 94 Q131 77 162 95 V119 Q131 102 109 119 Q87 103 58 119Z" fill="#8b70ff"/>
+        <path d="M109 94 V119" stroke="#c9c2ff" stroke-width="2"/>
+        <rect class="page" x="148" y="48" width="24" height="31" rx="4" fill="#fff" opacity=".9"/>
+        <rect class="page" x="82" y="36" width="20" height="27" rx="4" fill="#dffaff" opacity=".85" style="animation-delay:.8s"/>
+        <circle class="float" cx="109" cy="69" r="13" fill="#ffe0c9"/>
+        <path d="M94 84 Q109 73 124 84" stroke="#00d9ff" stroke-width="8" stroke-linecap="round"/>
+        <circle class="spark" cx="178" cy="36" r="4" fill="#ff65c7"/>
+      </svg>
+      <h3>Lesen</h3><p>Abtauchen und Ruhe.</p>
+    </div>
+
+    <div class="scene-card">
+      <svg class="scene-svg" viewBox="0 0 220 140" aria-label="Animierte Brettspielszene">
+        <rect x="10" y="18" width="200" height="112" rx="24" fill="#2a1745"/>
+        <rect x="46" y="55" width="128" height="60" rx="12" fill="#3f3d81" transform="rotate(-5 110 85)"/>
+        <circle cx="82" cy="76" r="10" fill="#ff65c7"/><circle cx="110" cy="88" r="10" fill="#00d9ff"/><circle cx="142" cy="73" r="10" fill="#ffd86a"/>
+        <g class="dice"><rect x="137" y="92" width="27" height="27" rx="7" fill="#fff"/><circle cx="145" cy="100" r="2.5" fill="#1a1740"/><circle cx="156" cy="111" r="2.5" fill="#1a1740"/><circle cx="145" cy="111" r="2.5" fill="#1a1740"/></g>
+        <path class="float" d="M65 106 V90 L73 81 L81 90 V106Z" fill="#7cf4b4"/>
+        <path class="float2" d="M177 72 V56 L185 47 L193 56 V72Z" fill="#ff8d54"/>
+        <circle class="spark" cx="40" cy="39" r="4" fill="#fff"/>
+      </svg>
+      <h3>Gesellschaftsspiele</h3><p>Knobeln, lachen, taktieren.</p>
+    </div>
+
+    <div class="scene-card">
+      <svg class="scene-svg" viewBox="0 0 220 140" aria-label="Animierte Gaming-Szene">
+        <rect x="10" y="18" width="200" height="112" rx="24" fill="#102248"/>
+        <rect x="48" y="36" width="124" height="65" rx="12" fill="#171b35" stroke="#00d9ff" stroke-width="3"/>
+        <path d="M63 83 L87 61 L103 74 L124 51 L158 83Z" fill="#5a55d6"/>
+        <circle cx="141" cy="51" r="8" fill="#ffd86a"/>
+        <g class="controller">
+          <path d="M72 104 Q85 93 99 102 H121 Q136 93 148 104 L156 120 Q159 129 150 130 Q143 130 135 117 H86 Q78 130 70 130 Q61 129 64 120Z" fill="#8b70ff"/>
+          <circle cx="88" cy="111" r="4" fill="#fff"/><path d="M84 111 H92 M88 107 V115" stroke="#241f59" stroke-width="2"/>
+          <circle cx="135" cy="109" r="3.2" fill="#ff65c7"/><circle cx="144" cy="116" r="3.2" fill="#00d9ff"/>
+        </g>
+      </svg>
+      <h3>Gaming</h3><p>Welten und cleveres Gameplay.</p>
+    </div>
+
+    <div class="scene-card">
+      <svg class="scene-svg" viewBox="0 0 220 140" aria-label="Animierte Coding-Szene">
+        <rect x="10" y="18" width="200" height="112" rx="24" fill="#122742"/>
+        <rect x="45" y="35" width="130" height="78" rx="12" fill="#0b1020" stroke="#8b70ff" stroke-width="3"/>
+        <rect class="codeLine" x="61" y="52" width="70" height="6" rx="3" fill="#00d9ff"/>
+        <rect class="codeLine" x="72" y="67" width="86" height="6" rx="3" fill="#ff65c7" style="animation-delay:.35s"/>
+        <rect class="codeLine" x="61" y="82" width="56" height="6" rx="3" fill="#7cf4b4" style="animation-delay:.7s"/>
+        <path d="M91 113 H129 L137 124 H83Z" fill="#5c5ae7"/>
+        <g class="spinSlow"><circle cx="174" cy="45" r="12" fill="none" stroke="#ffd86a" stroke-width="4" stroke-dasharray="7 5"/><circle cx="174" cy="45" r="3" fill="#ffd86a"/></g>
+        <circle class="spark" cx="37" cy="43" r="4" fill="#fff"/>
+      </svg>
+      <h3>Eigene Projekte bauen</h3><p>Webseiten, Tools und Games.</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="slide">
+  <div class="number">03 / 05</div>
+  <div class="eyebrow">Meine Lieblingstiere</div>
+  <h2>Pinguine & <span class="gradient">alles Buschige</span></h2>
+  <div class="scene-grid animal-grid">
+
+    <div class="scene-card">
+      <svg class="scene-svg" viewBox="0 0 220 170" aria-label="Verbesserter animierter Pinguin">
+        <defs>
+          <linearGradient id="pengSky2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1b4372"/>
+            <stop offset="100%" stop-color="#0d1d3a"/>
+          </linearGradient>
+          <linearGradient id="ice2" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#d8f8ff"/>
+            <stop offset="100%" stop-color="#9eddf7"/>
+          </linearGradient>
+        </defs>
+        <rect x="9" y="14" width="202" height="142" rx="26" fill="url(#pengSky2)"/>
+        <circle cx="173" cy="38" r="16" fill="#eaf8ff" opacity=".95"/>
+        <circle cx="173" cy="38" r="24" fill="#eaf8ff" opacity=".1"/>
+        <path d="M22 120 Q58 102 91 116 Q123 97 154 117 Q181 103 198 114 V144 H22Z" fill="url(#ice2)" opacity=".98"/>
+        <path d="M31 129 H190" stroke="#7fdfff" stroke-width="3" opacity=".45"/>
+        <path d="M50 118 L60 108 L70 118 M141 120 L151 110 L162 120" stroke="#f4ffff" stroke-width="3" fill="none" opacity=".7"/>
+        <g class="waddle">
+          <ellipse cx="109" cy="94" rx="37" ry="45" fill="#f8fbff"/>
+          <ellipse cx="109" cy="80" rx="34" ry="35" fill="#152443"/>
+          <ellipse cx="109" cy="95" rx="25" ry="31" fill="#fff"/>
+          <circle cx="98" cy="73" r="4.5" fill="#fff"/>
+          <circle cx="120" cy="73" r="4.5" fill="#fff"/>
+          <circle cx="98" cy="73" r="1.5" fill="#122"/>
+          <circle cx="120" cy="73" r="1.5" fill="#122"/>
+          <path d="M107 81 L121 88 L107 92Z" fill="#ffad3d"/>
+          <ellipse cx="93" cy="87" rx="3.2" ry="2.4" fill="#ffc9c9" opacity=".7"/>
+          <ellipse cx="125" cy="87" rx="3.2" ry="2.4" fill="#ffc9c9" opacity=".7"/>
+          <path d="M79 95 Q58 103 66 117" stroke="#152443" stroke-width="12" stroke-linecap="round"/>
+          <path d="M139 95 Q160 103 152 117" stroke="#152443" stroke-width="12" stroke-linecap="round"/>
+          <path d="M96 135 Q104 126 110 135 Q116 126 123 135" stroke="#ffb34e" stroke-width="5" fill="none" stroke-linecap="round"/>
+        </g>
+        <circle class="spark" cx="49" cy="43" r="4" fill="#fff"/>
+        <circle class="spark" cx="74" cy="34" r="3" fill="#7fe8ff"/>
+        <circle class="spark" cx="188" cy="62" r="3.5" fill="#fff"/>
+      </svg>
+      <h3>Pinguin</h3><p>Tapsig. Charmant. Mein Favorit.</p>
+    </div>
+
+    <div class="scene-card">
+      <svg class="scene-svg" viewBox="0 0 220 170" aria-label="Verbessertes animiertes Eichhörnchen">
+        <defs>
+          <linearGradient id="squirrelBg2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2f415e"/>
+            <stop offset="100%" stop-color="#1a2437"/>
+          </linearGradient>
+          <linearGradient id="treeBark2" x1="0" x2="1">
+            <stop offset="0%" stop-color="#6e4a2b"/>
+            <stop offset="100%" stop-color="#8a5b35"/>
+          </linearGradient>
+        </defs>
+        <rect x="9" y="14" width="202" height="142" rx="26" fill="url(#squirrelBg2)"/>
+        <path d="M21 140 Q72 109 114 126 Q158 104 199 131 V156 H21Z" fill="#294b3a"/>
+        <rect x="27" y="104" width="166" height="18" rx="9" fill="url(#treeBark2)"/>
+        <path d="M44 113 H173" stroke="#9b7048" stroke-width="3" opacity=".55"/>
+        <g class="tail">
+          <path d="M73 112 Q34 103 42 63 Q50 21 95 35 Q70 49 79 69 Q87 89 101 100 Z" fill="#c66a2f"/>
+          <path d="M74 104 Q49 94 56 67 Q62 44 88 43" stroke="#f0b173" stroke-width="5" fill="none" opacity=".65"/>
+        </g>
+        <ellipse cx="118" cy="101" rx="31" ry="34" fill="#d9823d"/>
+        <ellipse cx="118" cy="101" rx="19" ry="22" fill="#efbc8d"/>
+        <circle cx="123" cy="73" r="22" fill="#d9823d"/>
+        <path d="M108 58 L114 39 L124 59 M130 58 L141 42 L139 65" fill="#d9823d"/>
+        <circle cx="116" cy="72" r="3.6" fill="#16131e"/>
+        <circle cx="131" cy="72" r="3.6" fill="#16131e"/>
+        <ellipse cx="123" cy="84" rx="6" ry="4.2" fill="#f5c89c"/>
+        <path d="M117 90 Q123 94 129 90" stroke="#8c542f" stroke-width="2.6" fill="none"/>
+        <path d="M107 99 Q116 92 125 101 M121 101 Q131 92 140 101" stroke="#8c542f" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <ellipse class="bob" cx="148" cy="113" rx="12" ry="16" fill="#8c542f"/>
+        <path d="M139 105 Q148 96 157 105" stroke="#5c351f" stroke-width="3" fill="none"/>
+        <path d="M146 98 L151 90 L156 98" fill="#8c542f"/>
+        <circle class="spark" cx="50" cy="43" r="4" fill="#fff"/>
+        <circle class="spark" cx="177" cy="37" r="4" fill="#ffd86a"/>
+        <path class="float" d="M171 53 l6 -10 6 10 -6 10z" fill="#ff8d54"/>
+      </svg>
+      <h3>Eichhörnchen</h3><p>Flink und maximal buschig.</p>
+    </div>
+
+    <div class="scene-card">
+      <svg class="scene-svg" viewBox="0 0 220 170" aria-label="Verbesserter animierter Chipmunk">
+        <defs>
+          <lin
