@@ -1588,8 +1588,8 @@
           </div>
           <div class="header-tools">
             <div class="student-meta" aria-label="Schülerdaten">
-              <strong data-student-name>Vorname</strong>
-              <span>Klasse B25</span>
+              <strong data-student-name>Name</strong>
+              <span data-student-class>Klasse</span>
               <span data-current-date>Datum</span>
             </div>
             <div class="settings-wrap">
@@ -2027,6 +2027,7 @@ Wichtig:
       document.querySelectorAll("[data-randomize-options]").forEach(shuffleOptions);
 
       const studentNameEl = document.querySelector("[data-student-name]");
+      const studentClassEl = document.querySelector("[data-student-class]");
       const currentDateEl = document.querySelector("[data-current-date]");
       const formatDate = (date) => new Intl.DateTimeFormat("de-CH", {
         day: "2-digit",
@@ -2034,17 +2035,30 @@ Wichtig:
         year: "numeric"
       }).format(date);
 
-      let studentFirstName = typeof saved.studentFirstName === "string" ? saved.studentFirstName.trim() : "";
-      if (!studentFirstName) {
-        studentFirstName = (window.prompt("Vorname?") || "").trim();
-        if (studentFirstName) {
+      let studentName = typeof saved.studentName === "string" ? saved.studentName.trim() : "";
+      if (!studentName && typeof saved.studentFirstName === "string") studentName = saved.studentFirstName.trim();
+      if (!studentName) {
+        studentName = (window.prompt("Name?") || "").trim();
+        if (studentName) {
           const next = readSaved();
-          next.studentFirstName = studentFirstName;
+          next.studentName = studentName;
+          next.studentFirstName = studentName;
           writeSaved(next);
         }
       }
 
-      if (studentNameEl) studentNameEl.textContent = studentFirstName || "Vorname";
+      let studentClass = typeof saved.studentClass === "string" ? saved.studentClass.trim() : "";
+      if (!studentClass) {
+        studentClass = (window.prompt("Klasse?") || "").trim().replace(/^klasse\s+/i, "");
+        if (studentClass) {
+          const next = readSaved();
+          next.studentClass = studentClass;
+          writeSaved(next);
+        }
+      }
+
+      if (studentNameEl) studentNameEl.textContent = studentName || "Name";
+      if (studentClassEl) studentClassEl.textContent = studentClass ? `Klasse ${studentClass}` : "Klasse";
       if (currentDateEl) currentDateEl.textContent = formatDate(new Date());
 
       const themeToggle = document.querySelector("[data-theme-toggle]");
@@ -2396,7 +2410,9 @@ Wichtig:
         const exportData = {
           exportVersion: 1,
           exportedAt: new Date().toISOString(),
-          studentFirstName: studentFirstName || "",
+          studentName: studentName || "",
+          studentFirstName: studentName || "",
+          studentClass: studentClass || "",
           answers,
           progress: {
             activeTask: currentState.activeTask || "task-1",
@@ -2407,7 +2423,7 @@ Wichtig:
             fontScale: currentState.fontScale || 100
           }
         };
-        const safeName = (studentFirstName || "schueler").toLowerCase().replace(/[^a-z0-9_-]+/gi, "-");
+        const safeName = (studentName || "schueler").toLowerCase().replace(/[^a-z0-9_-]+/gi, "-");
         const date = new Date().toISOString().slice(0, 10);
         const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
         const url = URL.createObjectURL(blob);
