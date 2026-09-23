@@ -25,11 +25,12 @@ jobs:
           import base64
           path = Path('index.html')
           text = path.read_text(encoding='utf-8')
-          old = base64.b64decode('U2NocmVpYmUgZGVpbmVuIFByb21wdCBzZWxic3QuCgpEZWluIFByb21wdCBtdXNzIGRlciBLSyBtaW5kZXN0ZW5zIHNhZ2VuOgrigKIgV29ydW0gZ2VodCBlcz8gRWluZSBQcsOkc2VudGF0aW9uIMO8YmVyIGRpY2gK4oCiIFdpZSB2aWVsZSBGb2xpZW4/IDUK4oCiIEZvcm1hdDogZWluZSBlbnppZ2UgSFRNTC1EYXRlaQrigoIgRGllIFByw6RzZW50YXRpb24gc29sbCBpbSBGdWxsc2NyZWVuIGZ1bmt0aW9uaWVyZW4K4oCiIFN0ZXVlcnVuZzog4oaQIHp1csO8Y2ssIOKGkiAvIOKGkyAvIExlZXJ0YXN0ZSB3ZWl0ZXIKCkR1IGVudHNjaGVpZGVzdCBzZWxic3QsIHdpZSBkdSBkYXMgZm9ybXVsaWVyc3QgdW5kIHdpZSBkaWUgUHLDpHNlbnRhdGlvbiBhdXNzZWhlbiBzb2xsLgpQYXNzdCBkYXMgRXJnZWJuaXMgbmljaHQ/IFZlcmJlc3NlcmUgZGVpbmVuIFByb21wdCB1bmQgcHJvYmllcmUgZXJuZXV0Lg==').decode('utf-8')
-          new = base64.b64decode('U2NocmVpYmUgZGVpbmVuIFByb21wdCBzZWxic3QuCgpEaWVzZSBJbmZvcm1hdGlvbmVuIG3DvHNzZW4gaW4gZGVpbmVyIFByw6RzZW50YXRpb24gdm9ya29tbWVuOgrigKIgVGl0ZWwgLyBkZWluIFZvcm5hbWUK4oCiIE1pbmRlc3RlbnMgMyBIb2JieXMgb2RlciBJbnRlcmVzc2VuCuKAoiBEZWluIExpZWJsaW5nc3RpZXIgdW5kIGRlaW4gTGllYmxpbmdzZXNzZW4K4oCiIEFwcHMgb2RlciBHYW1lcywgZGllIGR1IGdlcm5lIG51dHp0CuKAoiBXYXMgZHUgaW0gSW5mb3JtYXRpa3VudGVycmljaHQgbGVybmVuIG3DtGNodGVzdAoKQmVpc3BpZWxlIGbDvHIgZGFzLCB3YXMgZHUgaW0gSW5mb3JtYXRpa3VudGVycmljaHQgbGVybmVuIG3DtGNodGVzdDoK4oCiIG1pdCBLSSB1bWdlaGVuCuKAoiBNZWRpZW4gbWl0IEtJIGVyc3RlbGxlbgrigKIgV29yZCwgRXhjZWwgYW5kIFBvd2VyUG9pbnQgbnV0emVuCuKAoiBXZWJzZWl0ZW4gbWFjaGVuCuKAoiBrbGVpbmUgQXBwcyBvZGVyIEdhbWVzIHByb2dyYW1taWVyZW4KCkTDvCBmb3JtdWxpZXJzdCBkZWluZW4gUHJvbXB0IHNlbGJzdCB1bmQgZW50c2NoZWlkZXN0IGF1Y2ggc2VsYnN0LCB3aWUgaWRlIFByw6RzZW50YXRpb24gYXVzc2VoZW4gc29sbC4KUGFzc3QgZGFzIEVyZ2VibmlzIG5pY2h0PyBWZXJiZXNzZXJlIGRlaW5lbiBQcm9tcHQgdW5kIHByb2JpZXJlIGVybmV1dC4=').decode('utf-8')
-          if text.count(old) != 1:
-              raise SystemExit(f'Expected old prompt help once, found {text.count(old)}')
-          text = text.replace(old, new, 1)
+          start_marker = '<pre class="prompt-code"><code>Schreibe deinen Prompt selbst.'
+          start = text.index(start_marker)
+          body_start = start + len('<pre class="prompt-code"><code>')
+          end = text.index('</code></pre>', body_start)
+          new = base64.b64decode('U2NocmVpYmUgZGVpbmVuIFByb21wdCBzZWxic3QuCgpEaWVzZSBJbmZvcm1hdGlvbmVuIG3DvHNzZW4gaW4gZGVpbmVyIFByw6RzZW50YXRpb24gdm9ya29tbWVuOgrigKIgVGl0ZWwgLyBkZWluIFZvcm5hbWUK4oCiIE1pbmRlc3RlbnMgMyBIb2JieXMgb2RlciBJbnRlcmVzc2VuCuKAoiBEZWluIExpZWJsaW5nc3RpZXIgdW5kIGRlaW4gTGllYmxpbmdzZXNzZW4K4oCiIEFwcHMgb2RlciBHYW1lcywgZGllIGR1IGdlcm5lIG51dHp0CuKAoiBXYXMgZHUgaW0gSW5mb3JtYXRpa3VudGVycmljaHQgbGVybmVuIG3DtmNodGVzdAoKQmVpc3BpZWxlIGbDvHIgZGFzLCB3YXMgZHUgaW0gSW5mb3JtYXRpa3VudGVycmljaHQgbGVybmVuIG3DtmNodGVzdDoK4oCiIG1pdCBLSSB1bWdlaGVuCuKAoiBNZWRpZW4gbWl0IEtJIGVyc3RlbGxlbgrigKIgV29yZCwgRXhjZWwgdW5kIFBvd2VyUG9pbnQgbnV0emVuCuKAoiBXZWJzZWl0ZW4gbWFjaGVuCuKAoiBrbGVpbmUgQXBwcyBvZGVyIEdhbWVzIHByb2dyYW1taWVyZW4KCkR1IGZvcm11bGllcnN0IGRlaW5lbiBQcm9tcHQgc2VsYnN0IHVuZCBlbnRzY2hlaWRlc3QgYXVjaCBzZWxic3QsIHdpZSBkaWUgUHLDpHNlbnRhdGlvbiBhdXNzZWhlbiBzb2xsLgpQYXNzdCBkYXMgRXJnZWJuaXMgbmljaHQ/IFZlcmJlc3NlcmUgZGVpbmVuIFByb21wdCB1bmQgcHJvYmllcmUgZXJuZXV0Lg==').decode('utf-8')
+          text = text[:body_start] + new + text[end:]
           path.write_text(text, encoding='utf-8')
 
       - name: Extract app JavaScript
