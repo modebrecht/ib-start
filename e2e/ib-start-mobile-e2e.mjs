@@ -27,16 +27,18 @@ const runProfile = async profile => {
   });
 
   await context.addInitScript(() => {
-    localStorage.setItem('ib-startcheck:index2:v2', JSON.stringify({
-      studentName: 'Mobile Test',
-      studentFirstName: 'Mobile Test',
-      studentClass: '7B',
-      theme: 'white',
-      fontScale: 100,
-      readConfirmations: {},
-      solvedTasks: {},
-      matches: [],
-    }));
+    try {
+      localStorage.setItem('ib-startcheck:index2:v2', JSON.stringify({
+        studentName: 'Mobile Test',
+        studentFirstName: 'Mobile Test',
+        studentClass: '7B',
+        theme: 'white',
+        fontScale: 100,
+        readConfirmations: {},
+        solvedTasks: {},
+        matches: [],
+      }));
+    } catch {}
     window.__E2E_PRINT_CALLED__ = false;
     window.print = () => { window.__E2E_PRINT_CALLED__ = true; };
   });
