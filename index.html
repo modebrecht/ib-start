@@ -1225,6 +1225,11 @@
       cursor: pointer;
     }
     .html-runner-status { color: var(--muted); font-weight: 750; }
+    .html-runner {
+      border-color: color-mix(in srgb, var(--accent, var(--blue)) 30%, var(--line));
+      background: color-mix(in srgb, var(--accent, var(--blue)) 6%, var(--panel-bg));
+    }
+    .html-runner-start { background: var(--accent, var(--blue)); }
     body.presentation-open { overflow: hidden; }
     .presentation-stage[hidden] { display: none !important; }
     .presentation-stage {
@@ -1716,12 +1721,12 @@
     <div class="workspace">
       <nav class="task-nav" aria-label="Aufgaben">
         <button class="task-tile is-active" type="button" data-task-target="task-1" style="--tile-color: var(--red)"><span class="task-number">01</span><span class="task-label">Mini-Präsentation</span></button>
-        <button class="task-tile" type="button" data-task-target="task-6" style="--tile-color: var(--indigo)"><span class="task-number">02</span><span class="task-label">Was darf ich teilen?</span></button>
-        <button class="task-tile" type="button" data-task-target="task-5" style="--tile-color: var(--orange)"><span class="task-number">03</span><span class="task-label">KI richtig nutzen</span></button>
-        <button class="task-tile" type="button" data-task-target="task-3" style="--tile-color: var(--yellow)"><span class="task-number">04</span><span class="task-label">Gute Dateinamen erkennen</span></button>
-        <button class="task-tile" type="button" data-task-target="task-7" style="--tile-color: var(--violet)"><span class="task-number">05</span><span class="task-label">Tastenkombinationen</span></button>
-        <button class="task-tile" type="button" data-task-target="task-2" style="--tile-color: var(--green)"><span class="task-number">06</span><span class="task-label">Meine Präsentation</span></button>
-        <button class="task-tile" type="button" data-task-target="task-8" style="--tile-color: var(--cyan)"><span class="task-number">07</span><span class="task-label">Rückblick</span></button>
+        <button class="task-tile" type="button" data-task-target="task-6" style="--tile-color: var(--orange)"><span class="task-number">02</span><span class="task-label">Was darf ich teilen?</span></button>
+        <button class="task-tile" type="button" data-task-target="task-3" style="--tile-color: var(--yellow)"><span class="task-number">03</span><span class="task-label">Gute Dateinamen erkennen</span></button>
+        <button class="task-tile" type="button" data-task-target="task-5" style="--tile-color: var(--green)"><span class="task-number">04</span><span class="task-label">KI richtig nutzen</span></button>
+        <button class="task-tile" type="button" data-task-target="task-7" style="--tile-color: var(--cyan)"><span class="task-number">05</span><span class="task-label">Tastenkombinationen</span></button>
+        <button class="task-tile" type="button" data-task-target="task-2" style="--tile-color: var(--blue)"><span class="task-number">06</span><span class="task-label">Meine Präsentation</span></button>
+        <button class="task-tile" type="button" data-task-target="task-8" style="--tile-color: var(--violet)"><span class="task-number">07</span><span class="task-label">Rückblick</span></button>
       </nav>
 
       <div class="task-stage">
@@ -1737,7 +1742,7 @@
               <div class="auftrag-card"><strong>2. Hobbys und Interessen</strong><p>Mindestens drei Beispiele, die zu dir passen.</p></div>
               <div class="auftrag-card"><strong>3. Lieblingstier und Lieblingsessen</strong><p>Welches Tier und welches Essen magst du am liebsten?</p></div>
               <div class="auftrag-card"><strong>4. Apps oder Games</strong><p>Welche Apps oder Games nutzt du gerne?</p></div>
-              <div class="auftrag-card"><strong>5. Was ich im IB lernen möchte</strong><p>Zum Beispiel KI, Word, Excel, PowerPoint, Webseiten oder kleine Apps und Games.</p></div>
+              <div class="auftrag-card"><strong>5. Was ich im Informatikunterricht lernen möchte</strong><p>Zum Beispiel KI, Word, Excel, PowerPoint, Webseiten oder kleine Apps und Games.</p></div>
             </div>
 
             <div class="final-box">
@@ -1749,7 +1754,7 @@
         </div>
       </section>
 
-      <section class="section" data-task="task-6" style="--accent: var(--indigo)">
+      <section class="section" data-task="task-6" style="--accent: var(--orange)">
         <div class="section-number"><span>02</span><span>◉</span></div>
         <div class="section-body">
           <h2 class="section-title">Was darf ich teilen?</h2>
@@ -1759,18 +1764,12 @@
               <div class="privacy-options" data-randomize-options>
                 <label class="choice"><input type="checkbox" name="privacy-presentation-hobby" value="good" data-privacy-answer> Hobby</label>
                 <label class="choice"><input type="checkbox" name="privacy-presentation-game" value="good" data-privacy-answer> Lieblingsgame</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-food" value="good" data-privacy-answer> Lieblingsessen</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-address" value="bad" data-privacy-answer> Adresse</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-subject" value="good" data-privacy-answer> Lieblingsfach</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-pet" value="good" data-privacy-answer> Haustier</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-phone" value="bad" data-privacy-answer> Telefonnummer</label>
                 <label class="choice"><input type="checkbox" name="privacy-presentation-first-name" value="good" data-privacy-answer> Vorname</label>
                 <label class="choice"><input type="checkbox" name="privacy-presentation-last-name" value="good" data-privacy-answer> Nachname</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-club" value="good" data-privacy-answer> Verein</label>
                 <label class="choice"><input type="checkbox" name="privacy-presentation-birthday" value="good" data-privacy-answer> Geburtsdatum</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-favorite-app" value="good" data-privacy-answer> Lieblingsapp</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-address" value="bad" data-privacy-answer> Adresse</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-phone" value="bad" data-privacy-answer> Telefonnummer</label>
                 <label class="choice"><input type="checkbox" name="privacy-presentation-password" value="bad" data-privacy-answer> Passwort</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-pin" value="bad" data-privacy-answer> PIN</label>
               </div>
               <div class="check-actions">
                 <button class="check-button" type="button" data-check-privacy="presentation">Präsentation prüfen</button>
@@ -1782,18 +1781,12 @@
               <div class="privacy-options" data-randomize-options>
                 <label class="choice"><input type="checkbox" name="privacy-ai-hobby" value="good" data-privacy-answer> Hobby</label>
                 <label class="choice"><input type="checkbox" name="privacy-ai-game" value="good" data-privacy-answer> Lieblingsgame</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-food" value="good" data-privacy-answer> Lieblingsessen</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-subject" value="good" data-privacy-answer> Lieblingsfach</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-pet" value="good" data-privacy-answer> Haustier</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-favorite-app" value="good" data-privacy-answer> Lieblingsapp</label>
                 <label class="choice"><input type="checkbox" name="privacy-ai-first-name" value="good" data-privacy-answer> Vorname</label>
                 <label class="choice"><input type="checkbox" name="privacy-ai-last-name" value="bad" data-privacy-answer> Nachname</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-birthday" value="bad" data-privacy-answer> Geburtsdatum</label>
                 <label class="choice"><input type="checkbox" name="privacy-ai-address" value="bad" data-privacy-answer> Adresse</label>
                 <label class="choice"><input type="checkbox" name="privacy-ai-phone" value="bad" data-privacy-answer> Telefonnummer</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-club" value="bad" data-privacy-answer> spezifischer Verein</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-birthday" value="bad" data-privacy-answer> Geburtsdatum</label>
                 <label class="choice"><input type="checkbox" name="privacy-ai-password" value="bad" data-privacy-answer> Passwort</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-pin" value="bad" data-privacy-answer> PIN</label>
               </div>
               <div class="check-actions">
                 <button class="check-button" type="button" data-check-privacy="ai">KI-Prompt prüfen</button>
@@ -1804,30 +1797,8 @@
         </div>
       </section>
 
-      <section class="section" data-task="task-5" style="--accent: var(--orange)">
-        <div class="section-number"><span>03</span><span>✦</span></div>
-        <div class="section-body">
-          <h2 class="section-title">KI richtig nutzen</h2>
-          <div class="section-content">
-            <p class="auftrag-intro">Ein guter Prompt sagt der KI klar, <strong>was</strong> sie machen soll und <strong>welche Inhalte</strong> wichtig sind.</p>
-            <span class="label">Welche Prompts sind gut? Es können mehrere Antworten richtig sein.</span>
-            <div class="prompt-list">
-              <label class="choice"><input type="checkbox" name="prompt-quality-generic" value="bad" data-prompt-answer> Mach eine Präsentation.</label>
-              <label class="choice"><input type="checkbox" name="prompt-quality-detailed" value="good" data-prompt-answer> Erstelle eine Präsentation mit 5 Folien über mich. Verwende meinen Vornamen, 3 Hobbys, mein Lieblingstier und mein Lieblingsessen.</label>
-              <label class="choice"><input type="checkbox" name="prompt-quality-vague" value="bad" data-prompt-answer> Mach etwas Schönes.</label>
-              <label class="choice"><input type="checkbox" name="prompt-quality-hobby" value="good" data-prompt-answer> Erstelle eine Präsentation über mein Hobby Tennis mit Titel, 3 Fakten, Bildidee und Abschlussfolie.</label>
-            </div>
-            <label>Warum ist ein genauer Prompt besser?<textarea name="prompt-reason"></textarea></label>
-            <div class="check-actions">
-              <button class="check-button" type="button" data-check-task="task-5">Prompt-Check prüfen</button>
-              <span class="check-status" data-check-status="task-5" aria-live="polite"></span>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section class="section" data-task="task-3" style="--accent: var(--yellow)">
-        <div class="section-number"><span>04</span><span>◆</span></div>
+        <div class="section-number"><span>03</span><span>◆</span></div>
         <div class="section-body">
           <h2 class="section-title">Gute Dateinamen erkennen</h2>
           <div class="section-content">
@@ -1873,7 +1844,29 @@
         </div>
       </section>
 
-      <section class="section" data-task="task-7" style="--accent: var(--violet)">
+      <section class="section" data-task="task-5" style="--accent: var(--green)">
+        <div class="section-number"><span>04</span><span>✦</span></div>
+        <div class="section-body">
+          <h2 class="section-title">KI richtig nutzen</h2>
+          <div class="section-content">
+            <p class="auftrag-intro">Ein guter Prompt sagt der KI klar, <strong>was</strong> sie machen soll und <strong>welche Inhalte</strong> wichtig sind.</p>
+            <span class="label">Welche Prompts sind gut? Es können mehrere Antworten richtig sein.</span>
+            <div class="prompt-list">
+              <label class="choice"><input type="checkbox" name="prompt-quality-generic" value="bad" data-prompt-answer> Mach eine Präsentation.</label>
+              <label class="choice"><input type="checkbox" name="prompt-quality-detailed" value="good" data-prompt-answer> Erstelle eine Präsentation mit 5 Folien über mich. Verwende meinen Vornamen, 3 Hobbys, mein Lieblingstier und mein Lieblingsessen.</label>
+              <label class="choice"><input type="checkbox" name="prompt-quality-vague" value="bad" data-prompt-answer> Mach etwas Schönes.</label>
+              <label class="choice"><input type="checkbox" name="prompt-quality-hobby" value="good" data-prompt-answer> Erstelle eine Präsentation über mein Hobby Tennis mit Titel, 3 Fakten, Bildidee und Abschlussfolie.</label>
+            </div>
+            <label>Warum ist ein genauer Prompt besser?<textarea name="prompt-reason"></textarea></label>
+            <div class="check-actions">
+              <button class="check-button" type="button" data-check-task="task-5">Prompt-Check prüfen</button>
+              <span class="check-status" data-check-status="task-5" aria-live="polite"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-task="task-7" style="--accent: var(--cyan)">
         <div class="section-number"><span>05</span><span>⌨</span></div>
         <div class="section-body">
           <h2 class="section-title">Werkzeuge: Tastenkombinationen</h2>
@@ -1919,7 +1912,7 @@
         </div>
       </section>
 
-      <section class="section" data-task="task-2" style="--accent: var(--green)">
+      <section class="section" data-task="task-2" style="--accent: var(--blue)">
         <div class="section-number"><span>06</span><span>▣</span></div>
         <div class="section-body">
           <h2 class="section-title">Meine Präsentation</h2>
@@ -1937,7 +1930,7 @@
                 <strong>PowerPoint – so gehst du vor</strong>
                 <ol class="auftrag-list">
                   <li>PowerPoint öffnen und die Inhalte aus Aufgabe 01 verwenden.</li>
-                  <li>Deinen Dateinamen aus Aufgabe 04 verwenden und speichern.</li>
+                  <li>Deinen Dateinamen aus Aufgabe 03 verwenden und speichern.</li>
                   <li>Die Präsentation mit <strong>F5</strong> testen.</li>
                   <li>Datei abgeben oder per Outlook senden.</li>
                 </ol>
@@ -1945,7 +1938,7 @@
               <div class="auftrag-card">
                 <strong>HTML mit KI – so gehst du vor</strong>
                 <ol class="auftrag-list">
-                  <li>Deinen eigenen Prompt schreiben. Beachte Aufgabe 02 und 03.</li>
+                  <li>Deinen eigenen Prompt schreiben. Beachte Aufgabe 02 und 04.</li>
                   <li>Die HTML-Präsentation von der KI erstellen lassen.</li>
                   <li>Den HTML-Code unten einfügen und im Vollbild testen.</li>
                   <li>Datei sinnvoll benennen, speichern und abgeben.</li>
@@ -1988,7 +1981,7 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
         </div>
       </section>
 
-      <section class="section" data-task="task-8" style="--accent: var(--cyan)">
+      <section class="section" data-task="task-8" style="--accent: var(--violet)">
         <div class="section-number"><span>07</span><span>✓</span></div>
         <div class="section-body">
           <h2 class="section-title">Rückblick</h2>
@@ -2003,7 +1996,7 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
               <label>Das fand ich schwierig
                 <textarea name="difficult"></textarea>
               </label>
-              <label>Das möchte ich im IB-Unterricht gerne einmal machen
+              <label>Das möchte ich im Informatikunterricht gerne einmal machen
                 <textarea name="future"></textarea>
               </label>
             </div>
@@ -2612,7 +2605,7 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
       };
 
       if (saved.solvedTasks?.["task-3"]) {
-        setCheckStatus("task-3", "Gespeichert: Aufgabe 04 ist richtig gelöst.", "success");
+        setCheckStatus("task-3", "Gespeichert: Aufgabe 03 ist richtig gelöst.", "success");
       }
 
 
