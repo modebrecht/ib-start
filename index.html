@@ -327,6 +327,14 @@
       color: var(--red);
     }
 
+    .settings-json {
+      width: 100%;
+      min-height: 42px;
+      border-radius: 10px;
+      padding: 0 14px;
+      box-shadow: none;
+    }
+
     .theme-toggle {
       position: relative;
       display: inline-flex;
@@ -1129,15 +1137,6 @@
       overflow: hidden;
     }
 
-    .prompt-box summary {
-      list-style: none;
-      cursor: pointer;
-    }
-
-    .prompt-box summary::-webkit-details-marker {
-      display: none;
-    }
-
     .prompt-head {
       display: flex;
       align-items: center;
@@ -1149,19 +1148,8 @@
       color: var(--slide-title);
     }
 
-    .prompt-box[open] .prompt-head {
+    .prompt-box-static .prompt-head {
       border-bottom: 1px solid var(--line);
-    }
-
-    .prompt-summary-label::before {
-      content: "▸";
-      display: inline-block;
-      margin-right: 8px;
-      transition: transform .16s ease;
-    }
-
-    .prompt-box[open] .prompt-summary-label::before {
-      transform: rotate(90deg);
     }
 
     .copy-prompt {
@@ -1754,7 +1742,7 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    button:not(.match-item):not(.task-tile):not(.round-nav):not(.print-final):not(.copy-prompt):not(.check-button):not(.read-button):not(.settings-button):not(.admin-unlock):not(.html-runner-start):not(.presentation-back):not(.pdf-lock-close):not(.pdf-lock-dismiss) {
+    button:not(.match-item):not(.task-tile):not(.round-nav):not(.print-final):not(.download-json):not(.copy-prompt):not(.check-button):not(.read-button):not(.settings-button):not(.admin-unlock):not(.html-runner-start):not(.presentation-back):not(.pdf-lock-close):not(.pdf-lock-dismiss) {
       border: 0;
       border-radius: 10px;
       background: var(--ink);
@@ -2050,6 +2038,11 @@
                   <output class="font-scale-value" for="font-scale" data-font-scale-value>100%</output>
                   <input id="font-scale" type="range" min="80" max="250" step="5" value="100" data-font-scale aria-label="Textgrösse in Prozent">
                 </div>
+                <div class="settings-group settings-export">
+                  <span class="settings-title">Export</span>
+                  <button class="download-json settings-json" type="button" data-download-json>JSON herunterladen</button>
+                  <span class="admin-status" data-json-status aria-live="polite"></span>
+                </div>
                 <div class="settings-group">
                   <span class="settings-title">Admin Mode</span>
                   <div class="admin-row">
@@ -2295,8 +2288,8 @@
               </div>
             </div>
 
-            <details class="prompt-box">
-              <summary class="prompt-head"><span class="prompt-summary-label">Hilfe für deinen Prompt anzeigen</span></summary>
+            <div class="prompt-box prompt-box-static">
+              <div class="prompt-head"><span>Hilfe für deinen Prompt</span></div>
               <pre class="prompt-code"><code>Schreibe deinen Prompt selbst.
 
 Diese Informationen müssen in deiner Präsentation vorkommen:
@@ -2315,11 +2308,6 @@ Beispiele für das, was du lernen möchtest:
 Verwende nur Informationen, die du laut Aufgabe 02 mit einer KI teilen darfst.
 Du entscheidest selbst, wie die Präsentation aussehen soll.
 Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></pre>
-            </details>
-
-            <span class="label" style="display:block; margin-top:24px;">Wenn du fertig bist:</span>
-            <div class="check-grid">
-              <label class="choice"><input type="checkbox" name="created" value="finished"> Meine Präsentation ist fertig und gespeichert.</label>
             </div>
           </div>
         </div>
@@ -2426,9 +2414,6 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
           <button class="round-nav" type="button" data-slide-next aria-label="Nächstes Thema" title="Nächste Aufgabe">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>
           </button>
-        </div>
-        <div class="final-actions" data-final-actions>
-          <button class="download-json" type="button" data-download-json>JSON herunterladen</button>
         </div>
         <div class="print-status" data-print-status aria-live="polite"></div>
       </div>
@@ -2559,6 +2544,7 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
       const nextButton = document.querySelector("[data-slide-next]");
       const printButton = document.querySelector("[data-print-final]");
       const downloadJsonButton = document.querySelector("[data-download-json]");
+      const jsonStatus = document.querySelector("[data-json-status]");
       const finalActions = document.querySelector("[data-final-actions]");
       const printStatus = document.querySelector("[data-print-status]");
       const settingsToggle = document.querySelector("[data-settings-toggle]");
@@ -3056,7 +3042,7 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
         link.click();
         link.remove();
         setTimeout(() => URL.revokeObjectURL(url), 0);
-        setPrintStatus("JSON-Datensicherung wurde heruntergeladen.", "admin");
+        if (jsonStatus) jsonStatus.textContent = "JSON heruntergeladen.";
       });
 
       const setReadButton = (button, isRead) => {
