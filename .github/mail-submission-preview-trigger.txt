@@ -1,1 +1,0 @@
-Publish task 08 mail submission update to the dev GitHub Pages preview.
