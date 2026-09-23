@@ -21,118 +21,25 @@ jobs:
         shell: python
         run: |
           from pathlib import Path
-
+          import base64
           path = Path('index.html')
           text = path.read_text(encoding='utf-8')
-
-          old_html = '''            <div class="prompt-list">
-              <label class="choice"><input type="checkbox"> Mach eine Präsentation.</label>
-              <label class="choice"><input type="checkbox"> Erstelle eine moderne Fullscreen-Präsentation mit 5 Folien über mich. Nutze grosse Schrift, Emojis und Pfeiltasten zur Navigation.</label>
-              <label class="choice"><input type="checkbox"> Mach etwas Schönes.</label>
-              <label class="choice"><input type="checkbox"> Erstelle eine Präsentation über mein Hobby Tennis mit Titel, 3 Fakten, Bildidee und Abschlussfolie.</label>
-            </div>
-            <label>Warum ist ein genauer Prompt besser?
-              <textarea name="prompt-reason"></textarea>
-            </label>'''
-
-          new_html = '''            <div class="prompt-list">
-              <label class="choice"><input type="checkbox" name="prompt-quality-generic" value="bad" data-prompt-answer> Mach eine Präsentation.</label>
-              <label class="choice"><input type="checkbox" name="prompt-quality-detailed" value="good" data-prompt-answer> Erstelle eine moderne Fullscreen-Präsentation mit 5 Folien über mich. Nutze grosse Schrift, Emojis und Pfeiltasten zur Navigation.</label>
-              <label class="choice"><input type="checkbox" name="prompt-quality-vague" value="bad" data-prompt-answer> Mach etwas Schönes.</label>
-              <label class="choice"><input type="checkbox" name="prompt-quality-hobby" value="good" data-prompt-answer> Erstelle eine Präsentation über mein Hobby Tennis mit Titel, 3 Fakten, Bildidee und Abschlussfolie.</label>
-            </div>
-            <label>Warum ist ein genauer Prompt besser?
-              <textarea name="prompt-reason"></textarea>
-            </label>
-            <div class="check-actions">
-              <button class="check-button" type="button" data-check-task="task-5">Aufgabe prüfen</button>
-              <span class="check-status" data-check-status="task-5" aria-live="polite"></span>
-            </div>'''
-
+          decode = lambda value: base64.b64decode(value).decode('utf-8')
+          old_html = decode('ICAgICAgICAgICAgPGRpdiBjbGFzcz0icHJvbXB0LWxpc3QiPgogICAgICAgICAgICAgIDxsYWJlbCBjbGFzcz0iY2hvaWNlIj48aW5wdXQgdHlwZT0iY2hlY2tib3giPiBNYWNoIGVpbmUgUHLDpHNlbnRhdGlvbi48L2xhYmVsPgogICAgICAgICAgICAgIDxsYWJlbCBjbGFzcz0iY2hvaWNlIj48aW5wdXQgdHlwZT0iY2hlY2tib3giPiBFcnN0ZWxsZSBlaW5lIG1vZGVybmUgRnVsbHNjcmVlbi1QcsOkc2VudGF0aW9uIG1pdCA1IEZvbGllbiDDvGJlciBtaWNoLiBOdXR6ZSBncm9zc2UgU2NocmlmdCwgRW1vamlzIHVuZCBQZmVpbHRhc3RlbiB6dXIgTmF2aWdhdGlvbi48L2xhYmVsPgogICAgICAgICAgICAgIDxsYWJlbCBjbGFzcz0iY2hvaWNlIj48aW5wdXQgdHlwZT0iY2hlY2tib3giPiBNYWNoIGV0d2FzIFNjaMO2bmVzLjwvbGFiZWw+CiAgICAgICAgICAgICAgPGxhYmVsIGNsYXNzPSJjaG9pY2UiPjxpbnB1dCB0eXBlPSJjaGVja2JveCI+IEVyc3RlbGxlIGVpbmUgUHLDpHNlbnRhdGlvbiDDvGJlciBtZWluIEhvYmJ5IFRlbm5pcyBtaXQgVGl0ZWwsIDMgRmFrdGVuLCBCaWxkaWRlZSB1bmQgQWJzY2hsdXNzZm9saWUuPC9sYWJlbD4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDxsYWJlbD5XYXJ1bSBpc3QgZWluIGdlbmF1ZXIgUHJvbXB0IGJlc3Nlcj8KICAgICAgICAgICAgICA8dGV4dGFyZWEgbmFtZT0icHJvbXB0LXJlYXNvbiI+PC90ZXh0YXJlYT4KICAgICAgICAgICAgPC9sYWJlbD4=')
+          new_html = decode('ICAgICAgICAgICAgPGRpdiBjbGFzcz0icHJvbXB0LWxpc3QiPgogICAgICAgICAgICAgIDxsYWJlbCBjbGFzcz0iY2hvaWNlIj48aW5wdXQgdHlwZT0iY2hlY2tib3giIG5hbWU9InByb21wdC1xdWFsaXR5LWdlbmVyaWMiIHZhbHVlPSJiYWQiIGRhdGEtcHJvbXB0LWFuc3dlcj4gTWFjaCBlaW5lIFByw6RzZW50YXRpb24uPC9sYWJlbD4KICAgICAgICAgICAgICA8bGFiZWwgY2xhc3M9ImNob2ljZSI+PGlucHV0IHR5cGU9ImNoZWNrYm94IiBuYW1lPSJwcm9tcHQtcXVhbGl0eS1kZXRhaWxlZCIgdmFsdWU9Imdvb2QiIGRhdGEtcHJvbXB0LWFuc3dlcj4gRXJzdGVsbGUgZWluZSBtb2Rlcm5lIEZ1bGxzY3JlZW4tUHLDpHNlbnRhdGlvbiBtaXQgNSBGb2xpZW4gw7xiZXIgbWljaC4gTnV0emUgZ3Jvc3NlIFNjaHJpZnQsIEVtb2ppcyB1bmQgUGZlaWx0YXN0ZW4genVyIE5hdmlnYXRpb24uPC9sYWJlbD4KICAgICAgICAgICAgICA8bGFiZWwgY2xhc3M9ImNob2ljZSI+PGlucHV0IHR5cGU9ImNoZWNrYm94IiBuYW1lPSJwcm9tcHQtcXVhbGl0eS12YWd1ZSIgdmFsdWU9ImJhZCIgZGF0YS1wcm9tcHQtYW5zd2VyPiBNYWNoIGV0d2FzIFNjaMO2bmVzLjwvbGFiZWw+CiAgICAgICAgICAgICAgPGxhYmVsIGNsYXNzPSJjaG9pY2UiPjxpbnB1dCB0eXBlPSJjaGVja2JveCIgbmFtZT0icHJvbXB0LXF1YWxpdHktaG9iYnkiIHZhbHVlPSJnb29kIiBkYXRhLXByb21wdC1hbnN3ZXI+IEVyc3RlbGxlIGVpbmUgUHLDpHNlbnRhdGlvbiDDvGJlciBtZWluIEhvYmJ5IFRlbm5pcyBtaXQgVGl0ZWwsIDMgRmFrdGVuLCBCaWxkaWRlZSB1bmQgQWJzY2hsdXNzZm9saWUuPC9sYWJlbD4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDxsYWJlbD5XYXJ1bSBpc3QgZWluIGdlbmF1ZXIgUHJvbXB0IGJlc3Nlcj8KICAgICAgICAgICAgICA8dGV4dGFyZWEgbmFtZT0icHJvbXB0LXJlYXNvbiI+PC90ZXh0YXJlYT4KICAgICAgICAgICAgPC9sYWJlbD4KICAgICAgICAgICAgPGRpdiBjbGFzcz0iY2hlY2stYWN0aW9ucyI+CiAgICAgICAgICAgICAgPGJ1dHRvbiBjbGFzcz0iY2hlY2stYnV0dG9uIiB0eXBlPSJidXR0b24iIGRhdGEtY2hlY2stdGFzaz0idGFzay01Ij5BdWZnYWJlIHByw7xmZW48L2J1dHRvbj4KICAgICAgICAgICAgICA8c3BhbiBjbGFzcz0iY2hlY2stc3RhdHVzIiBkYXRhLWNoZWNrLXN0YXR1cz0idGFzay01IiBhcmlhLWxpdmU9InBvbGl0ZSI+PC9zcGFuPgogICAgICAgICAgICA8L2Rpdj4=')
           if text.count(old_html) != 1:
               raise SystemExit(f'Expected task 05 HTML once, found {text.count(old_html)}')
           text = text.replace(old_html, new_html)
-
           old_gate = 'const taskNeedsSolved = (taskId) => taskId === "task-3" || taskId === "task-4" || taskId === "task-6" || taskId === "task-7";'
           new_gate = 'const taskNeedsSolved = (taskId) => taskId === "task-3" || taskId === "task-4" || taskId === "task-5" || taskId === "task-6" || taskId === "task-7";'
           if text.count(old_gate) != 1:
               raise SystemExit(f'Expected task gate once, found {text.count(old_gate)}')
           text = text.replace(old_gate, new_gate)
-
-          marker = '''      if (saved.solvedTasks?.["task-6"]) {
-        setCheckStatus("task-6-presentation", "Gespeichert.", "success");
-        setCheckStatus("task-6-ai", "Gespeichert.", "success");
-      }
-
-      const filenameAnswers = {'''
-
-          replacement = '''      if (saved.solvedTasks?.["task-6"]) {
-        setCheckStatus("task-6-presentation", "Gespeichert.", "success");
-        setCheckStatus("task-6-ai", "Gespeichert.", "success");
-      }
-
-      const promptInputs = [...document.querySelectorAll("[data-prompt-answer]")];
-      const isPromptTaskSolved = () => {
-        return promptInputs.length > 0 && promptInputs.every((input) => {
-          return input.value === "good" ? input.checked : !input.checked;
-        });
-      };
-
-      if (saved.solvedTasks?.["task-5"]) {
-        if (isPromptTaskSolved()) {
-          setCheckStatus("task-5", "Gespeichert: Aufgabe 05 ist richtig gelöst.", "success");
-        } else {
-          const next = readSaved();
-          next.solvedTasks = { ...(next.solvedTasks || {}), "task-5": false };
-          writeSaved(next);
-        }
-      }
-
-      promptInputs.forEach((input) => {
-        input.addEventListener("change", () => {
-          saveSolvedTask("task-5", false);
-          setCheckStatus("task-5", "");
-        });
-      });
-
-      document.querySelector('[data-check-task="task-5"]')?.addEventListener("click", () => {
-        let correctChecked = 0;
-        let correctTotal = 0;
-        let wrongRemoved = 0;
-
-        promptInputs.forEach((input) => {
-          if (input.value === "good") {
-            correctTotal += 1;
-            if (input.checked) correctChecked += 1;
-            return;
-          }
-          if (!input.checked) return;
-          input.checked = false;
-          syncChoiceState(input);
-          const next = readSaved();
-          next[input.dataset.storeKey] = false;
-          writeSaved(next);
-          wrongRemoved += 1;
-        });
-
-        const solved = wrongRemoved === 0 && correctChecked === correctTotal && isPromptTaskSolved();
-        saveSolvedTask("task-5", solved);
-
-        if (solved) {
-          setCheckStatus("task-5", "Richtig gelöst und gespeichert.", "success");
-        } else if (wrongRemoved > 0) {
-          setCheckStatus("task-5", "Nicht passende Haken entfernt. Prüfe deine Auswahl nochmal.", "error");
-        } else {
-          setCheckStatus("task-5", "Noch nicht alle guten Prompts ausgewählt.", "error");
-        }
-      });
-
-      const filenameAnswers = {'''
-
+          marker = decode('ICAgICAgaWYgKHNhdmVkLnNvbHZlZFRhc2tzPy5bInRhc2stNiJdKSB7CiAgICAgICAgc2V0Q2hlY2tTdGF0dXMoInRhc2stNi1wcmVzZW50YXRpb24iLCAiR2VzcGVpY2hlcnQuIiwgInN1Y2Nlc3MiKTsKICAgICAgICBzZXRDaGVja1N0YXR1cygidGFzay02LWFpIiwgIkdlc3BlaWNoZXJ0LiIsICJzdWNjZXNzIik7CiAgICAgIH0KCiAgICAgIGNvbnN0IGZpbGVuYW1lQW5zd2VycyA9IHs=')
+          replacement = decode('ICAgICAgaWYgKHNhdmVkLnNvbHZlZFRhc2tzPy5bInRhc2stNiJdKSB7CiAgICAgICAgc2V0Q2hlY2tTdGF0dXMoInRhc2stNi1wcmVzZW50YXRpb24iLCAiR2VzcGVpY2hlcnQuIiwgInN1Y2Nlc3MiKTsKICAgICAgICBzZXRDaGVja1N0YXR1cygidGFzay02LWFpIiwgIkdlc3BlaWNoZXJ0LiIsICJzdWNjZXNzIik7CiAgICAgIH0KCiAgICAgIGNvbnN0IHByb21wdElucHV0cyA9IFsuLi5kb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJbZGF0YS1wcm9tcHQtYW5zd2VyXSIpXTsKICAgICAgY29uc3QgaXNQcm9tcHRUYXNrU29sdmVkID0gKCkgPT4gewogICAgICAgIHJldHVybiBwcm9tcHRJbnB1dHMubGVuZ3RoID4gMCAmJiBwcm9tcHRJbnB1dHMuZXZlcnkoKGlucHV0KSA9PiB7CiAgICAgICAgICByZXR1cm4gaW5wdXQudmFsdWUgPT09ICJnb29kIiA/IGlucHV0LmNoZWNrZWQgOiAhaW5wdXQuY2hlY2tlZDsKICAgICAgICB9KTsKICAgICAgfTsKCiAgICAgIGlmIChzYXZlZC5zb2x2ZWRUYXNrcz8uWyJ0YXNrLTUiXSkgewogICAgICAgIGlmIChpc1Byb21wdFRhc2tTb2x2ZWQoKSkgewogICAgICAgICAgc2V0Q2hlY2tTdGF0dXMoInRhc2stNSIsICJHZXNwZWljaGVydDogQXVmZ2FiZSAwNSBpc3QgcmljaHRpZyBnZWzDtnN0LiIsICJzdWNjZXNzIik7CiAgICAgICAgfSBlbHNlIHsKICAgICAgICAgIGNvbnN0IG5leHQgPSByZWFkU2F2ZWQoKTsKICAgICAgICAgIG5leHQuc29sdmVkVGFza3MgPSB7IC4uLihuZXh0LnNvbHZlZFRhc2tzIHx8IHt9KSwgInRhc2stNSI6IGZhbHNlIH07CiAgICAgICAgICB3cml0ZVNhdmVkKG5leHQpOwogICAgICAgIH0KICAgICAgfQoKICAgICAgcHJvbXB0SW5wdXRzLmZvckVhY2goKGlucHV0KSA9PiB7CiAgICAgICAgaW5wdXQuYWRkRXZlbnRMaXN0ZW5lcigiY2hhbmdlIiwgKCkgPT4gewogICAgICAgICAgc2F2ZVNvbHZlZFRhc2soInRhc2stNSIsIGZhbHNlKTsKICAgICAgICAgIHNldENoZWNrU3RhdHVzKCJ0YXNrLTUiLCAiIik7CiAgICAgICAgfSk7CiAgICAgIH0pOwoKICAgICAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcignW2RhdGEtY2hlY2stdGFzaz0idGFzay01Il0nKT8uYWRkRXZlbnRMaXN0ZW5lcigiY2xpY2siLCAoKSA9PiB7CiAgICAgICAgbGV0IGNvcnJlY3RDaGVja2VkID0gMDsKICAgICAgICBsZXQgY29ycmVjdFRvdGFsID0gMDsKICAgICAgICBsZXQgd3JvbmdSZW1vdmVkID0gMDsKCiAgICAgICAgcHJvbXB0SW5wdXRzLmZvckVhY2goKGlucHV0KSA9PiB7CiAgICAgICAgICBpZiAoaW5wdXQudmFsdWUgPT09ICJnb29kIikgewogICAgICAgICAgICBjb3JyZWN0VG90YWwgKz0gMTsKICAgICAgICAgICAgaWYgKGlucHV0LmNoZWNrZWQpIGNvcnJlY3RDaGVja2VkICs9IDE7CiAgICAgICAgICAgIHJldHVybjsKICAgICAgICAgIH0KICAgICAgICAgIGlmICghaW5wdXQuY2hlY2tlZCkgcmV0dXJuOwogICAgICAgICAgaW5wdXQuY2hlY2tlZCA9IGZhbHNlOwogICAgICAgICAgc3luY0Nob2ljZVN0YXRlKGlucHV0KTsKICAgICAgICAgIGNvbnN0IG5leHQgPSByZWFkU2F2ZWQoKTsKICAgICAgICAgIG5leHRbaW5wdXQuZGF0YXNldC5zdG9yZUtleV0gPSBmYWxzZTsKICAgICAgICAgIHdyaXRlU2F2ZWQobmV4dCk7CiAgICAgICAgICB3cm9uZ1JlbW92ZWQgKz0gMTsKICAgICAgICB9KTsKCiAgICAgICAgY29uc3Qgc29sdmVkID0gd3JvbmdSZW1vdmVkID09PSAwICYmIGNvcnJlY3RDaGVja2VkID09PSBjb3JyZWN0VG90YWwgJiYgaXNQcm9tcHRUYXNrU29sdmVkKCk7CiAgICAgICAgc2F2ZVNvbHZlZFRhc2soInRhc2stNSIsIHNvbHZlZCk7CgogICAgICAgIGlmIChzb2x2ZWQpIHsKICAgICAgICAgIHNldENoZWNrU3RhdHVzKCJ0YXNrLTUiLCAiUmljaHRpZyBnZWzDtnN0IHVuZCBnZXNwZWljaGVydC4iLCAic3VjY2VzcyIpOwogICAgICAgIH0gZWxzZSBpZiAod3JvbmdSZW1vdmVkID4gMCkgewogICAgICAgICAgc2V0Q2hlY2tTdGF0dXMoInRhc2stNSIsICJOaWNodCBwYXNzZW5kZSBIYWtlbiBlbnRmZXJudC4gUHLDvGZlIGRlaW5lIEF1c3dhaGwgbm9jaG1hbC4iLCAiZXJyb3IiKTsKICAgICAgICB9IGVsc2UgewogICAgICAgICAgc2V0Q2hlY2tTdGF0dXMoInRhc2stNSIsICJOb2NoIG5pY2h0IGFsbGUgZ3V0ZW4gUHJvbXB0cyBhdXNnZXfDpGhsdC4iLCAiZXJyb3IiKTsKICAgICAgICB9CiAgICAgIH0pOwoKICAgICAgY29uc3QgZmlsZW5hbWVBbnN3ZXJzID0gew==')
           if text.count(marker) != 1:
               raise SystemExit(f'Expected task 05 JS marker once, found {text.count(marker)}')
           text = text.replace(marker, replacement)
-
           path.write_text(text, encoding='utf-8')
       - name: Commit fix and remove one-time workflow
         run: |
