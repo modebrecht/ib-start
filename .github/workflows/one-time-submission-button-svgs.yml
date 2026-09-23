@@ -1,0 +1,44 @@
+name: One-time submission button SVGs
+
+on:
+  push:
+    branches: [dev]
+    paths:
+      - '.github/workflows/one-time-submission-button-svgs.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+      - name: Apply SVG button icons
+        run: python .github/scripts/add_submission_button_svgs.py
+      - name: Validate main JavaScript
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text = Path('index.html').read_text(encoding='utf-8')
+          js = text.split('<script>', 1)[1].split('</script>', 1)[0]
+          Path('/tmp/app.js').write_text(js, encoding='utf-8')
+          PY
+          node --check /tmp/app.js
+      - name: Validate icons
+        run: |
+          grep -q 'data-html-runner-start><svg class="action-icon"' index.html
+          grep -q 'data-html-download><svg class="action-icon"' index.html
+          grep -q 'data-submit-pdf><svg class="action-icon"' index.html
+          grep -q 'class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 6.5h17v11h-17z"' index.html
+      - name: Commit final change and remove one-time tooling
+        run: |
+          rm -f .github/scripts/add_submission_button_svgs.py .github/workflows/one-time-submission-button-svgs.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'fix: add SVG icons to submission actions'
+          git push origin dev
