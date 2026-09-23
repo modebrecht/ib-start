@@ -1,0 +1,39 @@
+name: One-time favicon link
+on:
+  push:
+    branches: [dev]
+    paths:
+      - '.github/workflows/one-time-add-favicon-link.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+      - name: Add favicon link
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('index.html')
+          text = path.read_text()
+          old = '  <title>IB-Startcheck Arbeitsblatt</title>\n'
+          new = old + '  <link rel="icon" href="favicon.svg" type="image/svg+xml">\n'
+          if new in text:
+              raise SystemExit('favicon link already present')
+          if old not in text:
+              raise SystemExit('title marker not found')
+          path.write_text(text.replace(old, new, 1))
+          PY
+      - name: Commit final change and remove one-time tooling
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/one-time-add-favicon-link.yml
+          git add index.html
+          git commit -m "feat: enable favicon"
+          git push origin HEAD:dev
