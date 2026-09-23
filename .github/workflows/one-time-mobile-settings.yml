@@ -1,0 +1,33 @@
+name: One-time mobile settings fix
+
+on:
+  push:
+    branches: [dev]
+    paths:
+      - .github/workflows/one-time-mobile-settings.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+      - name: Apply mobile settings fix
+        run: python3 .github/scripts/fix-mobile-settings.py
+      - name: Validate patch
+        run: |
+          grep -q '      .settings-wrap {' index.html
+          grep -q '        position: static;' index.html
+          grep -q '        max-width: none;' index.html
+      - name: Commit fix and remove one-time tooling
+        run: |
+          rm -f .github/scripts/fix-mobile-settings.py .github/workflows/one-time-mobile-settings.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html .github/scripts/fix-mobile-settings.py .github/workflows/one-time-mobile-settings.yml
+          git commit -m 'fix: keep settings panel inside mobile viewport'
+          git push origin HEAD:dev
