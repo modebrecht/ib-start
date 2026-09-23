@@ -1,0 +1,62 @@
+name: One-time context copy update
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-time-why-context.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Add short purpose explanations
+        shell: python
+        run: |
+          from pathlib import Path
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+
+          old_runner = '''              <div class="html-runner-head">\n                <strong>HTML-Präsentation testen</strong>\n                <span>Esc zurück · ← vorherige · → / ↓ / Leertaste nächste</span>\n              </div>\n              <label>HTML-Code hier einfügen'''
+          new_runner = '''              <div class="html-runner-head">\n                <strong>HTML-Präsentation testen</strong>\n                <span>Esc zurück · ← vorherige · → / ↓ / Leertaste nächste</span>\n              </div>\n              <p class="auftrag-intro">Eine Präsentation muss auch auf einem grossen Bildschirm oder Beamer gut aussehen und funktionieren. Teste sie deshalb im Vollbild.</p>\n              <label>HTML-Code hier einfügen'''
+          if text.count(old_runner) != 1:
+              raise SystemExit(f'Expected runner marker once, found {text.count(old_runner)}')
+          text = text.replace(old_runner, new_runner, 1)
+
+          old_shortcuts = '''          <div class="section-content">\n            <span class="label">Verbinde die Tastenkombination mit der passenden Bedeutung.</span>'''
+          new_shortcuts = '''          <div class="section-content">\n            <p class="auftrag-intro">Mit Tastenkombinationen kannst du am Computer schneller arbeiten und viele Dinge ohne Maus erledigen.</p>\n            <span class="label">Verbinde die Tastenkombination mit der passenden Bedeutung.</span>'''
+          if text.count(old_shortcuts) != 1:
+              raise SystemExit(f'Expected shortcut marker once, found {text.count(old_shortcuts)}')
+          text = text.replace(old_shortcuts, new_shortcuts, 1)
+
+          path.write_text(text, encoding='utf-8')
+
+      - name: Extract app JavaScript
+        shell: python
+        run: |
+          from pathlib import Path
+          text = Path('index.html').read_text(encoding='utf-8')
+          marker = '  <script>\n    (() => {'
+          start = text.index(marker) + len('  <script>\n')
+          end = text.rindex('\n  </script>')
+          Path('/tmp/ib-start-app.js').write_text(text[start:end], encoding='utf-8')
+
+      - name: Check JavaScript syntax
+        run: node --check /tmp/ib-start-app.js
+
+      - name: Commit and clean workflow
+        run: |
+          rm .github/workflows/one-time-why-context.yml
+          git config user.name "modebrecht"
+          git config user.email "137332207+modebrecht@users.noreply.github.com"
+          git add index.html .github/workflows/one-time-why-context.yml
+          git commit -m "fix: explain fullscreen and shortcut purpose"
+          git push origin main
