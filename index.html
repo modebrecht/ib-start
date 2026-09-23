@@ -1342,6 +1342,22 @@
       outline: 0;
     }
     .html-runner-start:active { transform: scale(.97); }
+    .action-icon {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .submission-action-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
     .html-runner-start.html-runner-download {
       background: var(--control-bg);
       color: var(--accent, var(--violet));
@@ -2407,8 +2423,8 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
               <p class="auftrag-intro">Wenn du die HTML-Variante gewählt hast: Füge den Code hier ein, teste die Präsentation im Vollbild und lade danach die HTML-Datei herunter.</p>
               <label>HTML-Code hier einfügen<textarea data-html-runner-input data-no-store data-ignore-completion spellcheck="false" placeholder="&lt;!doctype html&gt; ..."></textarea></label>
               <div class="html-runner-actions">
-                <button class="html-runner-start" type="button" data-html-runner-start><span aria-hidden="true">▶</span> Fullscreen testen</button>
-                <button class="html-runner-start html-runner-download" type="button" data-html-download><span aria-hidden="true">↓</span> HTML herunterladen</button>
+                <button class="html-runner-start" type="button" data-html-runner-start><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 3H3v5"></path><path d="m3 3 6 6"></path><path d="M16 3h5v5"></path><path d="m21 3-6 6"></path><path d="M8 21H3v-5"></path><path d="m3 21 6-6"></path><path d="M16 21h5v-5"></path><path d="m21 21-6-6"></path></svg> Fullscreen testen</button>
+                <button class="html-runner-start html-runner-download" type="button" data-html-download><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg> HTML herunterladen</button>
               </div>
               <div class="html-runner-status" data-html-runner-status aria-live="polite"></div>
             </div>
@@ -2417,7 +2433,7 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
               <div class="auftrag-card">
                 <strong>1. PDF erstellen</strong>
                 <p>Erstelle jetzt die PDF-Abgabe mit deinen Antworten aus diesem Startcheck.</p>
-                <div class="submission-actions"><button class="check-button" type="button" data-submit-pdf>PDF erstellen</button></div>
+                <div class="submission-actions"><button class="check-button submission-action-button" type="button" data-submit-pdf><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M12 11v7"></path><path d="m9 15 3 3 3-3"></path></svg> PDF erstellen</button></div>
               </div>
               <div class="auftrag-card">
                 <strong>2. Outlook öffnen</strong>
@@ -2425,7 +2441,7 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
                 <p class="school-mail-hint">Deine Schul-Mailadresse: <span class="school-mail-address">vorname.nachname@sus.gsu-so.ch</span></p>
                 <div class="submission-actions">
                   <a class="outlook-link" href="https://outlook.cloud.microsoft/" target="_blank" rel="noopener noreferrer">
-                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 6.5h17v11h-17z"></path><path d="m4 7 8 6 8-6"></path></svg>
+                    <svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 6.5h17v11h-17z"></path><path d="m4 7 8 6 8-6"></path></svg>
                     Outlook öffnen
                   </a>
                 </div>
