@@ -24,41 +24,20 @@ jobs:
           from pathlib import Path
           path = Path('index.html')
           text = path.read_text(encoding='utf-8')
-
           old_dispatch = 'window.dispatchEvent(new KeyboardEvent("keydown", {'
-          if text.count(old_dispatch) != 2:
-              raise SystemExit(f'Expected two presentation key dispatches, found {text.count(old_dispatch)}')
+          assert text.count(old_dispatch) == 2, text.count(old_dispatch)
           text = text.replace(old_dispatch, 'document.dispatchEvent(new KeyboardEvent("keydown", {')
-
-          old_escape = '''        if (event.key === "Escape") {
-          event.preventDefault();
-          closePresentation();
-          return;
-        }'''
-          new_escape = '''        if (event.key === "Escape") {
-          event.preventDefault();
-          event.stopImmediatePropagation();
-          closePresentation();
-          return;
-        }'''
-          if text.count(old_escape) != 1:
-              raise SystemExit(f'Expected parent Escape block once, found {text.count(old_escape)}')
+          old_escape = '        if (event.key === "Escape") {\n          event.preventDefault();\n          closePresentation();\n          return;\n        }'
+          new_escape = '        if (event.key === "Escape") {\n          event.preventDefault();\n          event.stopImmediatePropagation();\n          closePresentation();\n          return;\n        }'
+          assert text.count(old_escape) == 1, text.count(old_escape)
           text = text.replace(old_escape, new_escape, 1)
-
-          old_keys = '''        if (["ArrowLeft", "ArrowRight", "ArrowDown", " "].includes(event.key)) {
-          event.preventDefault();
-          presentationFrame?.contentWindow?.postMessage({'''
-          new_keys = '''        if (["ArrowLeft", "ArrowRight", "ArrowDown", " "].includes(event.key)) {
-          event.preventDefault();
-          event.stopImmediatePropagation();
-          presentationFrame?.contentWindow?.postMessage({'''
-          if text.count(old_keys) != 1:
-              raise SystemExit(f'Expected parent navigation block once, found {text.count(old_keys)}')
+          old_keys = '        if (["ArrowLeft", "ArrowRight", "ArrowDown", " "].includes(event.key)) {\n          event.preventDefault();\n          presentationFrame?.contentWindow?.postMessage({'
+          new_keys = '        if (["ArrowLeft", "ArrowRight", "ArrowDown", " "].includes(event.key)) {\n          event.preventDefault();\n          event.stopImmediatePropagation();\n          presentationFrame?.contentWindow?.postMessage({'
+          assert text.count(old_keys) == 1, text.count(old_keys)
           text = text.replace(old_keys, new_keys, 1)
-
           path.write_text(text, encoding='utf-8')
 
-      - name: Extract and check app JavaScript
+      - name: Extract app JavaScript
         shell: python
         run: |
           from pathlib import Path
@@ -67,7 +46,9 @@ jobs:
           start = text.index(marker) + len('  <script>\n')
           end = text.rindex('\n  </script>')
           Path('/tmp/ib-start-app.js').write_text(text[start:end], encoding='utf-8')
-      - run: node --check /tmp/ib-start-app.js
+
+      - name: Check JavaScript syntax
+        run: node --check /tmp/ib-start-app.js
 
       - name: Commit and clean workflow
         run: |
