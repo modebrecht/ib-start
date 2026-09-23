@@ -1,0 +1,73 @@
+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" alt="Wiederkehrende Aufgaben möglichst von selbst erledigen lassen.">
+    <div class="image-caption">Wiederkehrende Aufgaben möglichst von selbst erledigen lassen.</div>
+  </div>
+</section>
+
+</div>
+
+<button class="fullscreen" onclick="toggleFullscreen()" title="Vollbild">
+  <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg>
+</button>
+
+<div class="navigation">
+  <button onclick="previousSlide()" aria-label="Vorherige Folie"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <div class="dots"></div>
+  <button onclick="nextSlide()" aria-label="Nächste Folie"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></button>
+</div>
+<div class="hint">Pfeiltasten zum Navigieren</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const dotsContainer = document.querySelector('.dots');
+let currentSlide = 0;
+
+slides.forEach((slide, i) => {
+  const number = slide.querySelector('.number');
+  if (number) {
+    number.textContent = `${String(i + 1).padStart(2,'0')} / ${String(slides.length).padStart(2,'0')}`;
+  }
+
+  const dot = document.createElement('div');
+  dot.className = 'dot' + (i === 0 ? ' active' : '');
+  dot.addEventListener('click', () => showSlide(i));
+  dotsContainer.appendChild(dot);
+});
+
+const dots = document.querySelectorAll('.dot');
+
+function showSlide(index) {
+  if (index < 0) index = slides.length - 1;
+  if (index >= slides.length) index = 0;
+
+  slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+  dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+  currentSlide = index;
+}
+
+function nextSlide(){ showSlide(currentSlide + 1); }
+function previousSlide(){ showSlide(currentSlide - 1); }
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'PageDown') {
+    event.preventDefault();
+    nextSlide();
+  }
+  if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+    event.preventDefault();
+    previousSlide();
+  }
+  if (event.key === 'Home') showSlide(0);
+  if (event.key === 'End') showSlide(slides.length - 1);
+  if (event.key.toLowerCase() === 'f') toggleFullscreen();
+});
+
+function toggleFullscreen(){
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen();
+  }
+}
+</script>
+</body>
+</html>
