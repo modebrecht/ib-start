@@ -1,3 +1,4 @@
+# Desktop + phone + tablet regression coverage
 name: IB Startcheck E2E Artifact
 
 on:
@@ -25,9 +26,9 @@ permissions:
 
 jobs:
   e2e:
-    name: Fill everything + build PDF/HTML artifacts
+    name: Desktop + mobile browser E2E
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
 
     steps:
       - name: Checkout
@@ -58,25 +59,38 @@ jobs:
           cat /tmp/ib-start-http.log
           exit 1
 
-      - name: Run complete browser E2E
+      - name: Run complete desktop E2E
         env:
           E2E_BASE_URL: http://127.0.0.1:4173
           E2E_ARTIFACT_DIR: artifacts/e2e
         run: node e2e/ib-start-e2e.mjs
 
+      - name: Run phone + tablet E2E
+        env:
+          E2E_BASE_URL: http://127.0.0.1:4173
+          E2E_ARTIFACT_DIR: artifacts/e2e
+        run: node e2e/ib-start-mobile-e2e.mjs
+
       - name: Add E2E result to job summary
         if: always()
         run: |
           if [ -f artifacts/e2e/e2e-summary.txt ]; then
+            echo '### Desktop' >> "$GITHUB_STEP_SUMMARY"
             echo '```text' >> "$GITHUB_STEP_SUMMARY"
             cat artifacts/e2e/e2e-summary.txt >> "$GITHUB_STEP_SUMMARY"
             echo '```' >> "$GITHUB_STEP_SUMMARY"
-          elif [ -f artifacts/e2e/E2E-FAILURE.txt ]; then
-            echo '### E2E failed' >> "$GITHUB_STEP_SUMMARY"
-            echo 'Failure details are included in the uploaded artifact.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ -f artifacts/e2e/mobile-e2e-summary.txt ]; then
+            echo '### Mobile' >> "$GITHUB_STEP_SUMMARY"
+            echo '```text' >> "$GITHUB_STEP_SUMMARY"
+            cat artifacts/e2e/mobile-e2e-summary.txt >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ -f artifacts/e2e/E2E-FAILURE.txt ] || compgen -G 'artifacts/e2e/MOBILE-FAILURE-*.txt' > /dev/null; then
+            echo '### E2E failure details are included in the uploaded artifact.' >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      - name: Upload PDF + HTML E2E artifact
+      - name: Upload desktop + mobile E2E artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
