@@ -1,0 +1,88 @@
+name: One-time own prompt update
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-time-own-prompt.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Replace copy-paste prompt with learner guidance
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+
+          start_marker = '            <details class="prompt-box">\n'
+          end_marker = '            </details>\n'
+          start = text.index(start_marker)
+          end = text.index(end_marker, start) + len(end_marker)
+
+          replacement = '''            <details class="prompt-box">
+              <summary class="prompt-head">
+                <span class="prompt-summary-label">Hilfe für Variante B anzeigen</span>
+              </summary>
+              <pre class="prompt-code"><code>Schreibe deinen Prompt selbst.
+
+Dein Prompt muss der KI mindestens sagen:
+• Worum geht es? Eine Präsentation über dich
+• Wie viele Folien? 5
+• Format: eine einzige HTML-Datei
+• Die Präsentation soll im Fullscreen funktionieren
+• Steuerung: ← zurück, → / ↓ / Leertaste weiter
+
+Du entscheidest selbst, wie du das formulierst und wie die Präsentation aussehen soll.
+Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></pre>
+            </details>
+'''
+          text = text[:start] + replacement + text[end:]
+
+          js_start_marker = '      const copyPromptButton = document.querySelector("[data-copy-prompt]");\n'
+          js_end_marker = '\n\n      const htmlRunnerInput = document.querySelector("[data-html-runner-input]");'
+          js_start = text.index(js_start_marker)
+          js_end = text.index(js_end_marker, js_start)
+          text = text[:js_start] + text[js_end + 2:]
+
+          if 'Prompt kopieren' in text:
+              raise SystemExit('Copy-prompt UI still present')
+          if 'data-copy-prompt' in text or 'data-prompt-code' in text:
+              raise SystemExit('Copy-prompt hooks still present')
+          if 'Schreibe deinen Prompt selbst.' not in text:
+              raise SystemExit('Own-prompt guidance missing')
+
+          path.write_text(text, encoding='utf-8')
+
+      - name: Extract app JavaScript
+        shell: python
+        run: |
+          from pathlib import Path
+          text = Path('index.html').read_text(encoding='utf-8')
+          marker = '  <script>\n    (() => {'
+          start = text.index(marker) + len('  <script>\n')
+          end = text.rindex('\n  </script>')
+          Path('/tmp/ib-start-app.js').write_text(text[start:end], encoding='utf-8')
+
+      - name: Check JavaScript syntax
+        run: node --check /tmp/ib-start-app.js
+
+      - name: Commit and clean workflow
+        run: |
+          rm .github/workflows/one-time-own-prompt.yml
+          git config user.name "modebrecht"
+          git config user.email "137332207+modebrecht@users.noreply.github.com"
+          git add index.html .github/workflows/one-time-own-prompt.yml
+          git commit -m "feat: make students write their own AI prompt"
+          git push origin main
