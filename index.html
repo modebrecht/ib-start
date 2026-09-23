@@ -1290,19 +1290,25 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      gap: 8px 12px;
+      gap: 14px;
       flex-wrap: wrap;
     }
     .runner-shortcut {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
+      min-height: 42px;
+      padding: 5px 9px;
+      border: 1px solid color-mix(in srgb, var(--slide-text) 10%, var(--line));
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--control-bg) 84%, transparent);
       color: var(--muted);
+      box-shadow: 0 3px 10px rgba(15, 23, 42, .05);
       font-size: .88em;
       font-weight: 750;
       white-space: nowrap;
     }
-    .runner-shortcut-next { gap: 5px; }
+    .runner-shortcut-next { gap: 6px; }
     .runner-shortcut kbd {
       min-width: 32px;
       min-height: 30px;
@@ -1381,6 +1387,64 @@
       margin-bottom: 12px;
       color: var(--slide-title);
       font-size: 1.02em;
+    }
+    .submission-paperclip {
+      width: 23px;
+      height: 23px;
+      flex: 0 0 auto;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      color: var(--slide-title);
+    }
+    .school-mail-hint {
+      margin-top: 10px !important;
+      color: var(--muted) !important;
+      font-size: .92em;
+    }
+    .school-mail-address {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 5px;
+      padding: 5px 9px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--field-bg);
+      color: var(--slide-title);
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+    .submission-or {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 8px 0;
+      color: var(--muted);
+    }
+    .submission-or::before,
+    .submission-or::after {
+      content: "";
+      height: 1px;
+      flex: 1 1 auto;
+      background: color-mix(in srgb, var(--green) 18%, var(--line));
+    }
+    .submission-or span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 30px;
+      padding: 0 12px;
+      border: 1px solid color-mix(in srgb, var(--green) 18%, var(--line));
+      border-radius: 999px;
+      background: var(--control-bg);
+      color: var(--muted);
+      font-size: .8em;
+      font-weight: 900;
+      letter-spacing: .06em;
+      box-shadow: 0 2px 7px rgba(15, 23, 42, .05);
     }
     .submission-file-row {
       display: grid;
@@ -2370,6 +2434,7 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
               <div class="auftrag-card">
                 <strong>2. Outlook öffnen</strong>
                 <p>Öffne Outlook und erstelle eine neue Nachricht an deine Lehrperson.</p>
+                <p class="school-mail-hint">Deine Schul-Mailadresse: <span class="school-mail-address">vorname.nachname@sus.gsu-so.ch</span></p>
                 <div class="submission-actions">
                   <a class="outlook-link" href="https://outlook.cloud.microsoft/" target="_blank" rel="noopener noreferrer">
                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 6.5h17v11h-17z"></path><path d="m4 7 8 6 8-6"></path></svg>
@@ -2380,13 +2445,17 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
             </div>
 
             <div class="submission-files" aria-labelledby="submission-files-title">
-              <div class="submission-files-title" id="submission-files-title"><span aria-hidden="true">📎</span><strong>Diese Dateien an die Mail anhängen</strong></div>
+              <div class="submission-files-title" id="submission-files-title">
+                <svg class="submission-paperclip" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m20.5 11.5-8.7 8.7a6 6 0 0 1-8.5-8.5l9.2-9.2a4.25 4.25 0 0 1 6 6l-9.2 9.2a2.5 2.5 0 1 1-3.5-3.5l8.5-8.5"></path></svg>
+                <strong>Diese Dateien an die Mail anhängen</strong>
+              </div>
               <div class="submission-file-row">
                 <span class="submission-file-variant">HTML</span>
                 <div class="submission-file-chips" aria-label="PDF und HTML-Datei">
                   <span class="submission-file-chip">PDF</span><span class="submission-file-plus" aria-hidden="true">+</span><span class="submission-file-chip">HTML-Datei</span>
                 </div>
               </div>
+              <div class="submission-or" aria-hidden="true"><span>ODER</span></div>
               <div class="submission-file-row">
                 <span class="submission-file-variant">PowerPoint</span>
                 <div class="submission-file-chips" aria-label="PDF und PowerPoint-Datei">
