@@ -22,6 +22,7 @@ jobs:
         shell: python
         run: |
           from pathlib import Path
+          import base64
 
           path = Path('index.html')
           text = path.read_text(encoding='utf-8')
@@ -30,24 +31,7 @@ jobs:
           end_marker = '            </details>\n'
           start = text.index(start_marker)
           end = text.index(end_marker, start) + len(end_marker)
-
-          replacement = '''            <details class="prompt-box">
-              <summary class="prompt-head">
-                <span class="prompt-summary-label">Hilfe für Variante B anzeigen</span>
-              </summary>
-              <pre class="prompt-code"><code>Schreibe deinen Prompt selbst.
-
-Dein Prompt muss der KI mindestens sagen:
-• Worum geht es? Eine Präsentation über dich
-• Wie viele Folien? 5
-• Format: eine einzige HTML-Datei
-• Die Präsentation soll im Fullscreen funktionieren
-• Steuerung: ← zurück, → / ↓ / Leertaste weiter
-
-Du entscheidest selbst, wie du das formulierst und wie die Präsentation aussehen soll.
-Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></pre>
-            </details>
-'''
+          replacement = base64.b64decode('ICAgICAgICAgICAgPGRldGFpbHMgY2xhc3M9InByb21wdC1ib3giPgogICAgICAgICAgICAgIDxzdW1tYXJ5IGNsYXNzPSJwcm9tcHQtaGVhZCI+CiAgICAgICAgICAgICAgICA8c3BhbiBjbGFzcz0icHJvbXB0LXN1bW1hcnktbGFiZWwiPkhpbGZlIGbDvHIgVmFyaWFudGUgQiBhbnplaWdlbjwvc3Bhbj4KICAgICAgICAgICAgICA8L3N1bW1hcnk+CiAgICAgICAgICAgICAgPHByZSBjbGFzcz0icHJvbXB0LWNvZGUiPjxjb2RlPlNjaHJlaWJlIGRlaW5lbiBQcm9tcHQgc2VsYnN0LgoKRGVpbiBQcm9tcHQgbXVzcyBkZXIgS0kgbWluZGVzdGVucyBzYWdlbjoK4oCiIFdvcnVtIGdlaHQgZXM/IEVpbmUgUHLDpHNlbnRhdGlvbiDDvGJlciBkaWNoCuKAoiBXaWUgdmllbGUgRm9saWVuPyA1CuKAoiBGb3JtYXQ6IGVpbmUgZWluemlnZSBIVE1MLURhdGVpCuKAoiBEaWUgUHLDpHNlbnRhdGlvbiBzb2xsIGltIEZ1bGxzY3JlZW4gZnVua3Rpb25pZXJlbgrigKIgU3RldWVydW5nOiDihpAgenVyw7xjaywg4oaSIC8g4oaTIC8gTGVlcnRhc3RlIHdlaXRlcgoKRHUgZW50c2NoZWlkZXN0IHNlbGJzdCwgd2llIGR1IGRhcyBmb3JtdWxpZXJzdCB1bmQgd2llIGRpZSBQcsOkc2VudGF0aW9uIGF1c3NlaGVuIHNvbGwuClBhc3N0IGRhcyBFcmdlYm5pcyBuaWNodD8gVmVyYmVzc2VyZSBkZWluZW4gUHJvbXB0IHVuZCBwcm9iaWVyZSBlcm5ldXQuPC9jb2RlPjwvcHJlPgogICAgICAgICAgICA8L2RldGFpbHM+Cg==').decode('utf-8')
           text = text[:start] + replacement + text[end:]
 
           js_start_marker = '      const copyPromptButton = document.querySelector("[data-copy-prompt]");\n'
@@ -56,12 +40,10 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
           js_end = text.index(js_end_marker, js_start)
           text = text[:js_start] + text[js_end + 2:]
 
-          if 'Prompt kopieren' in text:
-              raise SystemExit('Copy-prompt UI still present')
-          if 'data-copy-prompt' in text or 'data-prompt-code' in text:
-              raise SystemExit('Copy-prompt hooks still present')
-          if 'Schreibe deinen Prompt selbst.' not in text:
-              raise SystemExit('Own-prompt guidance missing')
+          assert 'Prompt kopieren' not in text
+          assert 'data-copy-prompt' not in text
+          assert 'data-prompt-code' not in text
+          assert 'Schreibe deinen Prompt selbst.' in text
 
           path.write_text(text, encoding='utf-8')
 
