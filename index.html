@@ -2341,7 +2341,7 @@ Wichtig:
     if (event.key === "ArrowDown" || event.key === " " || event.code === "Space") {
       event.preventDefault();
       event.stopImmediatePropagation();
-      window.dispatchEvent(new KeyboardEvent("keydown", {
+      document.dispatchEvent(new KeyboardEvent("keydown", {
         key: "ArrowRight", code: "ArrowRight", bubbles: true, cancelable: true
       }));
     }
@@ -2350,7 +2350,7 @@ Wichtig:
   window.addEventListener("message", (event) => {
     if (event.data?.type !== "ib-presentation-key") return;
     const key = event.data.key;
-    window.dispatchEvent(new KeyboardEvent("keydown", {
+    document.dispatchEvent(new KeyboardEvent("keydown", {
       key, code: key === " " ? "Space" : key, bubbles: true, cancelable: true
     }));
   });
@@ -2421,12 +2421,14 @@ Wichtig:
         if (!presentationActive) return;
         if (event.key === "Escape") {
           event.preventDefault();
+          event.stopImmediatePropagation();
           closePresentation();
           return;
         }
         if (event.target === presentationBack && (event.key === " " || event.key === "Enter")) return;
         if (["ArrowLeft", "ArrowRight", "ArrowDown", " "].includes(event.key)) {
           event.preventDefault();
+          event.stopImmediatePropagation();
           presentationFrame?.contentWindow?.postMessage({
             type: "ib-presentation-key",
             key: event.key
