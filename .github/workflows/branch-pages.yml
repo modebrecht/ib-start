@@ -45,8 +45,13 @@ jobs:
           fi
 
           if [ "$REF_NAME" = "main" ]; then
-            find "$PAGES" -mindepth 1 -maxdepth 1 ! -name '.git' ! -name 'branches' -exec rm -rf {} +
+            find "$PAGES" -mindepth 1 -maxdepth 1 ! -name '.git' ! -name 'branches' ! -name 'dev' -exec rm -rf {} +
             rsync -a --exclude='.git' --exclude='.github' "$SRC/" "$PAGES/"
+          elif [ "$REF_NAME" = "dev" ]; then
+            TARGET="$PAGES/dev"
+            rm -rf "$TARGET"
+            mkdir -p "$TARGET"
+            rsync -a --exclude='.git' --exclude='.github' "$SRC/" "$TARGET/"
           else
             TARGET="$PAGES/branches/$REF_NAME"
             rm -rf "$TARGET"
@@ -89,7 +94,12 @@ jobs:
 
           rm -rf "$PAGES"
           git clone --depth 1 --branch gh-pages "$AUTH" "$PAGES"
-          TARGET="$PAGES/branches/$DELETED_REF"
+
+          if [ "$DELETED_REF" = "dev" ]; then
+            TARGET="$PAGES/dev"
+          else
+            TARGET="$PAGES/branches/$DELETED_REF"
+          fi
 
           if [ ! -e "$TARGET" ]; then
             echo "No preview exists for $DELETED_REF."
