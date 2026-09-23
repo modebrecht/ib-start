@@ -1335,7 +1335,7 @@
     .presentation-back:hover,
     .presentation-back:focus-visible { opacity: .92; }
     @media print {
-      .html-runner, .presentation-stage { display: none !important; }
+      .html-runner, .presentation-stage, .pdf-lock-modal { display: none !important; }
     }
 
     .slide-controls {
@@ -1475,7 +1475,141 @@
       padding-left: 1.2rem;
     }
 
-    button:not(.match-item):not(.task-tile):not(.round-nav):not(.print-final):not(.copy-prompt):not(.check-button):not(.read-button):not(.settings-button):not(.admin-unlock):not(.html-runner-start):not(.presentation-back) {
+
+    body.pdf-modal-open {
+      overflow: hidden;
+    }
+
+    .pdf-lock-modal[hidden] {
+      display: none !important;
+    }
+
+    .pdf-lock-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000000;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .pdf-lock-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, .58);
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
+    }
+
+    .pdf-lock-dialog {
+      position: relative;
+      width: min(520px, 100%);
+      max-height: calc(100dvh - 40px);
+      overflow: auto;
+      padding: 30px;
+      border: 1px solid color-mix(in srgb, var(--red) 24%, var(--line));
+      border-radius: 24px;
+      background: var(--slide-bg);
+      color: var(--slide-text);
+      box-shadow: 0 28px 90px rgba(15, 23, 42, .36);
+      animation: pdf-lock-pop .18s ease-out;
+    }
+
+    .pdf-lock-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--slide-text) 7%, transparent);
+      color: var(--slide-text);
+      font: inherit;
+      font-size: 1.45rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .pdf-lock-close:hover,
+    .pdf-lock-close:focus-visible {
+      background: color-mix(in srgb, var(--slide-text) 13%, transparent);
+      outline: 3px solid color-mix(in srgb, var(--red) 22%, transparent);
+      outline-offset: 2px;
+    }
+
+    .pdf-lock-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      border-radius: 16px;
+      background: color-mix(in srgb, var(--red) 12%, var(--panel-bg));
+      color: var(--red);
+      font-size: 1.55rem;
+      font-weight: 950;
+    }
+
+    .pdf-lock-dialog h2 {
+      margin: 0 44px 8px 0;
+      color: var(--slide-title);
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      line-height: 1.1;
+    }
+
+    .pdf-lock-dialog p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .pdf-lock-list {
+      display: grid;
+      gap: 8px;
+      margin: 0 0 22px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .pdf-lock-list li {
+      padding: 11px 13px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel-bg);
+      color: var(--slide-text);
+      font-weight: 800;
+    }
+
+    .pdf-lock-dismiss {
+      min-height: 46px;
+      padding: 0 18px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--red);
+      color: #fff;
+      font: inherit;
+      font-weight: 850;
+      cursor: pointer;
+      box-shadow: 0 10px 24px color-mix(in srgb, var(--red) 24%, transparent);
+    }
+
+    .pdf-lock-dismiss:hover,
+    .pdf-lock-dismiss:focus-visible {
+      filter: brightness(1.05);
+      outline: 3px solid color-mix(in srgb, var(--red) 22%, transparent);
+      outline-offset: 2px;
+    }
+
+    @keyframes pdf-lock-pop {
+      from { opacity: 0; transform: translateY(10px) scale(.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    button:not(.match-item):not(.task-tile):not(.round-nav):not(.print-final):not(.copy-prompt):not(.check-button):not(.read-button):not(.settings-button):not(.admin-unlock):not(.html-runner-start):not(.presentation-back):not(.pdf-lock-close):not(.pdf-lock-dismiss) {
       border: 0;
       border-radius: 10px;
       background: var(--ink);
@@ -2137,6 +2271,17 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
       </div>
     </div>
   </form>
+  <div class="pdf-lock-modal" data-pdf-lock-modal hidden>
+    <div class="pdf-lock-backdrop" data-pdf-lock-close aria-hidden="true"></div>
+    <section class="pdf-lock-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-lock-title" aria-describedby="pdf-lock-description">
+      <button class="pdf-lock-close" type="button" data-pdf-lock-close aria-label="Fenster schliessen">×</button>
+      <div class="pdf-lock-icon" aria-hidden="true">!</div>
+      <h2 id="pdf-lock-title">PDF noch gesperrt</h2>
+      <p id="pdf-lock-description">Erledige zuerst diese Aufgaben:</p>
+      <ul class="pdf-lock-list" data-pdf-lock-list></ul>
+      <button class="pdf-lock-dismiss" type="button" data-pdf-lock-close>Schliessen</button>
+    </section>
+  </div>
   <div class="presentation-stage" data-presentation-stage hidden>
     <button class="presentation-back" type="button" data-presentation-back aria-label="Zurück zum IB-Startcheck" title="Zurück (Esc)">←</button>
     <iframe class="presentation-frame" data-presentation-frame title="HTML-Präsentation" sandbox="allow-scripts allow-forms allow-modals allow-pointer-lock allow-presentation" allow="fullscreen; autoplay"></iframe>
@@ -2591,6 +2736,45 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
         printStatus.classList.toggle("is-admin", mode === "admin");
       };
 
+
+      let pdfLockReturnFocus = null;
+
+      const closePdfLockModal = () => {
+        const modal = document.querySelector("[data-pdf-lock-modal]");
+        if (!modal || modal.hidden) return;
+        modal.hidden = true;
+        document.body.classList.remove("pdf-modal-open");
+        pdfLockReturnFocus?.focus?.();
+        pdfLockReturnFocus = null;
+      };
+
+      const openPdfLockModal = (missing) => {
+        const modal = document.querySelector("[data-pdf-lock-modal]");
+        const list = document.querySelector("[data-pdf-lock-list]");
+        if (!modal || !list) return;
+        list.replaceChildren(...missing.map((tile) => {
+          const item = document.createElement("li");
+          item.textContent = taskTileLabel(tile);
+          return item;
+        }));
+        pdfLockReturnFocus = document.activeElement;
+        modal.hidden = false;
+        document.body.classList.add("pdf-modal-open");
+        modal.querySelector(".pdf-lock-dismiss")?.focus();
+      };
+
+      document.querySelectorAll("[data-pdf-lock-close]").forEach((button) => {
+        button.addEventListener("click", closePdfLockModal);
+      });
+
+      document.addEventListener("keydown", (event) => {
+        const modal = document.querySelector("[data-pdf-lock-modal]");
+        if (event.key === "Escape" && modal && !modal.hidden) {
+          event.preventDefault();
+          closePdfLockModal();
+        }
+      });
+
       const setAdminStatus = (text, mode = "idle") => {
         if (!adminStatus) return;
         adminStatus.textContent = text;
@@ -2660,8 +2844,8 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
           return;
         }
 
-        const list = missing.map((tile) => `<li>${taskTileLabel(tile)}</li>`).join("");
-        setPrintStatus(`PDF noch gesperrt. Diese Aufgaben fehlen noch:<ul>${list}</ul>`, "error");
+        setPrintStatus("");
+        openPdfLockModal(missing);
       };
 
       printButton?.addEventListener("click", handlePrint);
