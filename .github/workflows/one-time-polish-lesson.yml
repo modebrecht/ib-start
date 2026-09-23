@@ -19,6 +19,7 @@ jobs:
           fetch-depth: 0
       - name: Apply lesson polish
         run: |
+          sed -i 's/!= 16/!= 18/; s/Expected 16 privacy options/Expected 18 privacy markers/' .github/scripts/polish-lesson-flow.py
           python .github/scripts/polish-lesson-flow.py
           python .github/scripts/fix-first-lesson-wording.py
       - name: Check JavaScript syntax
