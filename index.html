@@ -1719,10 +1719,9 @@
         <button class="task-tile" type="button" data-task-target="task-2" style="--tile-color: var(--orange)"><span class="task-number">02</span><span class="task-label">Meine Präsentation</span></button>
         <button class="task-tile" type="button" data-task-target="task-3" style="--tile-color: var(--yellow)"><span class="task-number">03</span><span class="task-label">Gute Dateinamen erkennen</span></button>
         <button class="task-tile" type="button" data-task-target="task-4" style="--tile-color: var(--green)"><span class="task-number">04</span><span class="task-label">Speichern und testen</span></button>
-        <button class="task-tile" type="button" data-task-target="task-5" style="--tile-color: var(--blue)"><span class="task-number">05</span><span class="task-label">KI richtig nutzen</span></button>
-        <button class="task-tile" type="button" data-task-target="task-6" style="--tile-color: var(--indigo)"><span class="task-number">06</span><span class="task-label">Was darf ich teilen?</span></button>
-        <button class="task-tile" type="button" data-task-target="task-7" style="--tile-color: var(--violet)"><span class="task-number">07</span><span class="task-label">Werkzeuge: Tastenkombinationen</span></button>
-        <button class="task-tile" type="button" data-task-target="task-8" style="--tile-color: var(--cyan)"><span class="task-number">08</span><span class="task-label">Rückblick</span></button>
+        <button class="task-tile" type="button" data-task-target="task-6" style="--tile-color: var(--indigo)"><span class="task-number">05</span><span class="task-label">Was darf ich teilen?</span></button>
+        <button class="task-tile" type="button" data-task-target="task-7" style="--tile-color: var(--violet)"><span class="task-number">06</span><span class="task-label">Werkzeuge: Tastenkombinationen</span></button>
+        <button class="task-tile" type="button" data-task-target="task-8" style="--tile-color: var(--cyan)"><span class="task-number">07</span><span class="task-label">Rückblick</span></button>
       </nav>
 
       <div class="task-stage">
@@ -1813,6 +1812,24 @@ Beispiele für das, was du im Informatikunterricht lernen möchtest:
 Du formulierst deinen Prompt selbst und entscheidest auch selbst, wie die Präsentation aussehen soll.
 Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></pre>
             </details>
+
+            <div class="prompt-practice" style="margin-top: 28px;">
+              <span class="label">Prompt-Check: Welche Prompts sind gut? Es können mehrere Antworten richtig sein.</span>
+              <div class="prompt-list">
+                <label class="choice"><input type="checkbox" name="prompt-quality-generic" value="bad" data-prompt-answer> Mach eine Präsentation.</label>
+                <label class="choice"><input type="checkbox" name="prompt-quality-detailed" value="good" data-prompt-answer> Erstelle eine moderne Fullscreen-Präsentation mit 5 Folien über mich. Nutze grosse Schrift, Emojis und Pfeiltasten zur Navigation.</label>
+                <label class="choice"><input type="checkbox" name="prompt-quality-vague" value="bad" data-prompt-answer> Mach etwas Schönes.</label>
+                <label class="choice"><input type="checkbox" name="prompt-quality-hobby" value="good" data-prompt-answer> Erstelle eine Präsentation über mein Hobby Tennis mit Titel, 3 Fakten, Bildidee und Abschlussfolie.</label>
+              </div>
+              <label>Warum ist ein genauer Prompt besser?
+                <textarea name="prompt-reason"></textarea>
+              </label>
+              <div class="check-actions">
+                <button class="check-button" type="button" data-check-task="task-1-prompt">Prompt-Check prüfen</button>
+                <span class="check-status" data-check-status="task-1-prompt" aria-live="polite"></span>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
@@ -1828,18 +1845,6 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
               <label class="choice"><input type="checkbox" name="created" value="html"> Ich habe eine HTML-Präsentation erstellt.</label>
               <label class="choice"><input type="checkbox" name="created" value="submitted"> Ich habe meine Präsentation abgegeben.</label>
             </div>
-            <div class="field-grid">
-              <label>Was hat gut funktioniert?
-                <textarea name="worked-well"></textarea>
-              </label>
-              <label>Was war schwierig?
-                <textarea name="presentation-hard"></textarea>
-              </label>
-              <label class="wide">Was würdest du nächstes Mal verbessern?
-                <textarea name="next-improvement"></textarea>
-              </label>
-            </div>
-
             <div class="html-runner">
               <div class="html-runner-head">
                 <strong>HTML-Präsentation testen</strong>
@@ -1929,31 +1934,8 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
         </div>
       </section>
 
-      <section class="section" data-task="task-5" style="--accent: var(--blue)">
-        <div class="section-number"><span>05</span><span>✦</span></div>
-        <div class="section-body">
-          <h2 class="section-title">KI richtig nutzen</h2>
-          <div class="section-content">
-            <span class="label">Kreuze an: Was ist ein guter Prompt? Es können mehrere Antworten richtig sein.</span>
-            <div class="prompt-list">
-              <label class="choice"><input type="checkbox" name="prompt-quality-generic" value="bad" data-prompt-answer> Mach eine Präsentation.</label>
-              <label class="choice"><input type="checkbox" name="prompt-quality-detailed" value="good" data-prompt-answer> Erstelle eine moderne Fullscreen-Präsentation mit 5 Folien über mich. Nutze grosse Schrift, Emojis und Pfeiltasten zur Navigation.</label>
-              <label class="choice"><input type="checkbox" name="prompt-quality-vague" value="bad" data-prompt-answer> Mach etwas Schönes.</label>
-              <label class="choice"><input type="checkbox" name="prompt-quality-hobby" value="good" data-prompt-answer> Erstelle eine Präsentation über mein Hobby Tennis mit Titel, 3 Fakten, Bildidee und Abschlussfolie.</label>
-            </div>
-            <label>Warum ist ein genauer Prompt besser?
-              <textarea name="prompt-reason"></textarea>
-            </label>
-            <div class="check-actions">
-              <button class="check-button" type="button" data-check-task="task-5">Aufgabe prüfen</button>
-              <span class="check-status" data-check-status="task-5" aria-live="polite"></span>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section class="section" data-task="task-6" style="--accent: var(--indigo)">
-        <div class="section-number"><span>06</span><span>◉</span></div>
+        <div class="section-number"><span>05</span><span>◉</span></div>
         <div class="section-body">
           <h2 class="section-title">Was darf ich teilen?</h2>
           <div class="section-content">
@@ -2008,7 +1990,7 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
       </section>
 
       <section class="section" data-task="task-7" style="--accent: var(--violet)">
-        <div class="section-number"><span>07</span><span>⌨</span></div>
+        <div class="section-number"><span>06</span><span>⌨</span></div>
         <div class="section-body">
           <h2 class="section-title">Werkzeuge: Tastenkombinationen</h2>
           <div class="section-content">
@@ -2049,23 +2031,12 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
               <button class="check-button" type="button" data-check-task="task-7">Verbindungen prüfen</button>
               <span class="check-status" data-check-status="task-7" aria-live="polite"></span>
             </div>
-            <div class="field-grid">
-              <label>Heute am meisten genutzt
-                <input type="text" name="most-used">
-              </label>
-              <label>Warum?
-                <input type="text" name="why-used">
-              </label>
-              <label class="wide">Möchte ich mir merken
-                <input type="text" name="remember-shortcut">
-              </label>
-            </div>
           </div>
         </div>
       </section>
 
       <section class="section" data-task="task-8" style="--accent: var(--cyan)">
-        <div class="section-number"><span>08</span><span>✓</span></div>
+        <div class="section-number"><span>07</span><span>✓</span></div>
         <div class="section-body">
           <h2 class="section-title">Rückblick</h2>
           <div class="section-content">
@@ -2481,7 +2452,7 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
 
       goodFilenameInput?.addEventListener("input", syncGoodFilename);
 
-      const taskNeedsSolved = (taskId) => taskId === "task-3" || taskId === "task-4" || taskId === "task-5" || taskId === "task-6" || taskId === "task-7";
+      const taskNeedsSolved = (taskId) => taskId === "task-1" || taskId === "task-3" || taskId === "task-4" || taskId === "task-6" || taskId === "task-7";
 
       const taskTileLabel = (tile) => {
         const number = tile?.querySelector(".task-number")?.textContent.trim() || "";
@@ -2709,7 +2680,7 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
       }
 
       if (saved.solvedTasks?.["task-7"]) {
-        setCheckStatus("task-7", "Gespeichert: Aufgabe 07 ist richtig gelöst.", "success");
+        setCheckStatus("task-7", "Gespeichert: Aufgabe 06 ist richtig gelöst.", "success");
       }
 
       if (saved.solvedTasks?.["task-6"]) {
@@ -2724,24 +2695,32 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
         });
       };
 
-      if (saved.solvedTasks?.["task-5"]) {
+      const legacyPromptSolved = saved.solvedTasks?.["task-5"] === true;
+      if (legacyPromptSolved && saved.solvedTasks?.["task-1"] !== true) {
+        const next = readSaved();
+        next.solvedTasks = { ...(next.solvedTasks || {}), "task-1": true, "task-5": false };
+        writeSaved(next);
+        saved.solvedTasks = next.solvedTasks;
+      }
+
+      if (saved.solvedTasks?.["task-1"]) {
         if (isPromptTaskSolved()) {
-          setCheckStatus("task-5", "Gespeichert: Aufgabe 05 ist richtig gelöst.", "success");
+          setCheckStatus("task-1-prompt", "Gespeichert: Prompt-Check richtig gelöst.", "success");
         } else {
           const next = readSaved();
-          next.solvedTasks = { ...(next.solvedTasks || {}), "task-5": false };
+          next.solvedTasks = { ...(next.solvedTasks || {}), "task-1": false };
           writeSaved(next);
         }
       }
 
       promptInputs.forEach((input) => {
         input.addEventListener("change", () => {
-          saveSolvedTask("task-5", false);
-          setCheckStatus("task-5", "");
+          saveSolvedTask("task-1", false);
+          setCheckStatus("task-1-prompt", "");
         });
       });
 
-      document.querySelector('[data-check-task="task-5"]')?.addEventListener("click", () => {
+      document.querySelector('[data-check-task="task-1-prompt"]')?.addEventListener("click", () => {
         let correctChecked = 0;
         let correctTotal = 0;
         let wrongRemoved = 0;
@@ -2762,14 +2741,14 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
         });
 
         const solved = wrongRemoved === 0 && correctChecked === correctTotal && isPromptTaskSolved();
-        saveSolvedTask("task-5", solved);
+        saveSolvedTask("task-1", solved);
 
         if (solved) {
-          setCheckStatus("task-5", "Richtig gelöst und gespeichert.", "success");
+          setCheckStatus("task-1-prompt", "Richtig gelöst und gespeichert.", "success");
         } else if (wrongRemoved > 0) {
-          setCheckStatus("task-5", "Nicht passende Haken entfernt. Prüfe deine Auswahl nochmal.", "error");
+          setCheckStatus("task-1-prompt", "Nicht passende Haken entfernt. Prüfe deine Auswahl nochmal.", "error");
         } else {
-          setCheckStatus("task-5", "Noch nicht alle guten Prompts ausgewählt.", "error");
+          setCheckStatus("task-1-prompt", "Noch nicht alle guten Prompts ausgewählt.", "error");
         }
       });
 
