@@ -1225,6 +1225,48 @@
       cursor: pointer;
     }
     .html-runner-status { color: var(--muted); font-weight: 750; }
+    .html-runner-download {
+      background: var(--control-bg);
+      color: var(--control-color);
+      border: 1px solid var(--line);
+    }
+    .submission-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .outlook-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 44px;
+      padding: 10px 15px;
+      border-radius: 999px;
+      background: var(--accent, var(--violet));
+      color: #fff;
+      text-decoration: none;
+      font-weight: 850;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, .12);
+      transition: filter .16s ease, transform .16s ease, box-shadow .16s ease;
+    }
+    .outlook-link svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .outlook-link:hover,
+    .outlook-link:focus-visible {
+      filter: brightness(1.06);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, .12), 0 0 0 3px color-mix(in srgb, var(--accent, var(--violet)) 18%, transparent);
+      outline: 0;
+    }
+    .outlook-link:active { transform: scale(.97); }
     .html-runner {
       border-color: color-mix(in srgb, var(--accent, var(--blue)) 30%, var(--line));
       background: color-mix(in srgb, var(--accent, var(--blue)) 6%, var(--panel-bg));
@@ -1733,7 +1775,8 @@
         <button class="task-tile" type="button" data-task-target="task-5" style="--tile-color: var(--green)"><span class="task-number">04</span><span class="task-label">KI richtig nutzen</span></button>
         <button class="task-tile" type="button" data-task-target="task-7" style="--tile-color: var(--cyan)"><span class="task-number">05</span><span class="task-label">Tastenkombinationen</span></button>
         <button class="task-tile" type="button" data-task-target="task-2" style="--tile-color: var(--blue)"><span class="task-number">06</span><span class="task-label">Meine Präsentation</span></button>
-        <button class="task-tile" type="button" data-task-target="task-8" style="--tile-color: var(--violet)"><span class="task-number">07</span><span class="task-label">Rückblick</span></button>
+        <button class="task-tile" type="button" data-task-target="task-8" style="--tile-color: var(--indigo)"><span class="task-number">07</span><span class="task-label">Rückblick</span></button>
+        <button class="task-tile" type="button" data-task-target="task-9" style="--tile-color: var(--violet)"><span class="task-number">08</span><span class="task-label">Abgabe per Mail</span></button>
       </nav>
 
       <div class="task-stage">
@@ -1939,7 +1982,7 @@
                   <li>PowerPoint öffnen und die Inhalte aus Aufgabe 01 verwenden.</li>
                   <li>Deinen Dateinamen aus Aufgabe 03 verwenden und speichern.</li>
                   <li>Die Präsentation mit <strong>F5</strong> testen.</li>
-                  <li>Datei abgeben oder per Outlook senden.</li>
+                  <li>Datei speichern. Die Abgabe machst du in Aufgabe 08.</li>
                 </ol>
               </div>
               <div class="auftrag-card">
@@ -1947,8 +1990,8 @@
                 <ol class="auftrag-list">
                   <li>Schreibe einen eigenen Prompt. Nutze, was du in Aufgabe 02 und 04 gelernt hast.</li>
                   <li>Lass die KI daraus eine HTML-Präsentation erstellen.</li>
-                  <li>Den HTML-Code unten einfügen und im Vollbild testen.</li>
-                  <li>Datei sinnvoll benennen, speichern und abgeben.</li>
+                  <li>Präsentation prüfen und verbessern.</li>
+                  <li>In Aufgabe 08 den HTML-Code testen, herunterladen und abgeben.</li>
                 </ol>
               </div>
             </div>
@@ -1975,20 +2018,15 @@ Du entscheidest selbst, wie die Präsentation aussehen soll.
 Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></pre>
             </details>
 
-            <div class="html-runner">
-              <div class="html-runner-head"><strong>HTML-Präsentation testen</strong><span>Esc zurück · ← vorherige · → / ↓ / Leertaste nächste</span></div>
-              <p class="auftrag-intro">Eine Präsentation muss auch auf einem grossen Bildschirm oder Beamer gut aussehen und funktionieren. Teste sie deshalb im Vollbild.</p>
-              <label>HTML-Code hier einfügen<textarea data-html-runner-input data-no-store data-ignore-completion spellcheck="false" placeholder="&lt;!doctype html&gt; ..."></textarea></label>
-              <div class="html-runner-actions"><button class="html-runner-start" type="button" data-html-runner-start>▶ Fullscreen starten</button><span class="html-runner-status" data-html-runner-status aria-live="polite"></span></div>
+            <span class="label" style="display:block; margin-top:24px;">Wenn du fertig bist:</span>
+            <div class="check-grid">
+              <label class="choice"><input type="checkbox" name="created" value="finished"> Meine Präsentation ist fertig und gespeichert.</label>
             </div>
-
-            <span class="label" style="display:block; margin-top:24px;">Zum Schluss:</span>
-            <div class="check-grid"><label class="choice"><input type="checkbox" name="created" value="submitted"> Ich habe meine Präsentation gespeichert und abgegeben.</label></div>
           </div>
         </div>
       </section>
 
-      <section class="section" data-task="task-8" style="--accent: var(--violet)">
+      <section class="section" data-task="task-8" style="--accent: var(--indigo)">
         <div class="section-number"><span>07</span><span>✓</span></div>
         <div class="section-body">
           <h2 class="section-title">Rückblick</h2>
@@ -2010,6 +2048,54 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
           </div>
         </div>
       </section>
+
+      <section class="section" data-task="task-9" style="--accent: var(--violet)">
+        <div class="section-number"><span>08</span><span>✉</span></div>
+        <div class="section-body">
+          <h2 class="section-title">Abgabe per Mail</h2>
+          <div class="section-content">
+            <p class="auftrag-intro"><strong>Zum Schluss gibst du deine Arbeit per Mail ab.</strong> Bereite zuerst deine Dateien vor und öffne danach Outlook.</p>
+
+            <div class="html-runner">
+              <div class="html-runner-head"><strong>HTML-Präsentation vorbereiten</strong><span>Esc zurück · ← vorherige · → / ↓ / Leertaste nächste</span></div>
+              <p class="auftrag-intro">Wenn du die HTML-Variante gewählt hast: Füge den Code hier ein, teste die Präsentation im Vollbild und lade danach die HTML-Datei herunter.</p>
+              <label>HTML-Code hier einfügen<textarea data-html-runner-input data-no-store data-ignore-completion spellcheck="false" placeholder="&lt;!doctype html&gt; ..."></textarea></label>
+              <div class="html-runner-actions">
+                <button class="html-runner-start" type="button" data-html-runner-start>▶ Fullscreen testen</button>
+                <button class="html-runner-start html-runner-download" type="button" data-html-download>↓ HTML herunterladen</button>
+                <span class="html-runner-status" data-html-runner-status aria-live="polite"></span>
+              </div>
+            </div>
+
+            <div class="auftrag-grid submission-grid">
+              <div class="auftrag-card">
+                <strong>1. PDF erstellen</strong>
+                <p>Erstelle jetzt die PDF-Abgabe mit deinen Antworten aus diesem Startcheck.</p>
+                <div class="submission-actions"><button class="check-button" type="button" data-submit-pdf>PDF erstellen</button></div>
+              </div>
+              <div class="auftrag-card">
+                <strong>2. Outlook öffnen</strong>
+                <p>Öffne Outlook und erstelle eine neue Nachricht an deine Lehrperson.</p>
+                <div class="submission-actions">
+                  <a class="outlook-link" href="https://outlook.cloud.microsoft/" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 6.5h17v11h-17z"></path><path d="m4 7 8 6 8-6"></path></svg>
+                    Outlook öffnen
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="final-box">
+              <strong>📎 Diese Dateien an die Mail anhängen</strong>
+              <p><strong>HTML-Variante:</strong> PDF + HTML-Datei<br><strong>PowerPoint-Variante:</strong> PDF + PowerPoint-Datei (.pptx)</p>
+            </div>
+
+            <div class="check-grid">
+              <label class="choice"><input type="checkbox" name="mail-submission" value="sent"> Ich habe die richtigen Dateien angehängt und die Mail gesendet.</label>
+            </div>
+          </div>
+        </div>
+      </section>
       </div>
 
       <div class="slide-controls" aria-label="Navigation">
@@ -2025,7 +2111,6 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
           </button>
         </div>
         <div class="final-actions" data-final-actions>
-          <button class="print-final" type="button" data-print-final>Drucken / PDF</button>
           <button class="download-json" type="button" data-download-json>JSON herunterladen</button>
         </div>
         <div class="print-status" data-print-status aria-live="polite"></div>
@@ -2223,6 +2308,7 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
 
       const htmlRunnerInput = document.querySelector("[data-html-runner-input]");
       const htmlRunnerStart = document.querySelector("[data-html-runner-start]");
+      const htmlRunnerDownload = document.querySelector("[data-html-download]");
       const htmlRunnerStatus = document.querySelector("[data-html-runner-status]");
       const presentationStage = document.querySelector("[data-presentation-stage]");
       const presentationFrame = document.querySelector("[data-presentation-frame]");
@@ -2322,6 +2408,27 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
       };
 
       htmlRunnerStart?.addEventListener("click", startPresentation);
+      htmlRunnerDownload?.addEventListener("click", () => {
+        if (!htmlRunnerInput) return;
+        const html = cleanPastedHtml(htmlRunnerInput.value);
+        if (!html) {
+          runnerStatus("Bitte zuerst den HTML-Code einfügen.", true);
+          htmlRunnerInput.focus();
+          return;
+        }
+        const rawName = (goodFilenameInput?.value || `${studentName || "praesentation"}_praesentation`).trim();
+        const baseName = rawName.replace(/\.(pptx|html?)$/i, "").replace(/[^a-z0-9äöüéèà_-]+/gi, "-").replace(/^-+|-+$/g, "") || "praesentation";
+        const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `${baseName}.html`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 0);
+        runnerStatus("HTML-Datei wurde heruntergeladen.");
+      });
       presentationBack?.addEventListener("click", () => closePresentation());
 
       window.addEventListener("message", (event) => {
@@ -2454,7 +2561,7 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
 
       const missingDoneTasks = () => {
         updateTaskTiles();
-        return taskTiles.filter((tile) => !tile.classList.contains("is-done"));
+        return taskTiles.filter((tile) => tile.dataset.taskTarget !== "task-9" && !tile.classList.contains("is-done"));
       };
 
       const setPrintStatus = (html = "", mode = "idle") => {
@@ -2538,6 +2645,7 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
       };
 
       printButton?.addEventListener("click", handlePrint);
+      document.querySelector("[data-submit-pdf]")?.addEventListener("click", handlePrint);
 
       downloadJsonButton?.addEventListener("click", () => {
         const answers = {};
