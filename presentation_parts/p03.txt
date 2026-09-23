@@ -1,0 +1,196 @@
+earGradient id="chipBg2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#44315f"/>
+            <stop offset="100%" stop-color="#231a37"/>
+          </linearGradient>
+        </defs>
+        <rect x="9" y="14" width="202" height="142" rx="26" fill="url(#chipBg2)"/>
+        <path d="M20 138 Q64 110 110 130 Q151 105 199 132 V156 H20Z" fill="#415531"/>
+        <path d="M30 118 Q56 97 79 113 Q102 95 125 112 Q148 94 189 118" stroke="#8cc67d" stroke-width="3" fill="none" opacity=".5"/>
+        <ellipse class="bob" cx="112" cy="103" rx="37" ry="33" fill="#b96f3e"/>
+        <ellipse cx="112" cy="102" rx="20" ry="24" fill="#efbf92"/>
+        <circle cx="112" cy="74" r="26" fill="#c47d4a"/>
+        <path d="M92 60 L97 43 L108 61 M122 60 L131 44 L133 64" fill="#c47d4a"/>
+        <circle cx="103" cy="73" r="4.2" fill="#16131e"/>
+        <circle cx="121" cy="73" r="4.2" fill="#16131e"/>
+        <circle cx="101" cy="71.5" r="1.4" fill="#fff"/>
+        <circle cx="119" cy="71.5" r="1.4" fill="#fff"/>
+        <ellipse cx="112" cy="86" rx="7" ry="5" fill="#f4c8a2"/>
+        <path d="M107 91 Q112 95 117 91" stroke="#864f2d" stroke-width="2.4" fill="none"/>
+        <path d="M86 94 Q111 81 139 95" stroke="#4a2a22" stroke-width="5" fill="none"/>
+        <path d="M88 103 Q112 90 139 104" stroke="#f1c08e" stroke-width="4" fill="none"/>
+        <path d="M98 55 Q112 49 126 55" stroke="#6d4127" stroke-width="5" fill="none"/>
+        <path class="tail" d="M144 112 Q182 98 186 120 Q189 139 158 135" fill="none" stroke="#c48755" stroke-width="16" stroke-linecap="round"/>
+        <path class="tail" d="M145 112 Q176 101 177 122" fill="none" stroke="#e4b481" stroke-width="5" stroke-linecap="round" opacity=".7"/>
+        <circle class="spark" cx="40" cy="44" r="4" fill="#fff"/>
+        <circle class="spark" cx="180" cy="44" r="3.5" fill="#ff65c7"/>
+      </svg>
+      <h3>Chipmunk</h3><p>Klein, gestreift, flauschig.</p>
+    </div>
+
+    <div class="scene-card">
+      <svg class="scene-svg" viewBox="0 0 220 170" aria-label="Verbesserter animierter Sugar Glider">
+        <defs>
+          <linearGradient id="gliderBg2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#203960"/>
+            <stop offset="100%" stop-color="#101d34"/>
+          </linearGradient>
+        </defs>
+        <rect x="9" y="14" width="202" height="142" rx="26" fill="url(#gliderBg2)"/>
+        <circle cx="178" cy="41" r="19" fill="#ffe58e" opacity=".92"/>
+        <circle cx="178" cy="41" r="29" fill="#ffe58e" opacity=".1"/>
+        <path d="M38 124 Q67 104 95 118 Q121 103 149 118 Q172 102 191 120" stroke="#4d6b8b" stroke-width="7" fill="none" stroke-linecap="round"/>
+        <g class="glide">
+          <path d="M66 89 Q100 43 111 70 Q123 44 158 89 Q139 85 126 108 Q111 126 96 108 Q83 85 66 89Z" fill="#d7d7e6"/>
+          <path d="M78 87 Q101 62 111 76 Q122 62 145 87" fill="none" stroke="#f2edf8" stroke-width="4" opacity=".7"/>
+          <ellipse cx="111" cy="75" rx="22" ry="25" fill="#ececf5"/>
+          <ellipse cx="111" cy="87" rx="15" ry="14" fill="#f4d6c9"/>
+          <circle cx="102" cy="71" r="7.2" fill="#1c1b28"/>
+          <circle cx="120" cy="71" r="7.2" fill="#1c1b28"/>
+          <circle cx="101" cy="69.5" r="2" fill="#fff"/>
+          <circle cx="119" cy="69.5" r="2" fill="#fff"/>
+          <path d="M111 58 V83" stroke="#3a3449" stroke-width="4"/>
+          <path d="M105 81 Q111 86 117 81" stroke="#8f6670" stroke-width="2.4" fill="none"/>
+          <path class="tail" d="M127 101 Q170 123 182 101" fill="none" stroke="#b6b2c7" stroke-width="12" stroke-linecap="round"/>
+          <path class="tail" d="M129 99 Q163 117 171 100" fill="none" stroke="#ececf5" stroke-width="4" stroke-linecap="round" opacity=".75"/>
+        </g>
+        <circle class="spark" cx="46" cy="41" r="4" fill="#fff"/>
+        <circle class="spark" cx="70" cy="127" r="3.5" fill="#ff65c7"/>
+        <circle class="spark" cx="155" cy="114" r="3.5" fill="#7cf4b4"/>
+      </svg>
+      <h3>Sugar Glider</h3><p>Flugkünstler mit riesigen Augen.</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="slide">
+  <div class="number">04 / 05</div>
+  <div class="eyebrow">Digital kreativ</div>
+  <h2>Gaming, Coding & <span class="gradient">eigene Ideen</span></h2>
+  <div class="scene-grid project-grid" style="grid-template-columns:1.15fr .85fr;max-width:1180px">
+    <div class="scene-card" style="padding:22px">
+      <svg class="scene-svg" viewBox="0 0 420 160" aria-label="Animierte Szene aus Gaming und Coding">
+        <rect x="8" y="12" width="404" height="136" rx="28" fill="#101d3d"/>
+        <rect x="58" y="38" width="150" height="80" rx="12" fill="#090e1f" stroke="#00d9ff" stroke-width="4"/>
+        <path d="M82 96 L110 68 L132 87 L159 58 L190 96Z" fill="#5d57df"/><circle cx="171" cy="58" r="9" fill="#ffd86a"/>
+        <g class="controller"><path d="M82 120 Q97 105 114 115 H145 Q160 105 174 120 L181 136 H75Z" fill="#8b70ff"/><circle cx="103" cy="123" r="5" fill="#fff"/><circle cx="155" cy="122" r="4" fill="#ff65c7"/></g>
+        <rect x="240" y="38" width="125" height="80" rx="12" fill="#090e1f" stroke="#8b70ff" stroke-width="4"/>
+        <rect class="codeLine" x="259" y="56" width="73" height="7" rx="3" fill="#00d9ff"/><rect class="codeLine" x="270" y="76" width="79" height="7" rx="3" fill="#ff65c7" style="animation-delay:.4s"/><rect class="codeLine" x="259" y="96" width="54" height="7" rx="3" fill="#7cf4b4" style="animation-delay:.8s"/>
+        <path class="pathDash" d="M205 78 C222 58 225 101 240 80" stroke="#ffd86a" stroke-width="4" fill="none"/>
+        <circle class="spark" cx="210" cy="40" r="4" fill="#fff"/>
+      </svg>
+      <h3>Ich spiele nicht nur – ich baue auch gerne selbst.</h3>
+      <p>Games, Webseiten und Tools selbst bauen.</p>
+    </div>
+    <div class="scene-card" style="padding:22px">
+      <svg class="scene-svg" viewBox="0 0 260 160" aria-label="Animierte Ideen-Szene">
+        <rect x="8" y="12" width="244" height="136" rx="28" fill="#24153f"/>
+        <circle class="pulse" cx="130" cy="66" r="31" fill="#ffd86a" opacity=".95"/><path d="M130 39 C112 39 101 53 104 70 C106 82 119 87 120 98 H140 C141 87 154 82 156 70 C159 53 148 39 130 39Z" fill="#ffeaa5"/><rect x="119" y="100" width="22" height="9" rx="4" fill="#8b70ff"/>
+        <circle class="float" cx="64" cy="53" r="13" fill="#00d9ff"/><rect class="float2" x="182" y="46" width="25" height="25" rx="7" fill="#ff65c7"/><path class="spin" d="M61 111 l8 -12 8 12 -8 12Z" fill="#7cf4b4"/>
+        <path class="pathDash" d="M78 54 C93 47 97 46 104 52 M156 52 C167 44 178 47 184 53 M77 109 C92 101 107 95 121 95 M140 95 C157 98 171 102 184 109" stroke="#b8e8ff" stroke-width="3" fill="none"/>
+      </svg>
+      <h3>Am liebsten mit einer Idee starten</h3>
+      <p>Idee → testen → verbessern → fertig.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide learning-slide">
+  <div class="number">05 / 05</div>
+  <div class="eyebrow">Das möchte ich noch lernen</div>
+  <h2>KI im Alltag <span class="gradient">clever nutzen</span></h2>
+  <div class="scene-grid learning-grid">
+
+    <div class="scene-card">
+      <span class="card-number">1</span>
+      <svg class="scene-svg" viewBox="0 0 220 150" aria-label="Animierte KI-Effizienz-Szene">
+        <rect x="9" y="14" width="202" height="122" rx="25" fill="#13284a"/>
+        <circle class="pulse" cx="72" cy="69" r="27" fill="#8b70ff"/>
+        <path d="M58 68 H86 M72 54 V83" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+        <path class="pathDash" d="M101 71 H155" stroke="#00d9ff" stroke-width="5" fill="none"/>
+        <path d="M151 60 L170 71 L151 82Z" fill="#00d9ff"/>
+        <rect class="taskFly" x="126" y="92" width="46" height="24" rx="8" fill="#7cf4b4"/>
+        <path d="M136 103 l7 7 14 -16" stroke="#123" stroke-width="4" fill="none"/>
+        <circle class="spark" cx="177" cy="43" r="4" fill="#fff"/>
+      </svg>
+      <h3>Effizienter mit KI arbeiten</h3>
+      <p>Gute Prompts, bessere Resultate.</p>
+    </div>
+
+    <div class="scene-card">
+      <span class="card-number">2</span>
+      <svg class="scene-svg" viewBox="0 0 220 150" aria-label="Animierte KI-Alltagshilfe-Szene">
+        <rect x="9" y="14" width="202" height="122" rx="25" fill="#272044"/>
+        <rect class="float" x="37" y="40" width="49" height="40" rx="10" fill="#ff65c7"/>
+        <path d="M47 53 H76 M47 64 H68" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+        <rect class="float2" x="133" y="37" width="48" height="43" rx="10" fill="#00d9ff"/>
+        <path d="M143 50 H172 M143 61 H165" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+        <g class="robotHop">
+          <rect x="83" y="74" width="55" height="40" rx="17" fill="#f2f7ff"/>
+          <rect x="92" y="82" width="37" height="21" rx="10" fill="#16284a"/>
+          <circle cx="102" cy="92" r="3" fill="#00d9ff"/>
+          <circle cx="119" cy="92" r="3" fill="#00d9ff"/>
+          <path d="M104 99 Q110 104 117 99" stroke="#00d9ff" stroke-width="2.5" fill="none"/>
+        </g>
+        <circle class="spark" cx="55" cy="104" r="4" fill="#ffd86a"/>
+      </svg>
+      <h3>KI in der täglichen Arbeit</h3>
+      <p>Planen, schreiben, zusammenfassen.</p>
+    </div>
+
+    <div class="scene-card">
+      <span class="card-number">3</span>
+      <svg class="scene-svg" viewBox="0 0 220 150" aria-label="Animierte Workflow-Szene">
+        <rect x="9" y="14" width="202" height="122" rx="25" fill="#102943"/>
+        <rect x="30" y="58" width="40" height="30" rx="8" fill="#00d9ff"/>
+        <rect x="91" y="34" width="40" height="30" rx="8" fill="#8b70ff"/>
+        <rect x="91" y="92" width="40" height="30" rx="8" fill="#ff65c7"/>
+        <rect x="152" y="58" width="40" height="30" rx="8" fill="#7cf4b4"/>
+        <path class="pathDash" d="M70 73 C82 73 78 49 91 49 M70 73 C82 73 78 107 91 107 M131 49 C145 49 140 72 152 72 M131 107 C145 107 140 72 152 72" stroke="#d6f8ff" stroke-width="4" fill="none"/>
+        <circle class="pulse" cx="50" cy="73" r="6" fill="#fff"/>
+        <circle class="pulse" cx="172" cy="73" r="6" fill="#fff" style="animation-delay:.6s"/>
+      </svg>
+      <h3>Workflows bauen</h3>
+      <p>Abläufe verbinden.</p>
+    </div>
+
+    <div class="scene-card">
+      <span class="card-number">4</span>
+      <svg class="scene-svg" viewBox="0 0 220 150" aria-label="Animierte Automatisierungs-Szene">
+        <rect x="9" y="14" width="202" height="122" rx="25" fill="#271946"/>
+        <g class="spin">
+          <circle cx="110" cy="75" r="28" fill="none" stroke="#8b70ff" stroke-width="12" stroke-dasharray="14 8"/>
+          <circle cx="110" cy="75" r="10" fill="#00d9ff"/>
+        </g>
+        <g class="robotHop">
+          <rect x="38" y="52" width="42" height="34" rx="15" fill="#f2f7ff"/>
+          <rect x="45" y="59" width="28" height="16" rx="8" fill="#16284a"/>
+          <circle cx="53" cy="67" r="2.4" fill="#00d9ff"/>
+          <circle cx="65" cy="67" r="2.4" fill="#00d9ff"/>
+        </g>
+        <rect class="taskFly" x="146" y="49" width="37" height="25" rx="7" fill="#ff65c7"/>
+        <rect class="taskFly" x="151" y="93" width="31" height="22" rx="7" fill="#7cf4b4" style="animation-delay:.8s"/>
+        <path class="pathDash" d="M80 69 H88 M138 67 H146 M137 86 Q146 98 151 103" stroke="#fff" stroke-width="3" fill="none"/>
+        <circle class="checkPop" cx="190" cy="111" r="13" fill="#7cf4b4"/>
+        <path d="M183 111 l5 5 9 -11" stroke="#123" stroke-width="3" fill="none"/>
+      </svg>
+      <h3>Automatisierungen</h3>
+      <p>Wiederholungen automatisieren.</p>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="slide cut-slide">
+  <div class="number"></div>
+  <div class="cut-wrap">
+    <div class="cut-line"></div>
+    <div class="cut-title">Ab hier<br><span class="gradient">Bilder</span></div>
+    <div class="cut-sub">Grosse Darstellung · Fokus auf die Visuals</div>
+    <div class="cut-line"></div>
+  </div>
+</section>
+<section class="slide image-slide">
+  <div class=
