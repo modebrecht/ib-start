@@ -1,3 +1,4 @@
+# dev publishes directly at /dev
 name: Publish branch previews
 
 on:
