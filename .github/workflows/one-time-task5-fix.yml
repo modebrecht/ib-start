@@ -1,0 +1,144 @@
+name: One-time task 05 validation fix
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-time-task5-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Patch task 05 validation
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+
+          old_html = '''            <div class="prompt-list">
+              <label class="choice"><input type="checkbox"> Mach eine Präsentation.</label>
+              <label class="choice"><input type="checkbox"> Erstelle eine moderne Fullscreen-Präsentation mit 5 Folien über mich. Nutze grosse Schrift, Emojis und Pfeiltasten zur Navigation.</label>
+              <label class="choice"><input type="checkbox"> Mach etwas Schönes.</label>
+              <label class="choice"><input type="checkbox"> Erstelle eine Präsentation über mein Hobby Tennis mit Titel, 3 Fakten, Bildidee und Abschlussfolie.</label>
+            </div>
+            <label>Warum ist ein genauer Prompt besser?
+              <textarea name="prompt-reason"></textarea>
+            </label>'''
+
+          new_html = '''            <div class="prompt-list">
+              <label class="choice"><input type="checkbox" name="prompt-quality-generic" value="bad" data-prompt-answer> Mach eine Präsentation.</label>
+              <label class="choice"><input type="checkbox" name="prompt-quality-detailed" value="good" data-prompt-answer> Erstelle eine moderne Fullscreen-Präsentation mit 5 Folien über mich. Nutze grosse Schrift, Emojis und Pfeiltasten zur Navigation.</label>
+              <label class="choice"><input type="checkbox" name="prompt-quality-vague" value="bad" data-prompt-answer> Mach etwas Schönes.</label>
+              <label class="choice"><input type="checkbox" name="prompt-quality-hobby" value="good" data-prompt-answer> Erstelle eine Präsentation über mein Hobby Tennis mit Titel, 3 Fakten, Bildidee und Abschlussfolie.</label>
+            </div>
+            <label>Warum ist ein genauer Prompt besser?
+              <textarea name="prompt-reason"></textarea>
+            </label>
+            <div class="check-actions">
+              <button class="check-button" type="button" data-check-task="task-5">Aufgabe prüfen</button>
+              <span class="check-status" data-check-status="task-5" aria-live="polite"></span>
+            </div>'''
+
+          if text.count(old_html) != 1:
+              raise SystemExit(f'Expected task 05 HTML once, found {text.count(old_html)}')
+          text = text.replace(old_html, new_html)
+
+          old_gate = 'const taskNeedsSolved = (taskId) => taskId === "task-3" || taskId === "task-4" || taskId === "task-6" || taskId === "task-7";'
+          new_gate = 'const taskNeedsSolved = (taskId) => taskId === "task-3" || taskId === "task-4" || taskId === "task-5" || taskId === "task-6" || taskId === "task-7";'
+          if text.count(old_gate) != 1:
+              raise SystemExit(f'Expected task gate once, found {text.count(old_gate)}')
+          text = text.replace(old_gate, new_gate)
+
+          marker = '''      if (saved.solvedTasks?.["task-6"]) {
+        setCheckStatus("task-6-presentation", "Gespeichert.", "success");
+        setCheckStatus("task-6-ai", "Gespeichert.", "success");
+      }
+
+      const filenameAnswers = {'''
+
+          replacement = '''      if (saved.solvedTasks?.["task-6"]) {
+        setCheckStatus("task-6-presentation", "Gespeichert.", "success");
+        setCheckStatus("task-6-ai", "Gespeichert.", "success");
+      }
+
+      const promptInputs = [...document.querySelectorAll("[data-prompt-answer]")];
+      const isPromptTaskSolved = () => {
+        return promptInputs.length > 0 && promptInputs.every((input) => {
+          return input.value === "good" ? input.checked : !input.checked;
+        });
+      };
+
+      if (saved.solvedTasks?.["task-5"]) {
+        if (isPromptTaskSolved()) {
+          setCheckStatus("task-5", "Gespeichert: Aufgabe 05 ist richtig gelöst.", "success");
+        } else {
+          const next = readSaved();
+          next.solvedTasks = { ...(next.solvedTasks || {}), "task-5": false };
+          writeSaved(next);
+        }
+      }
+
+      promptInputs.forEach((input) => {
+        input.addEventListener("change", () => {
+          saveSolvedTask("task-5", false);
+          setCheckStatus("task-5", "");
+        });
+      });
+
+      document.querySelector('[data-check-task="task-5"]')?.addEventListener("click", () => {
+        let correctChecked = 0;
+        let correctTotal = 0;
+        let wrongRemoved = 0;
+
+        promptInputs.forEach((input) => {
+          if (input.value === "good") {
+            correctTotal += 1;
+            if (input.checked) correctChecked += 1;
+            return;
+          }
+          if (!input.checked) return;
+          input.checked = false;
+          syncChoiceState(input);
+          const next = readSaved();
+          next[input.dataset.storeKey] = false;
+          writeSaved(next);
+          wrongRemoved += 1;
+        });
+
+        const solved = wrongRemoved === 0 && correctChecked === correctTotal && isPromptTaskSolved();
+        saveSolvedTask("task-5", solved);
+
+        if (solved) {
+          setCheckStatus("task-5", "Richtig gelöst und gespeichert.", "success");
+        } else if (wrongRemoved > 0) {
+          setCheckStatus("task-5", "Nicht passende Haken entfernt. Prüfe deine Auswahl nochmal.", "error");
+        } else {
+          setCheckStatus("task-5", "Noch nicht alle guten Prompts ausgewählt.", "error");
+        }
+      });
+
+      const filenameAnswers = {'''
+
+          if text.count(marker) != 1:
+              raise SystemExit(f'Expected task 05 JS marker once, found {text.count(marker)}')
+          text = text.replace(marker, replacement)
+
+          path.write_text(text, encoding='utf-8')
+      - name: Commit fix and remove one-time workflow
+        run: |
+          rm .github/workflows/one-time-task5-fix.yml
+          git config user.name "modebrecht"
+          git config user.email "137332207+modebrecht@users.noreply.github.com"
+          git add index.html .github/workflows/one-time-task5-fix.yml
+          git commit -m "fix: validate task 05 prompt answers"
+          git push origin main
