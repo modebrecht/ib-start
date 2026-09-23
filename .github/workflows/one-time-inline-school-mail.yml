@@ -1,0 +1,39 @@
+name: One-time inline school mail
+
+on:
+  push:
+    branches: [dev]
+    paths:
+      - .github/workflows/one-time-inline-school-mail.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+      - name: Apply patch
+        run: python3 .github/scripts/inline-school-mail.py
+      - name: Validate
+        run: |
+          grep -q 'Lehrperson. <span class="school-mail-address">vorname.nachname@sus.gsu-so.ch</span>' index.html
+          ! grep -q 'Deine Schul-Mailadresse:' index.html
+          python3 - <<'PY'
+          from pathlib import Path
+          text = Path('index.html').read_text(encoding='utf-8')
+          script = text.rsplit('<script>', 1)[-1].split('</script>', 1)[0]
+          Path('/tmp/ib-start.js').write_text(script, encoding='utf-8')
+          PY
+          node --check /tmp/ib-start.js
+      - name: Commit final change and remove one-time tooling
+        run: |
+          rm -f .github/scripts/inline-school-mail.py .github/workflows/one-time-inline-school-mail.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html .github/scripts/inline-school-mail.py .github/workflows/one-time-inline-school-mail.yml
+          git commit -m 'fix: inline school mail hint' || exit 0
+          git push origin HEAD:dev
