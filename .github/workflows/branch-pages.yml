@@ -1,0 +1,104 @@
+name: Publish branch previews
+
+on:
+  push:
+    branches-ignore:
+      - gh-pages
+  delete:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ib-start-pages-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.event_name != 'delete'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Publish current branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REF_NAME: ${{ github.ref_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          SRC="$GITHUB_WORKSPACE"
+          PAGES="$(mktemp -d)"
+          AUTH="https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git"
+
+          if git ls-remote --exit-code "$AUTH" refs/heads/gh-pages >/dev/null 2>&1; then
+            rm -rf "$PAGES"
+            git clone --depth 1 --branch gh-pages "$AUTH" "$PAGES"
+          else
+            git -C "$PAGES" init
+            git -C "$PAGES" checkout --orphan gh-pages
+            git -C "$PAGES" remote add origin "$AUTH"
+          fi
+
+          if [ "$REF_NAME" = "main" ]; then
+            find "$PAGES" -mindepth 1 -maxdepth 1 ! -name '.git' ! -name 'branches' -exec rm -rf {} +
+            rsync -a --exclude='.git' --exclude='.github' "$SRC/" "$PAGES/"
+          else
+            TARGET="$PAGES/branches/$REF_NAME"
+            rm -rf "$TARGET"
+            mkdir -p "$TARGET"
+            rsync -a --exclude='.git' --exclude='.github' "$SRC/" "$TARGET/"
+          fi
+
+          touch "$PAGES/.nojekyll"
+          git -C "$PAGES" config user.name "github-actions[bot]"
+          git -C "$PAGES" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C "$PAGES" add -A
+
+          if git -C "$PAGES" diff --cached --quiet; then
+            echo "No Pages changes to publish."
+            exit 0
+          fi
+
+          git -C "$PAGES" commit -m "deploy: ${REF_NAME} @ ${GITHUB_SHA::8}"
+          git -C "$PAGES" push origin gh-pages
+
+  remove-preview:
+    if: github.event_name == 'delete' && github.event.ref_type == 'branch' && github.event.ref != 'main' && github.event.ref != 'gh-pages'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove deleted branch preview
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DELETED_REF: ${{ github.event.ref }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          PAGES="$(mktemp -d)"
+          AUTH="https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git"
+
+          if ! git ls-remote --exit-code "$AUTH" refs/heads/gh-pages >/dev/null 2>&1; then
+            echo "gh-pages does not exist yet."
+            exit 0
+          fi
+
+          rm -rf "$PAGES"
+          git clone --depth 1 --branch gh-pages "$AUTH" "$PAGES"
+          TARGET="$PAGES/branches/$DELETED_REF"
+
+          if [ ! -e "$TARGET" ]; then
+            echo "No preview exists for $DELETED_REF."
+            exit 0
+          fi
+
+          rm -rf "$TARGET"
+          git -C "$PAGES" config user.name "github-actions[bot]"
+          git -C "$PAGES" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C "$PAGES" add -A
+          git -C "$PAGES" commit -m "deploy: remove preview ${DELETED_REF}"
+          git -C "$PAGES" push origin gh-pages
