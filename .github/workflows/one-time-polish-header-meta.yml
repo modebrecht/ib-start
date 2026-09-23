@@ -24,9 +24,10 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           s=Path('index.html').read_text(encoding='utf-8')
-          a=s.rfind('<script>')
-          b=s.rfind('</script>')
-          Path('/tmp/app.js').write_text(s[a+8:b], encoding='utf-8')
+          marker='  <script>\n    (() => {'
+          a=s.index(marker) + len('  <script>\n')
+          b=s.rfind('\n  </script>')
+          Path('/tmp/app.js').write_text(s[a:b], encoding='utf-8')
           PY
           node --check /tmp/app.js
       - name: Commit final change and remove one-time tooling
