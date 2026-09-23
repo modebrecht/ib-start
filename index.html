@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>IB-Startcheck Arbeitsblatt</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <style>
     :root {
       --ink: #1f2937;
@@ -39,7 +40,7 @@
       --placeholder: rgba(71, 85, 105, .62);
       --control-bg: #ffffff;
       --control-color: var(--ink);
-      --lesson-bg: rgba(255, 255, 255, .86);
+      --lesson-bg: rgba(255, 255, 255, .70);
       --lesson-strong: #1d4ed8;
       --lesson-sub: #334155;
     }
@@ -69,9 +70,9 @@
       --placeholder: rgba(255, 255, 255, .58);
       --control-bg: rgba(15, 23, 42, .66);
       --control-color: #ffffff;
-      --lesson-bg: rgba(15, 23, 42, .30);
+      --lesson-bg: rgba(15, 23, 42, .52);
       --lesson-strong: #ffffff;
-      --lesson-sub: rgba(255, 255, 255, .80);
+      --lesson-sub: rgba(255, 255, 255, .86);
     }
 
     * { box-sizing: border-box; }
@@ -138,25 +139,35 @@
     }
 
     .student-meta {
-      min-width: 180px;
+      min-width: 190px;
       text-align: left;
-      padding: 14px 16px;
-      border: 1px solid rgba(255, 255, 255, .34);
-      border-radius: 18px;
+      padding: 16px 20px;
+      border: 1px solid rgba(255, 255, 255, .38);
+      border-radius: 22px;
       background: var(--lesson-bg);
-      box-shadow: 0 14px 34px rgba(15, 23, 42, .16);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, .13);
+      backdrop-filter: blur(12px) saturate(1.08);
+      -webkit-backdrop-filter: blur(12px) saturate(1.08);
     }
 
     .student-meta strong {
       display: block;
+      margin-bottom: 4px;
       color: var(--lesson-strong);
-      font-size: 1.12em;
+      font-size: 1.14em;
+      line-height: 1.2;
     }
 
     .student-meta span {
       display: block;
       color: var(--lesson-sub);
-      font-size: 1em;
+      font-size: .98em;
+      line-height: 1.38;
+    }
+
+    .student-meta span + span {
+      margin-top: 2px;
+      font-size: .93em;
     }
 
     .header-tools {
@@ -173,20 +184,22 @@
     }
 
     .settings-button {
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       display: grid;
       place-items: center;
-      border: 1px solid rgba(255, 255, 255, .34);
+      border: 1px solid rgba(255, 255, 255, .38);
       border-radius: 50%;
       background: var(--lesson-bg);
       color: var(--lesson-strong);
       font: inherit;
-      font-size: 1.2em;
+      font-size: 1.16em;
       font-weight: 900;
       cursor: pointer;
-      box-shadow: 0 14px 34px rgba(15, 23, 42, .16);
-      transition: transform .16s ease, box-shadow .16s ease;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, .12);
+      backdrop-filter: blur(12px) saturate(1.08);
+      -webkit-backdrop-filter: blur(12px) saturate(1.08);
+      transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
     }
@@ -194,8 +207,15 @@
     .settings-button:hover,
     .settings-button:focus-visible {
       transform: translateY(-1px);
-      outline: 3px solid rgba(255, 255, 255, .66);
+      background: rgba(255, 255, 255, .82);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, .16);
+      outline: 3px solid rgba(255, 255, 255, .56);
       outline-offset: 3px;
+    }
+
+    body[data-theme="dark"] .settings-button:hover,
+    body[data-theme="dark"] .settings-button:focus-visible {
+      background: rgba(30, 41, 59, .78);
     }
 
     .settings-panel {
@@ -293,6 +313,29 @@
       background: var(--red);
     }
 
+    .check-button,
+    .read-button,
+    .admin-unlock,
+    .settings-json {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .settings-button .action-icon {
+      width: 21px;
+      height: 21px;
+    }
+
+    .check-button .action-icon,
+    .read-button .action-icon,
+    .admin-unlock .action-icon,
+    .settings-json .action-icon {
+      width: 18px;
+      height: 18px;
+    }
+
     .admin-status {
       min-height: 1.35em;
       color: var(--muted);
@@ -305,6 +348,14 @@
 
     .admin-status.is-error {
       color: var(--red);
+    }
+
+    .settings-json {
+      width: 100%;
+      min-height: 42px;
+      border-radius: 10px;
+      padding: 0 14px;
+      box-shadow: none;
     }
 
     .theme-toggle {
@@ -1109,15 +1160,6 @@
       overflow: hidden;
     }
 
-    .prompt-box summary {
-      list-style: none;
-      cursor: pointer;
-    }
-
-    .prompt-box summary::-webkit-details-marker {
-      display: none;
-    }
-
     .prompt-head {
       display: flex;
       align-items: center;
@@ -1129,19 +1171,8 @@
       color: var(--slide-title);
     }
 
-    .prompt-box[open] .prompt-head {
+    .prompt-box-static .prompt-head {
       border-bottom: 1px solid var(--line);
-    }
-
-    .prompt-summary-label::before {
-      content: "▸";
-      display: inline-block;
-      margin-right: 8px;
-      transition: transform .16s ease;
-    }
-
-    .prompt-box[open] .prompt-summary-label::before {
-      transform: rotate(90deg);
     }
 
     .copy-prompt {
@@ -1225,6 +1256,267 @@
       cursor: pointer;
     }
     .html-runner-status { color: var(--muted); font-weight: 750; }
+    .html-runner-download {
+      background: var(--control-bg);
+      color: var(--control-color);
+      border: 1px solid var(--line);
+    }
+    .submission-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .outlook-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 44px;
+      padding: 10px 15px;
+      border-radius: 999px;
+      background: var(--accent, var(--violet));
+      color: #fff;
+      text-decoration: none;
+      font-weight: 850;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, .12);
+      transition: filter .16s ease, transform .16s ease, box-shadow .16s ease;
+    }
+    .outlook-link svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .outlook-link:hover,
+    .outlook-link:focus-visible {
+      filter: brightness(1.06);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, .12), 0 0 0 3px color-mix(in srgb, var(--accent, var(--violet)) 18%, transparent);
+      outline: 0;
+    }
+    .outlook-link:active { transform: scale(.97); }
+    .html-runner {
+      border-color: color-mix(in srgb, var(--accent, var(--blue)) 30%, var(--line));
+      background: color-mix(in srgb, var(--accent, var(--blue)) 6%, var(--panel-bg));
+    }
+    .html-runner-start { background: var(--accent, var(--blue)); }
+    /* Submission polish: clear keyboard affordances, button hierarchy and attachment summary. */
+    .html-runner-head {
+      align-items: flex-start;
+      gap: 14px 18px;
+      margin-bottom: 14px;
+    }
+    .runner-shortcuts {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .runner-shortcut {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 42px;
+      padding: 5px 9px;
+      border: 1px solid color-mix(in srgb, var(--slide-text) 10%, var(--line));
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--control-bg) 84%, transparent);
+      color: var(--muted);
+      box-shadow: 0 3px 10px rgba(15, 23, 42, .05);
+      font-size: .88em;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+    .runner-shortcut-next { gap: 6px; }
+    .runner-shortcut kbd {
+      min-width: 32px;
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 9px;
+      border: 1px solid color-mix(in srgb, var(--slide-text) 18%, var(--line));
+      border-bottom-width: 3px;
+      border-radius: 8px;
+      background: var(--control-bg);
+      color: var(--control-color);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, .08);
+      font: inherit;
+      font-size: .95em;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .html-runner-actions { margin-top: 14px; }
+    .html-runner-start {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: filter .16s ease, transform .16s ease, box-shadow .16s ease;
+    }
+    .html-runner-start:hover,
+    .html-runner-start:focus-visible {
+      filter: brightness(1.05);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, var(--blue)) 16%, transparent);
+      outline: 0;
+    }
+    .html-runner-start:active { transform: scale(.97); }
+    .action-icon {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .submission-action-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .html-runner-start.html-runner-download {
+      background: var(--control-bg);
+      color: var(--accent, var(--violet));
+      border: 1px solid color-mix(in srgb, var(--accent, var(--violet)) 34%, var(--line));
+      box-shadow: none;
+    }
+    .html-runner-status {
+      display: none;
+      width: fit-content;
+      max-width: 100%;
+      margin-top: 12px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: .92em;
+      font-weight: 800;
+    }
+    .html-runner-status:not(:empty) {
+      display: inline-flex;
+      align-items: center;
+    }
+    .html-runner-status.is-success {
+      color: color-mix(in srgb, var(--green) 82%, var(--slide-text));
+      background: color-mix(in srgb, var(--green) 10%, var(--panel-bg));
+      border: 1px solid color-mix(in srgb, var(--green) 25%, var(--line));
+    }
+    .html-runner-status.is-error {
+      color: var(--red);
+      background: color-mix(in srgb, var(--red) 8%, var(--panel-bg));
+      border: 1px solid color-mix(in srgb, var(--red) 24%, var(--line));
+    }
+    .submission-files {
+      margin: 18px 0;
+      padding: 16px;
+      border: 1px solid color-mix(in srgb, var(--green) 28%, var(--line));
+      border-radius: 18px;
+      background: color-mix(in srgb, var(--green) 5%, var(--panel-bg));
+      box-shadow: 0 10px 24px rgba(15, 23, 42, .05);
+    }
+    .submission-files-title {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 12px;
+      color: var(--slide-title);
+      font-size: 1.02em;
+    }
+    .submission-clip {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      fill: none;
+      color: var(--slide-title);
+      flex: 0 0 auto;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .school-mail-hint {
+      margin-top: 10px !important;
+      color: var(--muted) !important;
+      font-size: .92em;
+    }
+    .school-mail-address {
+      display: inline-flex;
+      align-items: center;
+      margin: 0 0 0 6px;
+      vertical-align: middle;
+      padding: 5px 9px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--field-bg);
+      color: var(--slide-title);
+      font-family: Consolas, "Courier New", monospace;
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+    .submission-or-pill {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      min-height: 34px;
+      padding: 0 16px;
+      margin: 8px auto;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--slide-text) 8%, var(--line));
+      background: color-mix(in srgb, var(--control-bg) 88%, transparent);
+      color: var(--muted);
+      font-size: .8em;
+      font-weight: 900;
+      letter-spacing: .04em;
+      box-shadow: 0 2px 7px rgba(15, 23, 42, .05);
+    }
+    .submission-file-row {
+      display: grid;
+      grid-template-columns: minmax(120px, .42fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 12px;
+      padding: 12px 13px;
+      border: 1px solid color-mix(in srgb, var(--green) 12%, var(--line));
+      border-radius: 13px;
+      background: color-mix(in srgb, var(--control-bg) 88%, transparent);
+    }
+    .submission-file-row + .submission-file-row { margin-top: 9px; }
+    .submission-file-variant {
+      color: var(--slide-title);
+      font-weight: 850;
+    }
+    .submission-file-chips {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+    .submission-file-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 4px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--control-bg);
+      color: var(--control-color);
+      font-size: .92em;
+      font-weight: 800;
+      box-shadow: 0 2px 7px rgba(15, 23, 42, .06);
+    }
+    .submission-file-plus {
+      color: var(--muted);
+      font-weight: 900;
+    }
+    @media (max-width: 760px) {
+      .runner-shortcuts { justify-content: flex-start; }
+      .submission-file-row { grid-template-columns: 1fr; gap: 7px; }
+    }
+
     body.presentation-open { overflow: hidden; }
     .presentation-stage[hidden] { display: none !important; }
     .presentation-stage {
@@ -1268,7 +1560,7 @@
     .presentation-back:hover,
     .presentation-back:focus-visible { opacity: .92; }
     @media print {
-      .html-runner, .presentation-stage { display: none !important; }
+      .html-runner, .presentation-stage, .pdf-lock-modal { display: none !important; }
     }
 
     .slide-controls {
@@ -1309,9 +1601,16 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .round-nav[data-slide-home] {
-      padding-bottom: 3px;
-      font-size: 1.6em;
+    .round-nav svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.25;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      pointer-events: none;
     }
 
     .round-nav:hover,
@@ -1327,7 +1626,7 @@
     }
 
     .round-nav:disabled {
-      opacity: .36;
+      opacity: .30;
       cursor: default;
       box-shadow: none;
       transform: none;
@@ -1401,7 +1700,141 @@
       padding-left: 1.2rem;
     }
 
-    button:not(.match-item):not(.task-tile):not(.round-nav):not(.print-final):not(.copy-prompt):not(.check-button):not(.read-button):not(.settings-button):not(.admin-unlock):not(.html-runner-start):not(.presentation-back) {
+
+    body.pdf-modal-open {
+      overflow: hidden;
+    }
+
+    .pdf-lock-modal[hidden] {
+      display: none !important;
+    }
+
+    .pdf-lock-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000000;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .pdf-lock-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, .58);
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
+    }
+
+    .pdf-lock-dialog {
+      position: relative;
+      width: min(520px, 100%);
+      max-height: calc(100dvh - 40px);
+      overflow: auto;
+      padding: 30px;
+      border: 1px solid color-mix(in srgb, var(--red) 24%, var(--line));
+      border-radius: 24px;
+      background: var(--slide-bg);
+      color: var(--slide-text);
+      box-shadow: 0 28px 90px rgba(15, 23, 42, .36);
+      animation: pdf-lock-pop .18s ease-out;
+    }
+
+    .pdf-lock-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--slide-text) 7%, transparent);
+      color: var(--slide-text);
+      font: inherit;
+      font-size: 1.45rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .pdf-lock-close:hover,
+    .pdf-lock-close:focus-visible {
+      background: color-mix(in srgb, var(--slide-text) 13%, transparent);
+      outline: 3px solid color-mix(in srgb, var(--red) 22%, transparent);
+      outline-offset: 2px;
+    }
+
+    .pdf-lock-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      border-radius: 16px;
+      background: color-mix(in srgb, var(--red) 12%, var(--panel-bg));
+      color: var(--red);
+      font-size: 1.55rem;
+      font-weight: 950;
+    }
+
+    .pdf-lock-dialog h2 {
+      margin: 0 44px 8px 0;
+      color: var(--slide-title);
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      line-height: 1.1;
+    }
+
+    .pdf-lock-dialog p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .pdf-lock-list {
+      display: grid;
+      gap: 8px;
+      margin: 0 0 22px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .pdf-lock-list li {
+      padding: 11px 13px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel-bg);
+      color: var(--slide-text);
+      font-weight: 800;
+    }
+
+    .pdf-lock-dismiss {
+      min-height: 46px;
+      padding: 0 18px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--red);
+      color: #fff;
+      font: inherit;
+      font-weight: 850;
+      cursor: pointer;
+      box-shadow: 0 10px 24px color-mix(in srgb, var(--red) 24%, transparent);
+    }
+
+    .pdf-lock-dismiss:hover,
+    .pdf-lock-dismiss:focus-visible {
+      filter: brightness(1.05);
+      outline: 3px solid color-mix(in srgb, var(--red) 22%, transparent);
+      outline-offset: 2px;
+    }
+
+    @keyframes pdf-lock-pop {
+      from { opacity: 0; transform: translateY(10px) scale(.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    button:not(.match-item):not(.task-tile):not(.round-nav):not(.print-final):not(.download-json):not(.copy-prompt):not(.check-button):not(.read-button):not(.settings-button):not(.admin-unlock):not(.html-runner-start):not(.presentation-back):not(.pdf-lock-close):not(.pdf-lock-dismiss) {
       border: 0;
       border-radius: 10px;
       background: var(--ink);
@@ -1672,7 +2105,7 @@
         <div class="title-row">
           <div>
             <h1>IB-Startcheck</h1>
-            <p class="subtitle">Präsentieren · Speichern · KI nutzen</p>
+            <p class="subtitle">Einstieg in die Informatische Bildung</p>
           </div>
           <div class="header-tools">
             <div class="student-meta" aria-label="Schülerdaten">
@@ -1681,7 +2114,7 @@
               <span data-current-date>Datum</span>
             </div>
             <div class="settings-wrap">
-              <button class="settings-button" type="button" data-settings-toggle aria-label="Optionen öffnen">⚙</button>
+              <button class="settings-button" type="button" data-settings-toggle aria-label="Optionen öffnen"><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21h-4v-.1A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3v-4h.1A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3h4v.1A1.7 1.7 0 0 0 15.4 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.1.37.3.7.6 1 .3.27.68.4 1.1.4H21v4h-.1a1.7 1.7 0 0 0-1.5.6Z"></path></svg></button>
               <div class="settings-panel" data-settings-panel>
                 <div class="settings-group">
                   <span class="settings-title">Theme</span>
@@ -1697,11 +2130,16 @@
                   <output class="font-scale-value" for="font-scale" data-font-scale-value>100%</output>
                   <input id="font-scale" type="range" min="80" max="250" step="5" value="100" data-font-scale aria-label="Textgrösse in Prozent">
                 </div>
+                <div class="settings-group settings-export">
+                  <span class="settings-title">Export</span>
+                  <button class="download-json settings-json" type="button" data-download-json><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg><span class="button-label">JSON herunterladen</span></button>
+                  <span class="admin-status" data-json-status aria-live="polite"></span>
+                </div>
                 <div class="settings-group">
                   <span class="settings-title">Admin Mode</span>
                   <div class="admin-row">
                     <input type="password" data-admin-password placeholder="Passwort" autocomplete="off">
-                    <button class="admin-unlock" type="button" data-admin-unlock>Freischalten</button>
+                    <button class="admin-unlock" type="button" data-admin-unlock><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg><span class="button-label">Freischalten</span></button>
                   </div>
                   <span class="admin-status" data-admin-status aria-live="polite"></span>
                 </div>
@@ -1715,143 +2153,78 @@
 
     <div class="workspace">
       <nav class="task-nav" aria-label="Aufgaben">
-        <button class="task-tile is-active" type="button" data-task-target="task-1" style="--tile-color: var(--red)"><span class="task-number">01</span><span class="task-label">Auftrag: Mini-Präsentation</span></button>
-        <button class="task-tile" type="button" data-task-target="task-2" style="--tile-color: var(--orange)"><span class="task-number">02</span><span class="task-label">Meine Präsentation</span></button>
+        <button class="task-tile is-active" type="button" data-task-target="task-1" style="--tile-color: var(--red)"><span class="task-number">01</span><span class="task-label">Mini-Präsentation</span></button>
+        <button class="task-tile" type="button" data-task-target="task-6" style="--tile-color: var(--orange)"><span class="task-number">02</span><span class="task-label">Was darf ich teilen?</span></button>
         <button class="task-tile" type="button" data-task-target="task-3" style="--tile-color: var(--yellow)"><span class="task-number">03</span><span class="task-label">Gute Dateinamen erkennen</span></button>
-        <button class="task-tile" type="button" data-task-target="task-4" style="--tile-color: var(--green)"><span class="task-number">04</span><span class="task-label">Speichern und testen</span></button>
-        <button class="task-tile" type="button" data-task-target="task-5" style="--tile-color: var(--blue)"><span class="task-number">05</span><span class="task-label">KI richtig nutzen</span></button>
-        <button class="task-tile" type="button" data-task-target="task-6" style="--tile-color: var(--indigo)"><span class="task-number">06</span><span class="task-label">Was darf ich teilen?</span></button>
-        <button class="task-tile" type="button" data-task-target="task-7" style="--tile-color: var(--violet)"><span class="task-number">07</span><span class="task-label">Werkzeuge: Tastenkombinationen</span></button>
-        <button class="task-tile" type="button" data-task-target="task-8" style="--tile-color: var(--cyan)"><span class="task-number">08</span><span class="task-label">Rückblick</span></button>
+        <button class="task-tile" type="button" data-task-target="task-5" style="--tile-color: var(--green)"><span class="task-number">04</span><span class="task-label">KI richtig nutzen</span></button>
+        <button class="task-tile" type="button" data-task-target="task-7" style="--tile-color: var(--cyan)"><span class="task-number">05</span><span class="task-label">Tastenkombinationen</span></button>
+        <button class="task-tile" type="button" data-task-target="task-2" style="--tile-color: var(--blue)"><span class="task-number">06</span><span class="task-label">Meine Präsentation</span></button>
+        <button class="task-tile" type="button" data-task-target="task-8" style="--tile-color: var(--indigo)"><span class="task-number">07</span><span class="task-label">Rückblick</span></button>
+        <button class="task-tile" type="button" data-task-target="task-9" style="--tile-color: var(--violet)"><span class="task-number">08</span><span class="task-label">Abgabe per Mail</span></button>
       </nav>
 
       <div class="task-stage">
       <section class="section is-active" data-task="task-1" style="--accent: var(--red)">
         <div class="section-number"><span>01</span><span>★</span></div>
         <div class="section-body">
-          <h2 class="section-title">Auftrag: Mini-Präsentation</h2>
+          <h2 class="section-title">Mini-Präsentation</h2>
           <div class="section-content">
-            <div class="variant-grid">
-              <div class="variant-card">
-                <strong>Variante A</strong>
-                PowerPoint-Präsentation
-              </div>
-              <div class="variant-card">
-                <strong>Variante B</strong>
-                HTML-Präsentation erzeugen mittels KI
-              </div>
-            </div>
-            <p class="auftrag-intro"><strong>Beide Varianten sind gleichwertig.</strong></p>
+            <p class="auftrag-intro"><strong>Das ist dein Ziel für heute:</strong> Am Ende erstellst du eine kurze Präsentation über dich.</p>
 
             <div class="auftrag-grid">
-              <div class="auftrag-card">
-                <strong>1. Titel / Name</strong>
-                <p>Beispiel: «Kurzvorstellung – Lina»</p>
-              </div>
-              <div class="auftrag-card">
-                <strong>2. Hobbys und Interessen</strong>
-                <p>Mindestens drei Beispiele, die zu dir passen.</p>
-              </div>
-              <div class="auftrag-card">
-                <strong>3. Lieblingstier und Lieblingsessen</strong>
-                <p>Welches Tier und welches Essen magst du am liebsten?</p>
-              </div>
-              <div class="auftrag-card">
-                <strong>4. Apps oder Games</strong>
-                <p>Welche Apps oder Games nutzt du gerne?</p>
-              </div>
-              <div class="auftrag-card">
-                <strong>5. Was ich im IB lernen möchte</strong>
-                <p>Zum Beispiel Umgang mit KI, Medien mit KI erstellen, Word, Excel, PowerPoint, Webseiten, kleine Apps/Games programmieren.</p>
-              </div>
+              <div class="auftrag-card"><strong>1. Titel / Vorname</strong><p>Beispiel: «Kurzvorstellung – Lina»</p></div>
+              <div class="auftrag-card"><strong>2. Hobbys und Interessen</strong><p>Mindestens drei Beispiele, die zu dir passen.</p></div>
+              <div class="auftrag-card"><strong>3. Lieblingstier und Lieblingsessen</strong><p>Welches Tier und welches Essen magst du am liebsten?</p></div>
+              <div class="auftrag-card"><strong>4. Apps oder Games</strong><p>Welche Apps oder Games nutzt du gerne?</p></div>
+              <div class="auftrag-card"><strong>5. Was ich im Informatikunterricht lernen möchte</strong><p>Zum Beispiel KI, Word, Excel, PowerPoint, Webseiten oder kleine Apps und Games.</p></div>
             </div>
 
-            <div class="info-grid">
-              <div class="warning-box">
-                <strong>⚠️ Wichtig</strong>
-                <p>Nicht in die Präsentation gehören:</p>
-                <ul class="avoid-list">
-                  <li>Adresse</li>
-                  <li>Telefonnummer</li>
-                  <li>zu persönliche Informationen</li>
-                </ul>
-                <div class="read-actions">
-                  <button class="read-button" type="button" data-read-confirm="task-1-important" aria-pressed="false">Gelesen</button>
-                </div>
-              </div>
-
-              <div class="final-box">
-                <strong>🏁 Ziel</strong>
-                <p>Speichere deine Datei mit einem sinnvollen Namen: <span class="file-name">vorname_vorstellung.pptx</span> oder <span class="file-name">vorname_vorstellung.html</span></p>
-                <p>Danach gibst du die Datei ab oder sendest sie per Outlook.</p>
-                <div class="read-actions">
-                  <button class="read-button" type="button" data-read-confirm="task-1-goal" aria-pressed="false">Gelesen</button>
-                </div>
-              </div>
+            <div class="final-box">
+              <strong>🏁 Später wählst du</strong>
+              <p><strong>PowerPoint oder HTML mit KI.</strong> Beide Varianten sind gleichwertig. Die nächsten Aufgaben bereiten dich darauf vor.</p>
+              <div class="read-actions"><button class="read-button" type="button" data-read-confirm="task-1-brief" aria-pressed="false"><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"></path></svg><span class="button-label">Auftrag verstanden</span></button></div>
             </div>
-
-            <details class="prompt-box">
-              <summary class="prompt-head">
-                <span class="prompt-summary-label">Hilfe für Variante B anzeigen</span>
-              </summary>
-              <pre class="prompt-code"><code>Schreibe deinen Prompt selbst.
-
-Diese Informationen müssen in deiner Präsentation vorkommen:
-• Titel / dein Vorname
-• Mindestens 3 Hobbys oder Interessen
-• Dein Lieblingstier und dein Lieblingsessen
-• Apps oder Games, die du gerne nutzt
-• Was du im Informatikunterricht lernen möchtest
-
-Beispiele für das, was du im Informatikunterricht lernen möchtest:
-• mit KI umgehen
-• Medien mit KI erstellen
-• Word, Excel und PowerPoint nutzen
-• Webseiten machen
-• kleine Apps oder Games programmieren
-
-Du formulierst deinen Prompt selbst und entscheidest auch selbst, wie die Präsentation aussehen soll.
-Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></pre>
-            </details>
           </div>
         </div>
       </section>
 
-      <section class="section" data-task="task-2" style="--accent: var(--orange)">
-        <div class="section-number"><span>02</span><span>▣</span></div>
+      <section class="section" data-task="task-6" style="--accent: var(--orange)">
+        <div class="section-number"><span>02</span><span>◉</span></div>
         <div class="section-body">
-          <h2 class="section-title">Meine Präsentation</h2>
+          <h2 class="section-title">Was darf ich teilen?</h2>
           <div class="section-content">
-            <span class="label">Kreuze an: Was hast du heute gemacht?</span>
-            <div class="check-grid">
-              <label class="choice"><input type="checkbox" name="created" value="powerpoint"> Ich habe eine PowerPoint-Präsentation erstellt.</label>
-              <label class="choice"><input type="checkbox" name="created" value="html"> Ich habe eine HTML-Präsentation erstellt.</label>
-              <label class="choice"><input type="checkbox" name="created" value="submitted"> Ich habe meine Präsentation abgegeben.</label>
-            </div>
-            <div class="field-grid">
-              <label>Was hat gut funktioniert?
-                <textarea name="worked-well"></textarea>
-              </label>
-              <label>Was war schwierig?
-                <textarea name="presentation-hard"></textarea>
-              </label>
-              <label class="wide">Was würdest du nächstes Mal verbessern?
-                <textarea name="next-improvement"></textarea>
-              </label>
-            </div>
-
-            <div class="html-runner">
-              <div class="html-runner-head">
-                <strong>HTML-Präsentation testen</strong>
-                <span>Esc zurück · ← vorherige · → / ↓ / Leertaste nächste</span>
+            <div class="privacy-task" data-privacy-group="presentation">
+              <span class="label">Was darf in eine Präsentation über mich?</span>
+              <div class="privacy-options" data-randomize-options>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-hobby" value="good" data-privacy-answer> Hobby</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-game" value="good" data-privacy-answer> Lieblingsgame</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-first-name" value="good" data-privacy-answer> Vorname</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-last-name" value="good" data-privacy-answer> Nachname</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-birthday" value="good" data-privacy-answer> Geburtsdatum</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-address" value="bad" data-privacy-answer> Adresse</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-phone" value="bad" data-privacy-answer> Telefonnummer</label>
+                <label class="choice"><input type="checkbox" name="privacy-presentation-password" value="bad" data-privacy-answer> Passwort</label>
               </div>
-              <p class="auftrag-intro">Eine Präsentation muss auch auf einem grossen Bildschirm oder Beamer gut aussehen und funktionieren. Teste sie deshalb im Vollbild.</p>
-              <label>HTML-Code hier einfügen
-                <textarea data-html-runner-input data-no-store data-ignore-completion spellcheck="false" placeholder="&lt;!doctype html&gt; ..."></textarea>
-              </label>
-              <div class="html-runner-actions">
-                <button class="html-runner-start" type="button" data-html-runner-start>▶ Fullscreen starten</button>
-                <span class="html-runner-status" data-html-runner-status aria-live="polite"></span>
+              <div class="check-actions">
+                <button class="check-button" type="button" data-check-privacy="presentation"><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.3 2.3 4.8-5"></path></svg><span class="button-label">Präsentation prüfen</span></button>
+                <span class="check-status" data-check-status="task-6-presentation" aria-live="polite"></span>
+              </div>
+            </div>
+            <div class="privacy-task" data-privacy-group="ai">
+              <span class="label">Welche Informationen darf ich einer KI geben?</span>
+              <div class="privacy-options" data-randomize-options>
+                <label class="choice"><input type="checkbox" name="privacy-ai-hobby" value="good" data-privacy-answer> Hobby</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-game" value="good" data-privacy-answer> Lieblingsgame</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-first-name" value="good" data-privacy-answer> Vorname</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-last-name" value="bad" data-privacy-answer> Nachname</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-birthday" value="bad" data-privacy-answer> Geburtsdatum</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-address" value="bad" data-privacy-answer> Adresse</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-phone" value="bad" data-privacy-answer> Telefonnummer</label>
+                <label class="choice"><input type="checkbox" name="privacy-ai-password" value="bad" data-privacy-answer> Passwort</label>
+              </div>
+              <div class="check-actions">
+                <button class="check-button" type="button" data-check-privacy="ai"><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.3 2.3 4.8-5"></path></svg><span class="button-label">Antworten prüfen</span></button>
+                <span class="check-status" data-check-status="task-6-ai" aria-live="polite"></span>
               </div>
             </div>
           </div>
@@ -1894,121 +2267,41 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
                 </tr>
               </tbody>
             </table>
-            <label>Mein guter Dateiname
+            <label>Dein Dateiname
               <input type="text" name="good-filename">
             </label>
             <div class="check-actions">
-              <button class="check-button" type="button" data-check-task="task-3">Aufgabe prüfen</button>
+              <button class="check-button" type="button" data-check-task="task-3"><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.3 2.3 4.8-5"></path></svg><span class="button-label">Aufgabe prüfen</span></button>
               <span class="check-status" data-check-status="task-3" aria-live="polite"></span>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section" data-task="task-4" style="--accent: var(--green)">
-        <div class="section-number"><span>04</span><span>⛶</span></div>
-        <div class="section-body">
-          <h2 class="section-title">Speichern und testen</h2>
-          <div class="section-content">
-            <div class="field-grid">
-              <label>Dateiname
-                <input type="text" name="filename-check" placeholder="z.B. noah_ib_start.html">
-              </label>
-              <label>Gespeichert unter
-                <input type="text" name="location" placeholder="z.B. Desktop / Downloads / Klassenordner">
-              </label>
-              <label>Im Vollbild getestet
-                <input type="text" name="fullscreen-check" placeholder="z.B. PowerPoint: F5 / Browser: F11">
-              </label>
-            </div>
-            <div class="check-actions">
-              <button class="check-button" type="button" data-check-task="task-4">Aufgabe prüfen</button>
-              <span class="check-status" data-check-status="task-4" aria-live="polite"></span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" data-task="task-5" style="--accent: var(--blue)">
-        <div class="section-number"><span>05</span><span>✦</span></div>
+      <section class="section" data-task="task-5" style="--accent: var(--green)">
+        <div class="section-number"><span>04</span><span>✦</span></div>
         <div class="section-body">
           <h2 class="section-title">KI richtig nutzen</h2>
           <div class="section-content">
-            <span class="label">Kreuze an: Was ist ein guter Prompt? Es können mehrere Antworten richtig sein.</span>
+            <p class="auftrag-intro">Ein Prompt ist deine Anweisung an die KI. Ein guter Prompt sagt klar, <strong>was du möchtest</strong> und <strong>welche Inhalte</strong> wichtig sind.</p>
+            <span class="label">Welche Prompts sind gut? Es können mehrere Antworten richtig sein.</span>
             <div class="prompt-list">
               <label class="choice"><input type="checkbox" name="prompt-quality-generic" value="bad" data-prompt-answer> Mach eine Präsentation.</label>
-              <label class="choice"><input type="checkbox" name="prompt-quality-detailed" value="good" data-prompt-answer> Erstelle eine moderne Fullscreen-Präsentation mit 5 Folien über mich. Nutze grosse Schrift, Emojis und Pfeiltasten zur Navigation.</label>
+              <label class="choice"><input type="checkbox" name="prompt-quality-detailed" value="good" data-prompt-answer> Erstelle eine Präsentation mit 5 Folien über mich. Verwende meinen Vornamen, 3 Hobbys, mein Lieblingstier und mein Lieblingsessen.</label>
               <label class="choice"><input type="checkbox" name="prompt-quality-vague" value="bad" data-prompt-answer> Mach etwas Schönes.</label>
               <label class="choice"><input type="checkbox" name="prompt-quality-hobby" value="good" data-prompt-answer> Erstelle eine Präsentation über mein Hobby Tennis mit Titel, 3 Fakten, Bildidee und Abschlussfolie.</label>
             </div>
-            <label>Warum ist ein genauer Prompt besser?
-              <textarea name="prompt-reason"></textarea>
-            </label>
+            <label>Warum bekommst du mit einem genauen Prompt meist ein besseres Ergebnis?<textarea name="prompt-reason"></textarea></label>
             <div class="check-actions">
-              <button class="check-button" type="button" data-check-task="task-5">Aufgabe prüfen</button>
+              <button class="check-button" type="button" data-check-task="task-5"><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.3 2.3 4.8-5"></path></svg><span class="button-label">Antworten prüfen</span></button>
               <span class="check-status" data-check-status="task-5" aria-live="polite"></span>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section" data-task="task-6" style="--accent: var(--indigo)">
-        <div class="section-number"><span>06</span><span>◉</span></div>
-        <div class="section-body">
-          <h2 class="section-title">Was darf ich teilen?</h2>
-          <div class="section-content">
-            <div class="privacy-task" data-privacy-group="presentation">
-              <span class="label">Was darf in eine Präsentation über mich?</span>
-              <div class="privacy-options" data-randomize-options>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-hobby" value="good" data-privacy-answer> Hobby</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-game" value="good" data-privacy-answer> Lieblingsgame</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-food" value="good" data-privacy-answer> Lieblingsessen</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-address" value="bad" data-privacy-answer> Adresse</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-subject" value="good" data-privacy-answer> Lieblingsfach</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-pet" value="good" data-privacy-answer> Haustier</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-phone" value="bad" data-privacy-answer> Telefonnummer</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-first-name" value="good" data-privacy-answer> Vorname</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-last-name" value="good" data-privacy-answer> Nachname</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-club" value="good" data-privacy-answer> Verein</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-birthday" value="good" data-privacy-answer> Geburtsdatum</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-favorite-app" value="good" data-privacy-answer> Lieblingsapp</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-password" value="bad" data-privacy-answer> Passwort</label>
-                <label class="choice"><input type="checkbox" name="privacy-presentation-pin" value="bad" data-privacy-answer> PIN</label>
-              </div>
-              <div class="check-actions">
-                <button class="check-button" type="button" data-check-privacy="presentation">Präsentation prüfen</button>
-                <span class="check-status" data-check-status="task-6-presentation" aria-live="polite"></span>
-              </div>
-            </div>
-            <div class="privacy-task" data-privacy-group="ai">
-              <span class="label">Welche Informationen darf ich in einen KI-Prompt schreiben?</span>
-              <div class="privacy-options" data-randomize-options>
-                <label class="choice"><input type="checkbox" name="privacy-ai-hobby" value="good" data-privacy-answer> Hobby</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-game" value="good" data-privacy-answer> Lieblingsgame</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-food" value="good" data-privacy-answer> Lieblingsessen</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-subject" value="good" data-privacy-answer> Lieblingsfach</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-pet" value="good" data-privacy-answer> Haustier</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-favorite-app" value="good" data-privacy-answer> Lieblingsapp</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-first-name" value="good" data-privacy-answer> Vorname</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-last-name" value="bad" data-privacy-answer> Nachname</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-address" value="bad" data-privacy-answer> Adresse</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-phone" value="bad" data-privacy-answer> Telefonnummer</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-club" value="bad" data-privacy-answer> spezifischer Verein</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-birthday" value="bad" data-privacy-answer> Geburtsdatum</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-password" value="bad" data-privacy-answer> Passwort</label>
-                <label class="choice"><input type="checkbox" name="privacy-ai-pin" value="bad" data-privacy-answer> PIN</label>
-              </div>
-              <div class="check-actions">
-                <button class="check-button" type="button" data-check-privacy="ai">KI-Prompt prüfen</button>
-                <span class="check-status" data-check-status="task-6-ai" aria-live="polite"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" data-task="task-7" style="--accent: var(--violet)">
-        <div class="section-number"><span>07</span><span>⌨</span></div>
+      <section class="section" data-task="task-7" style="--accent: var(--cyan)">
+        <div class="section-number"><span>05</span><span>⌨</span></div>
         <div class="section-body">
           <h2 class="section-title">Werkzeuge: Tastenkombinationen</h2>
           <div class="section-content">
@@ -2046,26 +2339,74 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
               </div>
             </div>
             <div class="check-actions">
-              <button class="check-button" type="button" data-check-task="task-7">Verbindungen prüfen</button>
+              <button class="check-button" type="button" data-check-task="task-7"><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.3 2.3 4.8-5"></path></svg><span class="button-label">Verbindungen prüfen</span></button>
               <span class="check-status" data-check-status="task-7" aria-live="polite"></span>
-            </div>
-            <div class="field-grid">
-              <label>Heute am meisten genutzt
-                <input type="text" name="most-used">
-              </label>
-              <label>Warum?
-                <input type="text" name="why-used">
-              </label>
-              <label class="wide">Möchte ich mir merken
-                <input type="text" name="remember-shortcut">
-              </label>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section" data-task="task-8" style="--accent: var(--cyan)">
-        <div class="section-number"><span>08</span><span>✓</span></div>
+      <section class="section" data-task="task-2" style="--accent: var(--blue)">
+        <div class="section-number"><span>06</span><span>▣</span></div>
+        <div class="section-body">
+          <h2 class="section-title">Meine Präsentation</h2>
+          <div class="section-content">
+            <p class="auftrag-intro"><strong>Jetzt setzt du alles zusammen.</strong> Erstelle deine Mini-Präsentation aus Aufgabe 01.</p>
+
+            <span class="label">Wähle deine Variante:</span>
+            <div class="check-grid">
+              <label class="choice"><input type="checkbox" name="created" value="powerpoint"> PowerPoint-Präsentation</label>
+              <label class="choice"><input type="checkbox" name="created" value="html"> HTML-Präsentation mit KI</label>
+            </div>
+
+            <div class="auftrag-grid">
+              <div class="auftrag-card">
+                <strong>PowerPoint – so gehst du vor</strong>
+                <ol class="auftrag-list">
+                  <li>PowerPoint öffnen und die Inhalte aus Aufgabe 01 verwenden.</li>
+                  <li>Deinen Dateinamen aus Aufgabe 03 verwenden und speichern.</li>
+                  <li>Die Präsentation mit <strong>F5</strong> testen.</li>
+                  <li>Datei speichern. Die Abgabe machst du in Aufgabe 08.</li>
+                </ol>
+              </div>
+              <div class="auftrag-card">
+                <strong>HTML mit KI – so gehst du vor</strong>
+                <ol class="auftrag-list">
+                  <li>Schreibe einen eigenen Prompt. Nutze, was du in Aufgabe 02 und 04 gelernt hast.</li>
+                  <li>Lass die KI daraus eine HTML-Präsentation erstellen.</li>
+                  <li>Präsentation prüfen und verbessern.</li>
+                  <li>In Aufgabe 08 den HTML-Code testen, herunterladen und abgeben.</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="prompt-box prompt-box-static">
+              <div class="prompt-head"><span>Hilfe für deinen Prompt</span></div>
+              <pre class="prompt-code"><code>Schreibe deinen Prompt selbst.
+
+Diese Informationen müssen in deiner Präsentation vorkommen:
+• Titel / dein Vorname
+• Mindestens 3 Hobbys oder Interessen
+• Dein Lieblingstier und dein Lieblingsessen
+• Apps oder Games, die du gerne nutzt
+• Was du im Informatikunterricht lernen möchtest
+
+Beispiele für das, was du lernen möchtest:
+• KI sinnvoll nutzen oder Medien mit KI erstellen
+• Word, Excel und PowerPoint nutzen
+• Webseiten machen
+• kleine Apps oder Games programmieren
+
+Verwende nur Informationen, die du laut Aufgabe 02 mit einer KI teilen darfst.
+Du entscheidest selbst, wie die Präsentation aussehen soll.
+Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" data-task="task-8" style="--accent: var(--indigo)">
+        <div class="section-number"><span>07</span><span>✓</span></div>
         <div class="section-body">
           <h2 class="section-title">Rückblick</h2>
           <div class="section-content">
@@ -2079,28 +2420,112 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
               <label>Das fand ich schwierig
                 <textarea name="difficult"></textarea>
               </label>
-              <label>Das möchte ich im IB-Unterricht gerne einmal machen
+              <label>Das möchte ich im Informatikunterricht gerne einmal machen
                 <textarea name="future"></textarea>
               </label>
             </div>
           </div>
         </div>
-      </section>      </div>
+      </section>
+
+      <section class="section" data-task="task-9" style="--accent: var(--violet)">
+        <div class="section-number"><span>08</span><span>✉</span></div>
+        <div class="section-body">
+          <h2 class="section-title">Abgabe per Mail</h2>
+          <div class="section-content">
+            <p class="auftrag-intro"><strong>Zum Schluss gibst du deine Arbeit per Mail ab.</strong> Bereite zuerst deine Dateien vor und öffne danach Outlook.</p>
+
+            <div class="html-runner">
+              <div class="html-runner-head">
+                <strong>HTML-Präsentation vorbereiten</strong>
+                <div class="runner-shortcuts" aria-label="Tasten für die Präsentation">
+                  <span class="runner-shortcut"><kbd>Esc</kbd><span>zurück</span></span>
+                  <span class="runner-shortcut"><kbd>←</kbd><span>vorherige</span></span>
+                  <span class="runner-shortcut runner-shortcut-next"><kbd>→</kbd><kbd>↓</kbd><kbd>Leertaste</kbd><span>nächste</span></span>
+                </div>
+              </div>
+              <p class="auftrag-intro">Wenn du die HTML-Variante gewählt hast: Füge den Code hier ein, teste die Präsentation im Vollbild und lade danach die HTML-Datei herunter.</p>
+              <label>HTML-Code hier einfügen<textarea data-html-runner-input data-no-store data-ignore-completion spellcheck="false" placeholder="&lt;!doctype html&gt; ..."></textarea></label>
+              <div class="html-runner-actions">
+                <button class="html-runner-start" type="button" data-html-runner-start><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 3H3v5"></path><path d="m3 3 6 6"></path><path d="M16 3h5v5"></path><path d="m21 3-6 6"></path><path d="M8 21H3v-5"></path><path d="m3 21 6-6"></path><path d="M16 21h5v-5"></path><path d="m21 21-6-6"></path></svg> Fullscreen testen</button>
+                <button class="html-runner-start html-runner-download" type="button" data-html-download><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg> HTML herunterladen</button>
+              </div>
+              <div class="html-runner-status" data-html-runner-status aria-live="polite"></div>
+            </div>
+
+            <div class="auftrag-grid submission-grid">
+              <div class="auftrag-card">
+                <strong>1. PDF erstellen</strong>
+                <p>Erstelle jetzt die PDF-Abgabe mit deinen Antworten aus diesem Startcheck.</p>
+                <div class="submission-actions"><button class="check-button submission-action-button" type="button" data-submit-pdf><svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M12 11v7"></path><path d="m9 15 3 3 3-3"></path></svg> PDF erstellen</button></div>
+              </div>
+              <div class="auftrag-card">
+                <strong>2. Outlook öffnen</strong>
+                <p>Öffne Outlook und erstelle eine neue Nachricht an deine Lehrperson. <span class="school-mail-address">vorname.nachname@sus.gsu-so.ch</span></p>
+                <div class="submission-actions">
+                  <a class="outlook-link" href="https://outlook.cloud.microsoft/" target="_blank" rel="noopener noreferrer">
+                    <svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.5 6.5h17v11h-17z"></path><path d="m4 7 8 6 8-6"></path></svg>
+                    Outlook öffnen
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="submission-files" aria-labelledby="submission-files-title">
+              <div class="submission-files-title" id="submission-files-title">
+                <svg class="submission-clip" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8.5 12.5 14.8 6.2a3.5 3.5 0 1 1 5 5L10.9 20a5 5 0 1 1-7.1-7.1l9-9"></path></svg>
+                <strong>Diese Dateien an die Mail anhängen</strong>
+              </div>
+              <div class="submission-file-row">
+                <span class="submission-file-variant">HTML</span>
+                <div class="submission-file-chips" aria-label="PDF und HTML-Datei">
+                  <span class="submission-file-chip">PDF</span><span class="submission-file-plus" aria-hidden="true">+</span><span class="submission-file-chip">HTML-Datei</span>
+                </div>
+              </div>
+              <div class="submission-or-pill" aria-hidden="true">ODER</div>
+              <div class="submission-file-row">
+                <span class="submission-file-variant">PowerPoint</span>
+                <div class="submission-file-chips" aria-label="PDF und PowerPoint-Datei">
+                  <span class="submission-file-chip">PDF</span><span class="submission-file-plus" aria-hidden="true">+</span><span class="submission-file-chip">PowerPoint-Datei (.pptx)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="check-grid">
+              <label class="choice"><input type="checkbox" name="mail-submission" value="sent"> Ich habe die richtigen Dateien angehängt und die Mail gesendet.</label>
+            </div>
+          </div>
+        </div>
+      </section>
+      </div>
 
       <div class="slide-controls" aria-label="Navigation">
         <div class="arrow-controls">
-          <button class="round-nav" type="button" data-slide-home aria-label="Zu Aufgabe 1" title="Aufgabe 1">⌂</button>
-          <button class="round-nav" type="button" data-slide-prev aria-label="Vorheriges Thema">&lt;</button>
-          <button class="round-nav" type="button" data-slide-next aria-label="Nächstes Thema">&gt;</button>
-        </div>
-        <div class="final-actions" data-final-actions>
-          <button class="print-final" type="button" data-print-final>Drucken / PDF</button>
-          <button class="download-json" type="button" data-download-json>JSON herunterladen</button>
+          <button class="round-nav" type="button" data-slide-home aria-label="Zu Aufgabe 1" title="Aufgabe 1">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5.5 9.5V21h13V9.5"></path></svg>
+          </button>
+          <button class="round-nav" type="button" data-slide-prev aria-label="Vorheriges Thema" title="Vorherige Aufgabe">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"></path></svg>
+          </button>
+          <button class="round-nav" type="button" data-slide-next aria-label="Nächstes Thema" title="Nächste Aufgabe">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"></path></svg>
+          </button>
         </div>
         <div class="print-status" data-print-status aria-live="polite"></div>
       </div>
     </div>
   </form>
+  <div class="pdf-lock-modal" data-pdf-lock-modal hidden>
+    <div class="pdf-lock-backdrop" data-pdf-lock-close aria-hidden="true"></div>
+    <section class="pdf-lock-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-lock-title" aria-describedby="pdf-lock-description">
+      <button class="pdf-lock-close" type="button" data-pdf-lock-close aria-label="Fenster schliessen">×</button>
+      <div class="pdf-lock-icon" aria-hidden="true">!</div>
+      <h2 id="pdf-lock-title">PDF noch gesperrt</h2>
+      <p id="pdf-lock-description">Erledige zuerst diese Aufgaben:</p>
+      <ul class="pdf-lock-list" data-pdf-lock-list></ul>
+      <button class="pdf-lock-dismiss" type="button" data-pdf-lock-close>Schliessen</button>
+    </section>
+  </div>
   <div class="presentation-stage" data-presentation-stage hidden>
     <button class="presentation-back" type="button" data-presentation-back aria-label="Zurück zum IB-Startcheck" title="Zurück (Esc)">←</button>
     <iframe class="presentation-frame" data-presentation-frame title="HTML-Präsentation" sandbox="allow-scripts allow-forms allow-modals allow-pointer-lock allow-presentation" allow="fullscreen; autoplay"></iframe>
@@ -2215,6 +2640,7 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
       const nextButton = document.querySelector("[data-slide-next]");
       const printButton = document.querySelector("[data-print-final]");
       const downloadJsonButton = document.querySelector("[data-download-json]");
+      const jsonStatus = document.querySelector("[data-json-status]");
       const finalActions = document.querySelector("[data-final-actions]");
       const printStatus = document.querySelector("[data-print-status]");
       const settingsToggle = document.querySelector("[data-settings-toggle]");
@@ -2292,6 +2718,7 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
 
       const htmlRunnerInput = document.querySelector("[data-html-runner-input]");
       const htmlRunnerStart = document.querySelector("[data-html-runner-start]");
+      const htmlRunnerDownload = document.querySelector("[data-html-download]");
       const htmlRunnerStatus = document.querySelector("[data-html-runner-status]");
       const presentationStage = document.querySelector("[data-presentation-stage]");
       const presentationFrame = document.querySelector("[data-presentation-frame]");
@@ -2302,7 +2729,8 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
       const runnerStatus = (text, error = false) => {
         if (!htmlRunnerStatus) return;
         htmlRunnerStatus.textContent = text;
-        htmlRunnerStatus.style.color = error ? "var(--red)" : "";
+        htmlRunnerStatus.classList.toggle("is-error", Boolean(text) && error);
+        htmlRunnerStatus.classList.toggle("is-success", Boolean(text) && !error);
       };
 
       const cleanPastedHtml = (value) => {
@@ -2391,6 +2819,27 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
       };
 
       htmlRunnerStart?.addEventListener("click", startPresentation);
+      htmlRunnerDownload?.addEventListener("click", () => {
+        if (!htmlRunnerInput) return;
+        const html = cleanPastedHtml(htmlRunnerInput.value);
+        if (!html) {
+          runnerStatus("Bitte zuerst den HTML-Code einfügen.", true);
+          htmlRunnerInput.focus();
+          return;
+        }
+        const rawName = (goodFilenameInput?.value || `${studentName || "praesentation"}_praesentation`).trim();
+        const baseName = rawName.replace(/\.(pptx|html?)$/i, "").replace(/[^a-z0-9äöüéèà_-]+/gi, "-").replace(/^-+|-+$/g, "") || "praesentation";
+        const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `${baseName}.html`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 0);
+        runnerStatus("HTML-Datei wurde heruntergeladen.");
+      });
       presentationBack?.addEventListener("click", () => closePresentation());
 
       window.addEventListener("message", (event) => {
@@ -2467,21 +2916,8 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
       });
 
       const goodFilenameInput = document.querySelector('input[name="good-filename"]');
-      const filenameCheckInput = document.querySelector('input[name="filename-check"]');
-      const syncGoodFilename = () => {
-        if (!goodFilenameInput || !filenameCheckInput) return;
-        const value = goodFilenameInput.value.trim();
-        if (!value || filenameCheckInput.value.trim()) return;
-        filenameCheckInput.value = value;
-        const next = readSaved();
-        next[filenameCheckInput.dataset.storeKey || "filename-check"] = value;
-        writeSaved(next);
-        updateTaskTiles();
-      };
 
-      goodFilenameInput?.addEventListener("input", syncGoodFilename);
-
-      const taskNeedsSolved = (taskId) => taskId === "task-3" || taskId === "task-4" || taskId === "task-5" || taskId === "task-6" || taskId === "task-7";
+      const taskNeedsSolved = (taskId) => taskId === "task-3" || taskId === "task-5" || taskId === "task-6" || taskId === "task-7";
 
       const taskTileLabel = (tile) => {
         const number = tile?.querySelector(".task-number")?.textContent.trim() || "";
@@ -2533,11 +2969,10 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
         });
       };
 
-      syncGoodFilename();
 
       const missingDoneTasks = () => {
         updateTaskTiles();
-        return taskTiles.filter((tile) => !tile.classList.contains("is-done"));
+        return taskTiles.filter((tile) => tile.dataset.taskTarget !== "task-9" && !tile.classList.contains("is-done"));
       };
 
       const setPrintStatus = (html = "", mode = "idle") => {
@@ -2546,6 +2981,45 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
         printStatus.classList.toggle("is-error", mode === "error");
         printStatus.classList.toggle("is-admin", mode === "admin");
       };
+
+
+      let pdfLockReturnFocus = null;
+
+      const closePdfLockModal = () => {
+        const modal = document.querySelector("[data-pdf-lock-modal]");
+        if (!modal || modal.hidden) return;
+        modal.hidden = true;
+        document.body.classList.remove("pdf-modal-open");
+        pdfLockReturnFocus?.focus?.();
+        pdfLockReturnFocus = null;
+      };
+
+      const openPdfLockModal = (missing) => {
+        const modal = document.querySelector("[data-pdf-lock-modal]");
+        const list = document.querySelector("[data-pdf-lock-list]");
+        if (!modal || !list) return;
+        list.replaceChildren(...missing.map((tile) => {
+          const item = document.createElement("li");
+          item.textContent = taskTileLabel(tile);
+          return item;
+        }));
+        pdfLockReturnFocus = document.activeElement;
+        modal.hidden = false;
+        document.body.classList.add("pdf-modal-open");
+        modal.querySelector(".pdf-lock-dismiss")?.focus();
+      };
+
+      document.querySelectorAll("[data-pdf-lock-close]").forEach((button) => {
+        button.addEventListener("click", closePdfLockModal);
+      });
+
+      document.addEventListener("keydown", (event) => {
+        const modal = document.querySelector("[data-pdf-lock-modal]");
+        if (event.key === "Escape" && modal && !modal.hidden) {
+          event.preventDefault();
+          closePdfLockModal();
+        }
+      });
 
       const setAdminStatus = (text, mode = "idle") => {
         if (!adminStatus) return;
@@ -2562,7 +3036,10 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
         setAdminStatus(adminMode ? "Admin Mode aktiv: PDF darf immer erstellt werden." : "", adminMode ? "on" : "idle");
         settingsToggle?.classList.toggle("is-admin", adminMode);
         adminUnlock?.classList.toggle("is-logout", adminMode);
-        if (adminUnlock) adminUnlock.textContent = adminMode ? "Abmelden" : "Freischalten";
+        if (adminUnlock) {
+          const adminButtonLabel = adminUnlock.querySelector(".button-label");
+          if (adminButtonLabel) adminButtonLabel.textContent = adminMode ? "Abmelden" : "Freischalten";
+        }
         if (adminPassword) {
           adminPassword.hidden = adminMode;
           adminPassword.value = "";
@@ -2616,11 +3093,12 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
           return;
         }
 
-        const list = missing.map((tile) => `<li>${taskTileLabel(tile)}</li>`).join("");
-        setPrintStatus(`PDF noch gesperrt. Diese Aufgaben fehlen noch:<ul>${list}</ul>`, "error");
+        setPrintStatus("");
+        openPdfLockModal(missing);
       };
 
       printButton?.addEventListener("click", handlePrint);
+      document.querySelector("[data-submit-pdf]")?.addEventListener("click", handlePrint);
 
       downloadJsonButton?.addEventListener("click", () => {
         const answers = {};
@@ -2663,13 +3141,14 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
         link.click();
         link.remove();
         setTimeout(() => URL.revokeObjectURL(url), 0);
-        setPrintStatus("JSON-Datensicherung wurde heruntergeladen.", "admin");
+        if (jsonStatus) jsonStatus.textContent = "JSON heruntergeladen.";
       });
 
       const setReadButton = (button, isRead) => {
         button.classList.toggle("is-read", isRead);
         button.setAttribute("aria-pressed", isRead ? "true" : "false");
-        button.textContent = isRead ? "✓ Gelesen" : "Gelesen";
+        const buttonLabel = button.querySelector(".button-label");
+        if (buttonLabel) buttonLabel.textContent = isRead ? "Gelesen" : "Gelesen";
       };
 
       document.querySelectorAll("[data-read-confirm]").forEach((button) => {
@@ -2704,12 +3183,9 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
         setCheckStatus("task-3", "Gespeichert: Aufgabe 03 ist richtig gelöst.", "success");
       }
 
-      if (saved.solvedTasks?.["task-4"]) {
-        setCheckStatus("task-4", "Gespeichert: Aufgabe 04 ist richtig gelöst.", "success");
-      }
 
       if (saved.solvedTasks?.["task-7"]) {
-        setCheckStatus("task-7", "Gespeichert: Aufgabe 07 ist richtig gelöst.", "success");
+        setCheckStatus("task-7", "Gespeichert: Aufgabe 05 ist richtig gelöst.", "success");
       }
 
       if (saved.solvedTasks?.["task-6"]) {
@@ -2718,34 +3194,34 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
       }
 
       const promptInputs = [...document.querySelectorAll("[data-prompt-answer]")];
-      const isPromptTaskSolved = () => {
-        return promptInputs.length > 0 && promptInputs.every((input) => {
-          return input.value === "good" ? input.checked : !input.checked;
-        });
-      };
+      const isPromptTaskSolved = () => promptInputs.length > 0 && promptInputs.every((input) => input.value === "good" ? input.checked : !input.checked);
+
+      const legacyPromptSolved = saved.solvedTasks?.["task-1"] === true || saved.solvedTasks?.["task-5"] === true;
+      if (legacyPromptSolved && saved.solvedTasks?.["task-5"] !== true) {
+        const next = readSaved();
+        next.solvedTasks = { ...(next.solvedTasks || {}), "task-5": true };
+        writeSaved(next);
+        saved.solvedTasks = next.solvedTasks;
+      }
 
       if (saved.solvedTasks?.["task-5"]) {
-        if (isPromptTaskSolved()) {
-          setCheckStatus("task-5", "Gespeichert: Aufgabe 05 ist richtig gelöst.", "success");
-        } else {
+        if (isPromptTaskSolved()) setCheckStatus("task-5", "Gespeichert: Prompt-Check richtig gelöst.", "success");
+        else {
           const next = readSaved();
           next.solvedTasks = { ...(next.solvedTasks || {}), "task-5": false };
           writeSaved(next);
         }
       }
 
-      promptInputs.forEach((input) => {
-        input.addEventListener("change", () => {
-          saveSolvedTask("task-5", false);
-          setCheckStatus("task-5", "");
-        });
-      });
+      promptInputs.forEach((input) => input.addEventListener("change", () => {
+        saveSolvedTask("task-5", false);
+        setCheckStatus("task-5", "");
+      }));
 
       document.querySelector('[data-check-task="task-5"]')?.addEventListener("click", () => {
         let correctChecked = 0;
         let correctTotal = 0;
         let wrongRemoved = 0;
-
         promptInputs.forEach((input) => {
           if (input.value === "good") {
             correctTotal += 1;
@@ -2760,17 +3236,11 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
           writeSaved(next);
           wrongRemoved += 1;
         });
-
         const solved = wrongRemoved === 0 && correctChecked === correctTotal && isPromptTaskSolved();
         saveSolvedTask("task-5", solved);
-
-        if (solved) {
-          setCheckStatus("task-5", "Richtig gelöst und gespeichert.", "success");
-        } else if (wrongRemoved > 0) {
-          setCheckStatus("task-5", "Nicht passende Haken entfernt. Prüfe deine Auswahl nochmal.", "error");
-        } else {
-          setCheckStatus("task-5", "Noch nicht alle guten Prompts ausgewählt.", "error");
-        }
+        if (solved) setCheckStatus("task-5", "Richtig gelöst und gespeichert.", "success");
+        else if (wrongRemoved > 0) setCheckStatus("task-5", "Nicht passende Haken entfernt. Prüfe deine Auswahl nochmal.", "error");
+        else setCheckStatus("task-5", "Noch nicht alle guten Prompts ausgewählt.", "error");
       });
 
       const filenameAnswers = {
@@ -2843,36 +3313,6 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
           setCheckStatus("task-3", "Noch nicht richtig. Falsche Haken entfernt.", "error");
         } else {
           setCheckStatus("task-3", "Bitte auch einen eigenen guten Dateinamen eintragen.", "error");
-        }
-      });
-
-      const task4Fields = [
-        { name: "filename-check", label: "Dateiname" },
-        { name: "location", label: "Speicherort" },
-        { name: "fullscreen-check", label: "Vollbild-Test" }
-      ].map((item) => ({
-        ...item,
-        input: document.querySelector(`[name="${item.name}"]`)
-      }));
-
-      task4Fields.forEach(({ input }) => {
-        input?.addEventListener("input", () => {
-          saveSolvedTask("task-4", false);
-          setCheckStatus("task-4", "");
-        });
-      });
-
-      document.querySelector('[data-check-task="task-4"]')?.addEventListener("click", () => {
-        const missing = task4Fields
-          .filter(({ input }) => !input?.value.trim())
-          .map(({ label }) => label);
-        const solved = missing.length === 0;
-        saveSolvedTask("task-4", solved);
-
-        if (solved) {
-          setCheckStatus("task-4", "Vollständig ausgefüllt und gespeichert.", "success");
-        } else {
-          setCheckStatus("task-4", `Noch nicht vollständig: ${missing.join(", ")}.`, "error");
         }
       });
 

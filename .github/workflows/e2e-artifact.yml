@@ -1,0 +1,86 @@
+name: IB Startcheck E2E Artifact
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - dev
+      - main
+    paths:
+      - index.html
+      - favicon.svg
+      - e2e/**
+      - .github/workflows/e2e-artifact.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - index.html
+      - favicon.svg
+      - e2e/**
+      - .github/workflows/e2e-artifact.yml
+
+permissions:
+  contents: read
+
+jobs:
+  e2e:
+    name: Fill everything + build PDF/HTML artifacts
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright + Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save --no-package-lock playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Start local site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/ib-start-http.log 2>&1 &
+          echo $! > /tmp/ib-start-http.pid
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4173/index.html >/dev/null; then
+              echo "Local site ready."
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/ib-start-http.log
+          exit 1
+
+      - name: Run complete browser E2E
+        env:
+          E2E_BASE_URL: http://127.0.0.1:4173
+          E2E_ARTIFACT_DIR: artifacts/e2e
+        run: node e2e/ib-start-e2e.mjs
+
+      - name: Add E2E result to job summary
+        if: always()
+        run: |
+          if [ -f artifacts/e2e/e2e-summary.txt ]; then
+            echo '```text' >> "$GITHUB_STEP_SUMMARY"
+            cat artifacts/e2e/e2e-summary.txt >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          elif [ -f artifacts/e2e/E2E-FAILURE.txt ]; then
+            echo '### E2E failed' >> "$GITHUB_STEP_SUMMARY"
+            echo 'Failure details are included in the uploaded artifact.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload PDF + HTML E2E artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ib-startcheck-e2e-${{ github.ref_name }}-${{ github.run_number }}
+          path: artifacts/e2e/
+          if-no-files-found: warn
+          retention-days: 14
