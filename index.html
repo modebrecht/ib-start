@@ -1292,6 +1292,151 @@
       background: color-mix(in srgb, var(--accent, var(--blue)) 6%, var(--panel-bg));
     }
     .html-runner-start { background: var(--accent, var(--blue)); }
+    /* Submission polish: clear keyboard affordances, button hierarchy and attachment summary. */
+    .html-runner-head {
+      align-items: flex-start;
+      gap: 14px 18px;
+      margin-bottom: 14px;
+    }
+    .runner-shortcuts {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px 12px;
+      flex-wrap: wrap;
+    }
+    .runner-shortcut {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: .88em;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+    .runner-shortcut-next { gap: 5px; }
+    .runner-shortcut kbd {
+      min-width: 32px;
+      min-height: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 9px;
+      border: 1px solid color-mix(in srgb, var(--slide-text) 18%, var(--line));
+      border-bottom-width: 3px;
+      border-radius: 8px;
+      background: var(--control-bg);
+      color: var(--control-color);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, .08);
+      font: inherit;
+      font-size: .95em;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .html-runner-actions { margin-top: 14px; }
+    .html-runner-start {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: filter .16s ease, transform .16s ease, box-shadow .16s ease;
+    }
+    .html-runner-start:hover,
+    .html-runner-start:focus-visible {
+      filter: brightness(1.05);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent, var(--blue)) 16%, transparent);
+      outline: 0;
+    }
+    .html-runner-start:active { transform: scale(.97); }
+    .html-runner-start.html-runner-download {
+      background: var(--control-bg);
+      color: var(--accent, var(--violet));
+      border: 1px solid color-mix(in srgb, var(--accent, var(--violet)) 34%, var(--line));
+      box-shadow: none;
+    }
+    .html-runner-status {
+      display: none;
+      width: fit-content;
+      max-width: 100%;
+      margin-top: 12px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: .92em;
+      font-weight: 800;
+    }
+    .html-runner-status:not(:empty) {
+      display: inline-flex;
+      align-items: center;
+    }
+    .html-runner-status.is-success {
+      color: color-mix(in srgb, var(--green) 82%, var(--slide-text));
+      background: color-mix(in srgb, var(--green) 10%, var(--panel-bg));
+      border: 1px solid color-mix(in srgb, var(--green) 25%, var(--line));
+    }
+    .html-runner-status.is-error {
+      color: var(--red);
+      background: color-mix(in srgb, var(--red) 8%, var(--panel-bg));
+      border: 1px solid color-mix(in srgb, var(--red) 24%, var(--line));
+    }
+    .submission-files {
+      margin: 18px 0;
+      padding: 16px;
+      border: 1px solid color-mix(in srgb, var(--green) 28%, var(--line));
+      border-radius: 18px;
+      background: color-mix(in srgb, var(--green) 5%, var(--panel-bg));
+      box-shadow: 0 10px 24px rgba(15, 23, 42, .05);
+    }
+    .submission-files-title {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 12px;
+      color: var(--slide-title);
+      font-size: 1.02em;
+    }
+    .submission-file-row {
+      display: grid;
+      grid-template-columns: minmax(120px, .42fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 12px;
+      padding: 12px 13px;
+      border: 1px solid color-mix(in srgb, var(--green) 12%, var(--line));
+      border-radius: 13px;
+      background: color-mix(in srgb, var(--control-bg) 88%, transparent);
+    }
+    .submission-file-row + .submission-file-row { margin-top: 9px; }
+    .submission-file-variant {
+      color: var(--slide-title);
+      font-weight: 850;
+    }
+    .submission-file-chips {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+    .submission-file-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 4px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--control-bg);
+      color: var(--control-color);
+      font-size: .92em;
+      font-weight: 800;
+      box-shadow: 0 2px 7px rgba(15, 23, 42, .06);
+    }
+    .submission-file-plus {
+      color: var(--muted);
+      font-weight: 900;
+    }
+    @media (max-width: 760px) {
+      .runner-shortcuts { justify-content: flex-start; }
+      .submission-file-row { grid-template-columns: 1fr; gap: 7px; }
+    }
+
     body.presentation-open { overflow: hidden; }
     .presentation-stage[hidden] { display: none !important; }
     .presentation-stage {
@@ -2211,14 +2356,21 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
             <p class="auftrag-intro"><strong>Zum Schluss gibst du deine Arbeit per Mail ab.</strong> Bereite zuerst deine Dateien vor und öffne danach Outlook.</p>
 
             <div class="html-runner">
-              <div class="html-runner-head"><strong>HTML-Präsentation vorbereiten</strong><span>Esc zurück · ← vorherige · → / ↓ / Leertaste nächste</span></div>
+              <div class="html-runner-head">
+                <strong>HTML-Präsentation vorbereiten</strong>
+                <div class="runner-shortcuts" aria-label="Tasten für die Präsentation">
+                  <span class="runner-shortcut"><kbd>Esc</kbd><span>zurück</span></span>
+                  <span class="runner-shortcut"><kbd>←</kbd><span>vorherige</span></span>
+                  <span class="runner-shortcut runner-shortcut-next"><kbd>→</kbd><kbd>↓</kbd><kbd>Leertaste</kbd><span>nächste</span></span>
+                </div>
+              </div>
               <p class="auftrag-intro">Wenn du die HTML-Variante gewählt hast: Füge den Code hier ein, teste die Präsentation im Vollbild und lade danach die HTML-Datei herunter.</p>
               <label>HTML-Code hier einfügen<textarea data-html-runner-input data-no-store data-ignore-completion spellcheck="false" placeholder="&lt;!doctype html&gt; ..."></textarea></label>
               <div class="html-runner-actions">
-                <button class="html-runner-start" type="button" data-html-runner-start>▶ Fullscreen testen</button>
-                <button class="html-runner-start html-runner-download" type="button" data-html-download>↓ HTML herunterladen</button>
-                <span class="html-runner-status" data-html-runner-status aria-live="polite"></span>
+                <button class="html-runner-start" type="button" data-html-runner-start><span aria-hidden="true">▶</span> Fullscreen testen</button>
+                <button class="html-runner-start html-runner-download" type="button" data-html-download><span aria-hidden="true">↓</span> HTML herunterladen</button>
               </div>
+              <div class="html-runner-status" data-html-runner-status aria-live="polite"></div>
             </div>
 
             <div class="auftrag-grid submission-grid">
@@ -2239,9 +2391,20 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
               </div>
             </div>
 
-            <div class="final-box">
-              <strong>📎 Diese Dateien an die Mail anhängen</strong>
-              <p><strong>HTML-Variante:</strong> PDF + HTML-Datei<br><strong>PowerPoint-Variante:</strong> PDF + PowerPoint-Datei (.pptx)</p>
+            <div class="submission-files" aria-labelledby="submission-files-title">
+              <div class="submission-files-title" id="submission-files-title"><span aria-hidden="true">📎</span><strong>Diese Dateien an die Mail anhängen</strong></div>
+              <div class="submission-file-row">
+                <span class="submission-file-variant">HTML</span>
+                <div class="submission-file-chips" aria-label="PDF und HTML-Datei">
+                  <span class="submission-file-chip">PDF</span><span class="submission-file-plus" aria-hidden="true">+</span><span class="submission-file-chip">HTML-Datei</span>
+                </div>
+              </div>
+              <div class="submission-file-row">
+                <span class="submission-file-variant">PowerPoint</span>
+                <div class="submission-file-chips" aria-label="PDF und PowerPoint-Datei">
+                  <span class="submission-file-chip">PDF</span><span class="submission-file-plus" aria-hidden="true">+</span><span class="submission-file-chip">PowerPoint-Datei (.pptx)</span>
+                </div>
+              </div>
             </div>
 
             <div class="check-grid">
@@ -2484,7 +2647,8 @@ Passt das Ergebnis nicht? Verbessere deinen Prompt und probiere erneut.</code></
       const runnerStatus = (text, error = false) => {
         if (!htmlRunnerStatus) return;
         htmlRunnerStatus.textContent = text;
-        htmlRunnerStatus.style.color = error ? "var(--red)" : "";
+        htmlRunnerStatus.classList.toggle("is-error", Boolean(text) && error);
+        htmlRunnerStatus.classList.toggle("is-success", Boolean(text) && !error);
       };
 
       const cleanPastedHtml = (value) => {
