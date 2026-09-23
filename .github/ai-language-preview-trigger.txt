@@ -1,1 +1,0 @@
-Publish the current dev wording update to GitHub Pages.
